@@ -1,0 +1,339 @@
+@import "tailwindcss";
+
+@theme {
+  /* Dark, Moody, Premium Color Palette */
+  --color-void: #0a0a0b;
+  --color-charcoal: #141416;
+  --color-slate: #1e1e22;
+  --color-graphite: #2a2a30;
+  --color-ash: #3d3d45;
+  
+  /* Warm Accents - Aloha Spirit */
+  --color-coral: #e07b5b;
+  --color-coral-light: #f09070;
+  --color-sunset: #d4956a;
+  --color-gold: #c9a962;
+  
+  /* Neutrals */
+  --color-cream: #f5f0e8;
+  --color-mist: #c8c4bc;
+  --color-stone: #8a867e;
+  
+  /* Typography */
+  --font-display: "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  
+  /* Spacing */
+  --section-padding: clamp(4rem, 10vw, 8rem);
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-void);
+  color: var(--color-cream);
+  line-height: 1.6;
+  cursor: none; /* Hide default cursor on desktop */
+}
+
+@media (max-width: 768px) {
+  body {
+    cursor: auto; /* Show default cursor on mobile */
+  }
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-coral);
+  color: var(--color-void);
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--color-coral);
+  outline-offset: 2px;
+}
+
+/* Smooth image loading */
+img {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+img[loading] {
+  opacity: 0;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-charcoal);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-ash);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-coral);
+}
+
+/* ==========================================
+   CUSTOM CURSOR
+   ========================================== */
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-coral);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+  will-change: transform;
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-coral);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+}
+
+.custom-cursor.cursor-hover {
+  width: 60px;
+  height: 60px;
+  border-color: var(--color-gold);
+  background-color: rgba(224, 123, 91, 0.1);
+}
+
+@media (max-width: 768px) {
+  .custom-cursor,
+  .cursor-dot {
+    display: none !important;
+  }
+}
+
+/* ==========================================
+   PREMIUM ANIMATIONS
+   ========================================== */
+
+/* Initial states for animated elements */
+[data-animate="fade-up"],
+[data-animate="fade-in"],
+[data-animate="scale-up"],
+[data-animate="slide-left"],
+[data-animate="slide-right"],
+[data-animate="text-reveal"] {
+  opacity: 0;
+}
+
+[data-animate-child] {
+  opacity: 0;
+}
+
+/* Gradient text animation */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 5s ease infinite;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Pulse glow */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+/* Line draw animation */
+@keyframes line-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Shimmer effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-slate) 0%,
+    var(--color-graphite) 50%,
+    var(--color-slate) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+/* ==========================================
+   MAGNETIC BUTTONS
+   ========================================== */
+
+[data-magnetic] {
+  will-change: transform;
+}
+
+/* ==========================================
+   VIDEO BACKGROUND
+   ========================================== */
+
+.video-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 11, 0.7) 0%,
+    rgba(10, 10, 11, 0.5) 50%,
+    rgba(10, 10, 11, 0.9) 100%
+  );
+}
+
+/* ==========================================
+   PREMIUM UI ELEMENTS
+   ========================================== */
+
+/* Glass effect */
+.glass {
+  background: rgba(20, 20, 22, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Glow effect */
+.glow-coral {
+  box-shadow: 0 0 40px rgba(224, 123, 91, 0.3);
+}
+
+/* Text gradient */
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-coral), var(--color-sunset), var(--color-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Divider line */
+.divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-graphite) 20%,
+    var(--color-ash) 50%,
+    var(--color-graphite) 80%,
+    transparent 100%
+  );
+}
+
+/* Section reveal line */
+.reveal-line {
+  position: relative;
+}
+
+.reveal-line::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: var(--color-coral);
+}

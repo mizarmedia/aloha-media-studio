@@ -1,0 +1,92 @@
+---
+import '../styles/global.css'
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+const { 
+  title = "Aloha Media Studio | Premier Media Production in Eagle, Idaho",
+  description = "Your story. Our craft. Professional video production, photography, podcasting, and branding services in Eagle, Idaho. Part of the Aloha Publishing family."
+} = Astro.props
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/logo/aloha-media-logo.png" />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://alohamediastudio.com" />
+    <meta property="og:image" content="https://alohamediastudio.com/images/logo/aloha-media-logo.png" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <title>{title}</title>
+    
+    <!-- Schema.org Local Business -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Aloha Media Studio",
+      "description": "Professional video production, photography, podcasting, and branding services",
+      "url": "https://alohamediastudio.com",
+      "logo": "https://alohamediastudio.com/images/logo/aloha-media-logo.png",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Eagle",
+        "addressRegion": "ID",
+        "addressCountry": "US"
+      },
+      "openingHours": "Mo-Fr 10:00-17:00",
+      "sameAs": [
+        "https://instagram.com/alohamediastudio",
+        "https://youtube.com/@alohamediastudio"
+      ],
+      "parentOrganization": {
+        "@type": "Organization",
+        "name": "Aloha Publishing",
+        "url": "https://alohapublishing.com"
+      }
+    }
+    </script>
+  </head>
+  <body class="antialiased">
+    <!-- Custom Cursor -->
+    <div id="custom-cursor" class="custom-cursor"></div>
+    <div id="cursor-dot" class="cursor-dot"></div>
+    
+    <slot />
+    
+    <!-- Initialize animations -->
+    <script>
+      import { initAllAnimations } from '../scripts/animations'
+      
+      // Wait for DOM to be ready
+      document.addEventListener('DOMContentLoaded', () => {
+        // Small delay to ensure all elements are rendered
+        requestAnimationFrame(() => {
+          initAllAnimations()
+        })
+      })
+    </script>
+  </body>
+</html>

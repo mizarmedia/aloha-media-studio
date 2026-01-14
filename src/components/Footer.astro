@@ -1,0 +1,37 @@
+---
+const currentYear = new Date().getFullYear()
+---
+
+<footer class="py-12 bg-[var(--color-charcoal)] border-t border-[var(--color-graphite)]">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+      <!-- Logo and tagline -->
+      <div class="flex items-center gap-4">
+        <img 
+          src="/images/logo/aloha-media-logo.png" 
+          alt="Aloha Media Studio" 
+          class="h-8 w-auto"
+        />
+        <span class="text-[var(--color-stone)] text-sm">
+          Your story. Our craft.
+        </span>
+      </div>
+      
+      <!-- Links -->
+      <div class="flex items-center gap-6 text-sm">
+        <a href="https://alohapublishing.com" target="_blank" rel="noopener" class="text-[var(--color-mist)] hover:text-[var(--color-coral)] transition-colors">
+          Aloha Publishing
+        </a>
+        <span class="text-[var(--color-graphite)]">|</span>
+        <a href="mailto:media@alohapublishing.com" class="text-[var(--color-mist)] hover:text-[var(--color-coral)] transition-colors">
+          media@alohapublishing.com
+        </a>
+      </div>
+      
+      <!-- Copyright -->
+      <div class="text-sm text-[var(--color-stone)]">
+        &copy; {currentYear} Aloha Media Studio
+      </div>
+    </div>
+  </div>
+</footer>

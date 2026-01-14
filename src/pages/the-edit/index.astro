@@ -1,0 +1,192 @@
+---
+import { getCollection } from 'astro:content'
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header.astro'
+import Footer from '../../components/Footer.astro'
+
+const posts = await getCollection('the-edit', ({ data }) => {
+  return data.draft !== true
+})
+
+// Sort by date, newest first
+const sortedPosts = posts.sort((a, b) => 
+  b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+)
+
+const featuredPost = sortedPosts.find(post => post.data.featured)
+const otherPosts = sortedPosts.filter(post => !post.data.featured || post !== featuredPost)
+
+const categoryLabels: Record<string, string> = {
+  'tutorial': 'Tutorial',
+  'behind-the-scenes': 'Behind the Scenes',
+  'tips': 'Tips & Tricks',
+  'gear': 'Gear Guide',
+  'story': 'Story',
+}
+
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
+---
+
+<Layout 
+  title="The Edit | Aloha Media Studio"
+  description="Tutorials, behind-the-scenes stories, gear guides, and tips for creating better media. From the team at Aloha Media Studio."
+>
+  <Header />
+  
+  <main class="pt-24">
+    <!-- Hero -->
+    <section class="py-16 md:py-24 bg-[var(--color-void)]">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-3xl" data-animate="fade-up">
+          <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-[var(--color-cream)] mb-6">
+            The Edit
+          </h1>
+          <p class="text-xl text-[var(--color-mist)] leading-relaxed">
+            Tutorials, behind-the-scenes stories, gear guides, and tips for creating better media.
+          </p>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Featured Post -->
+    {featuredPost && (
+      <section class="py-12 bg-[var(--color-charcoal)]">
+        <div class="max-w-7xl mx-auto px-6">
+          <a 
+            href={`/the-edit/${featuredPost.slug}`}
+            class="group block"
+            data-animate="fade-up"
+          >
+            <div class="relative p-8 md:p-12 bg-gradient-to-br from-[var(--color-slate)] to-[var(--color-charcoal)] rounded-2xl border border-[var(--color-graphite)] hover:border-[var(--color-coral)]/50 transition-all duration-300">
+              <div class="flex flex-col md:flex-row md:items-center gap-6 mb-6">
+                <span class="inline-flex px-3 py-1 bg-[var(--color-coral)]/10 text-[var(--color-coral)] text-xs font-semibold rounded-full uppercase tracking-wider w-fit">
+                  Featured
+                </span>
+                <span class="text-[var(--color-stone)] text-sm">
+                  {formatDate(featuredPost.data.publishDate)}
+                </span>
+              </div>
+              
+              <h2 class="text-2xl md:text-4xl font-bold text-[var(--color-cream)] mb-4 group-hover:text-[var(--color-coral)] transition-colors">
+                {featuredPost.data.title}
+              </h2>
+              
+              <p class="text-[var(--color-mist)] text-lg mb-6 max-w-2xl">
+                {featuredPost.data.description}
+              </p>
+              
+              <span class="inline-flex items-center gap-2 text-[var(--color-coral)] font-medium group-hover:gap-4 transition-all">
+                Read More
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </span>
+            </div>
+          </a>
+        </div>
+      </section>
+    )}
+    
+    <!-- All Posts -->
+    <section class="py-16 md:py-24 bg-[var(--color-void)]">
+      <div class="max-w-7xl mx-auto px-6">
+        {otherPosts.length > 0 ? (
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" data-animate-stagger>
+            {otherPosts.map((post) => (
+              <a 
+                href={`/the-edit/${post.slug}`}
+                class="group block"
+                data-animate-child
+              >
+                <article class="h-full p-6 bg-[var(--color-charcoal)] rounded-2xl border border-[var(--color-graphite)] hover:border-[var(--color-coral)]/30 transition-all duration-300 hover:-translate-y-1">
+                  <div class="flex items-center gap-3 mb-4">
+                    <span class="px-2 py-1 bg-[var(--color-slate)] text-[var(--color-stone)] text-xs font-medium rounded">
+                      {categoryLabels[post.data.category] || post.data.category}
+                    </span>
+                    <span class="text-[var(--color-stone)] text-xs">
+                      {formatDate(post.data.publishDate)}
+                    </span>
+                  </div>
+                  
+                  <h3 class="text-xl font-bold text-[var(--color-cream)] mb-3 group-hover:text-[var(--color-coral)] transition-colors line-clamp-2">
+                    {post.data.title}
+                  </h3>
+                  
+                  <p class="text-[var(--color-mist)] text-sm line-clamp-3 mb-4">
+                    {post.data.description}
+                  </p>
+                  
+                  <span class="inline-flex items-center gap-2 text-[var(--color-coral)] text-sm font-medium">
+                    Read
+                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </article>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <div class="text-center py-16" data-animate="fade-up">
+            <p class="text-[var(--color-mist)]">More content coming soon.</p>
+          </div>
+        )}
+      </div>
+    </section>
+    
+    <!-- Newsletter CTA -->
+    <section class="py-16 bg-[var(--color-charcoal)]">
+      <div class="max-w-2xl mx-auto px-6 text-center" data-animate="fade-up">
+        <h2 class="text-2xl md:text-3xl font-bold text-[var(--color-cream)] mb-4">
+          Want more tips?
+        </h2>
+        <p class="text-[var(--color-mist)] mb-6">
+          Follow us on social for quick tips, or reach out if there's something specific you'd like us to cover.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="https://instagram.com/alohamediastudio"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold rounded-xl hover:bg-[var(--color-coral-light)] transition-colors"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/>
+            </svg>
+            Follow on Instagram
+          </a>
+          <a 
+            href="/#contact"
+            class="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-[var(--color-ash)] text-[var(--color-cream)] font-semibold rounded-xl hover:border-[var(--color-coral)] hover:text-[var(--color-coral)] transition-colors"
+          >
+            Request a Topic
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <Footer />
+</Layout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
