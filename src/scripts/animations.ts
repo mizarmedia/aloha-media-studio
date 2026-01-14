@@ -190,58 +190,6 @@ export function initScrollAnimations() {
   })
 }
 
-// Custom cursor
-export function initCustomCursor() {
-  const cursor = document.getElementById('custom-cursor')
-  const cursorDot = document.getElementById('cursor-dot')
-  
-  if (!cursor || !cursorDot) return
-
-  let mouseX = 0
-  let mouseY = 0
-  let cursorX = 0
-  let cursorY = 0
-
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX
-    mouseY = e.clientY
-  })
-
-  // Smooth cursor follow
-  function animateCursor() {
-    const dx = mouseX - cursorX
-    const dy = mouseY - cursorY
-    
-    cursorX += dx * 0.15
-    cursorY += dy * 0.15
-    
-    cursor.style.transform = `translate(${cursorX - 20}px, ${cursorY - 20}px)`
-    cursorDot.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`
-    
-    requestAnimationFrame(animateCursor)
-  }
-  
-  animateCursor()
-
-  // Hover effects
-  const hoverElements = document.querySelectorAll('a, button, [data-cursor-hover]')
-  
-  hoverElements.forEach((el) => {
-    el.addEventListener('mouseenter', () => {
-      cursor.classList.add('cursor-hover')
-    })
-    el.addEventListener('mouseleave', () => {
-      cursor.classList.remove('cursor-hover')
-    })
-  })
-
-  // Hide on mobile
-  if ('ontouchstart' in window) {
-    cursor.style.display = 'none'
-    cursorDot.style.display = 'none'
-  }
-}
-
 // Magnetic button effect
 export function initMagneticButtons() {
   const buttons = document.querySelectorAll('[data-magnetic]')
@@ -276,6 +224,5 @@ export function initMagneticButtons() {
 export function initAllAnimations() {
   initSmoothScroll()
   initScrollAnimations()
-  initCustomCursor()
   initMagneticButtons()
 }

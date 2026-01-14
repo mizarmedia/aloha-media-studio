@@ -9,8 +9,9 @@ const navLinks = [
   { label: 'The Edit', href: '/the-edit' },
 ]
 
+// Only highlight non-hash pages (The Edit, etc.) - hash links don't get highlighted
 const isActive = (href: string) => {
-  if (href.startsWith('/#')) return currentPath === '/'
+  if (href.startsWith('/#')) return false // Don't highlight anchor links
   return currentPath.startsWith(href)
 }
 ---
@@ -18,11 +19,11 @@ const isActive = (href: string) => {
 <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" id="header">
   <nav class="mx-auto max-w-7xl px-6 py-5 flex items-center justify-between">
     <!-- Logo -->
-    <a href="/" class="flex items-center gap-3 group" data-magnetic>
+    <a href="/" class="flex items-center gap-3 group">
       <img 
         src="/images/logo/aloha-media-logo.png" 
         alt="Aloha Media Studio" 
-        class="h-10 w-auto transition-transform duration-500 group-hover:scale-105"
+        class="h-8 md:h-10 w-auto max-w-[180px] object-contain transition-transform duration-300 group-hover:scale-105"
       />
     </a>
     

@@ -4,11 +4,11 @@ import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
 
 const studioFeatures = [
-  { icon: 'camera', label: 'Professional Lighting', desc: 'Aputure & Godox LED panels' },
-  { icon: 'mic', label: 'Audio Ready', desc: 'Soundproofed walls, pro mics' },
-  { icon: 'video', label: '4K Production', desc: 'Sony FX cameras available' },
-  { icon: 'wifi', label: 'High-Speed WiFi', desc: 'Gigabit connection' },
-  { icon: 'coffee', label: 'Client Lounge', desc: 'Espresso bar, comfortable seating' },
+  { icon: 'video', label: '4K Production', desc: 'Sony cameras & Aputure lighting' },
+  { icon: 'mic', label: 'Pro Audio', desc: 'Professional microphones & recording' },
+  { icon: 'layout', label: 'Multi-Setup Space', desc: 'Podcast studio + interview areas' },
+  { icon: 'wifi', label: 'High-Speed WiFi', desc: 'Fast, reliable connection' },
+  { icon: 'coffee', label: 'Client Lounge', desc: 'Comfortable seating & refreshments' },
   { icon: 'car', label: 'Free Parking', desc: 'Dedicated spots for clients' },
 ]
 
@@ -65,7 +65,7 @@ const studioImages = [
 
 <Layout 
   title="Book the Studio | Aloha Media Studio"
-  description="Book Eagle, Idaho's premier media production studio. Professional lighting, soundproofed rooms, and all the equipment you need. $100/hour or save with half-day and full-day rates."
+  description="Book Eagle, Idaho's premier media production studio. Professional lighting, 4K cameras, multiple setups, and all the equipment you need. $100/hour or save with half-day and full-day rates."
 >
   <Header />
   
@@ -89,7 +89,7 @@ const studioImages = [
           </h1>
           
           <p class="text-xl md:text-2xl text-[var(--color-mist)] mb-8 leading-relaxed" data-animate="fade-up">
-            Eagle's only dedicated media production studio. Professional equipment, soundproofed rooms, and everything you need to create.
+            Eagle's only dedicated media production studio. Professional equipment, multiple setups, and everything you need to create.
           </p>
           
           <div class="flex flex-wrap gap-4" data-animate="fade-up">
@@ -170,6 +170,7 @@ const studioImages = [
                   {feature.icon === 'wifi' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />}
                   {feature.icon === 'coffee' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 19h16M6 9V7a1 1 0 011-1h10a1 1 0 011 1v2M6 9h12l-1 10H7L6 9zm6 0v4" />}
                   {feature.icon === 'car' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18 10l-2-4H8L6 10l-2.5 1.1C2.7 11.3 2 12.1 2 13v3c0 .6.4 1 1 1h2m14 0H5m14 0a2 2 0 11-4 0m4 0a2 2 0 10-4 0m-6 0a2 2 0 11-4 0m4 0a2 2 0 10-4 0" />}
+                  {feature.icon === 'layout' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />}
                 </svg>
               </div>
               <h3 class="text-lg font-semibold text-[var(--color-cream)] mb-1">
