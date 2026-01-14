@@ -1,0 +1,29 @@
+---
+// Credibility Strip - Client logos just below fold
+// Using 4 biggest/most recognizable brands
+const clients = [
+  { src: '/images/clients-worked-with/client-1.png', alt: 'Client' },
+  { src: '/images/clients-worked-with/client-2.png', alt: 'Client' },
+  { src: '/images/clients-worked-with/client-3.png', alt: 'Client' },
+  { src: '/images/clients-worked-with/client-4.png', alt: 'Client' },
+]
+---
+
+<section class="py-16 bg-[var(--color-void)] border-y border-[var(--color-graphite)]/30">
+  <div class="max-w-5xl mx-auto px-6">
+    <p class="text-center text-[var(--color-stone)] text-sm tracking-widest uppercase mb-10">
+      Trusted by
+    </p>
+    <div class="flex flex-wrap justify-center items-center gap-12 md:gap-16 lg:gap-24">
+      {clients.map((client) => (
+        <div class="w-36 md:w-44 lg:w-52 h-20 md:h-24 flex items-center justify-center">
+          <img 
+            src={client.src} 
+            alt={client.alt}
+            class="max-w-full max-h-full object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

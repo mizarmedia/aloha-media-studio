@@ -1,0 +1,73 @@
+---
+// Client Logo Carousel - Smooth infinite scroll, grayscale
+// Will be updated with better logos once identified
+
+const clients = [
+  { src: '/images/clients-worked-with/client-1.png', alt: 'Client' },
+  { src: '/images/clients-worked-with/client-2.png', alt: 'Client' },
+  { src: '/images/clients-worked-with/client-3.png', alt: 'Client' },
+  { src: '/images/clients-worked-with/client-4.png', alt: 'Client' },
+  { src: '/images/clients-worked-with/client-6.png', alt: 'Client' },
+  { src: '/images/clients-worked-with/client-7.png', alt: 'Client' },
+  { src: '/images/clients-worked-with/client-8.png', alt: 'Client' },
+  { src: '/images/clients-worked-with/client-9.png', alt: 'Client' },
+]
+---
+
+<section class="py-12 bg-[var(--color-void)] border-y border-[var(--color-graphite)]/30 overflow-hidden">
+  <div class="max-w-6xl mx-auto px-6">
+    <p class="text-center text-[var(--color-stone)] text-sm tracking-widest uppercase mb-10">
+      Brands We've Worked With
+    </p>
+  </div>
+  
+  <!-- Infinite scroll container -->
+  <div class="relative">
+    <!-- Gradient fade edges -->
+    <div class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[var(--color-void)] to-transparent z-10 pointer-events-none"></div>
+    <div class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[var(--color-void)] to-transparent z-10 pointer-events-none"></div>
+    
+    <!-- Scrolling track -->
+    <div class="logo-scroll flex items-center gap-16">
+      <!-- First set -->
+      {clients.map((client) => (
+        <div class="flex-shrink-0 w-32 md:w-40 h-16 md:h-20 flex items-center justify-center">
+          <img 
+            src={client.src} 
+            alt={client.alt}
+            class="max-w-full max-h-full object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
+          />
+        </div>
+      ))}
+      <!-- Duplicate set for seamless loop -->
+      {clients.map((client) => (
+        <div class="flex-shrink-0 w-32 md:w-40 h-16 md:h-20 flex items-center justify-center">
+          <img 
+            src={client.src} 
+            alt={client.alt}
+            class="max-w-full max-h-full object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .logo-scroll {
+    animation: scroll 30s linear infinite;
+  }
+  
+  .logo-scroll:hover {
+    animation-play-state: paused;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+</style>

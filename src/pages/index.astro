@@ -1,26 +1,35 @@
 ---
+// Cinematic Homepage
+// Structure based on conversion research:
+// 1. Hero with video (CTA visible in 2.6 sec)
+// 2. Credibility strip (client logos)
+// 3. Work showcase (3-4 projects)
+// 4. Services (minimal)
+// 5. Studio CTA
+// 6. Contact (simple form)
+
 import Layout from '../layouts/Layout.astro'
 import Header from '../components/Header.astro'
-import Hero from '../components/Hero.astro'
-import Services from '../components/Services.astro'
-import About from '../components/About.astro'
-import Clients from '../components/Clients.astro'
-import Studio from '../components/Studio.astro'
-import Testimonials from '../components/Testimonials.astro'
-import Contact from '../components/Contact.astro'
+import HeroCinematic from '../components/HeroCinematic.astro'
+import ClientCarousel from '../components/ClientCarousel.astro'
+import WorkShowcase from '../components/WorkShowcase.astro'
+import ServicesMinimal from '../components/ServicesMinimal.astro'
+import Testimonial from '../components/Testimonial.astro'
+import StudioCTA from '../components/StudioCTA.astro'
+import ContactSimple from '../components/ContactSimple.astro'
 import Footer from '../components/Footer.astro'
 ---
 
 <Layout>
   <Header />
   <main>
-    <Hero />
-    <Services />
-    <About />
-    <Clients />
-    <Studio />
-    <Testimonials />
-    <Contact />
+    <HeroCinematic />
+    <ClientCarousel />
+    <WorkShowcase />
+    <ServicesMinimal />
+    <Testimonial />
+    <StudioCTA />
+    <ContactSimple />
   </main>
   <Footer />
 </Layout>

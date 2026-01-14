@@ -6,9 +6,9 @@ import Footer from '../components/Footer.astro'
 const studioFeatures = [
   { icon: 'video', label: '4K Production', desc: 'Sony cameras & Aputure lighting' },
   { icon: 'mic', label: 'Pro Audio', desc: 'Professional microphones & recording' },
-  { icon: 'layout', label: 'Multi-Setup Space', desc: 'Podcast studio + interview areas' },
+  { icon: 'layout', label: 'Dual Spaces', desc: 'Podcast room + main production studio' },
   { icon: 'wifi', label: 'High-Speed WiFi', desc: 'Fast, reliable connection' },
-  { icon: 'coffee', label: 'Client Lounge', desc: 'Comfortable seating & refreshments' },
+  { icon: 'coffee', label: 'Guest Area', desc: 'Comfortable seating & refreshments' },
   { icon: 'car', label: 'Free Parking', desc: 'Dedicated spots for clients' },
 ]
 
@@ -17,7 +17,7 @@ const pricingTiers = [
     name: 'Hourly',
     price: '$100',
     unit: '/hour',
-    description: 'Perfect for quick shoots, headshots, or podcast recordings',
+    description: 'Quick shoots, headshots, or podcast recordings',
     features: [
       'Full studio access',
       'Basic lighting setup',
@@ -30,7 +30,7 @@ const pricingTiers = [
     name: 'Half-Day',
     price: '$350',
     unit: '4 hours',
-    description: 'Ideal for content batching, interviews, or product shoots',
+    description: 'Content batching, interviews, or multi-setup shoots',
     features: [
       'Everything in Hourly',
       'Priority booking',
@@ -43,7 +43,7 @@ const pricingTiers = [
     name: 'Full-Day',
     price: '$600',
     unit: '8 hours',
-    description: 'Best for video productions, campaigns, or multiple setups',
+    description: 'Video productions, campaigns, or complex setups',
     features: [
       'Everything in Half-Day',
       'Exclusive studio access',
@@ -59,124 +59,133 @@ const studioImages = [
   '/images/studio/studio-interior-2.jpg',
   '/images/studio/studio-interior-3.jpg',
   '/images/studio/studio-exterior-1.jpg',
-  '/images/studio/studio-exterior-2.jpg',
 ]
 ---
 
 <Layout 
   title="Book the Studio | Aloha Media Studio"
-  description="Book Eagle, Idaho's premier media production studio. Professional lighting, 4K cameras, multiple setups, and all the equipment you need. $100/hour or save with half-day and full-day rates."
+  description="Book Eagle, Idaho's premier media production studio. Professional lighting, 4K cameras, multiple setups, and all the equipment you need."
 >
   <Header />
   
-  <main class="pt-24">
-    <!-- Hero Section -->
-    <section class="relative py-20 md:py-32 overflow-hidden">
-      <!-- Background -->
-      <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-void)] via-[var(--color-charcoal)] to-[var(--color-void)]"></div>
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[var(--color-coral)] rounded-full blur-[200px] opacity-[0.07]"></div>
+  <main>
+    <!-- Cinematic Hero with Background Image -->
+    <section class="relative h-[70vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+      <div class="absolute inset-0">
+        <img 
+          src="/images/studio/studio-interior-1.jpg" 
+          alt="Aloha Media Studio"
+          class="w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-void)]/80 via-[var(--color-void)]/60 to-[var(--color-void)]"></div>
+      </div>
       
-      <div class="relative z-10 max-w-7xl mx-auto px-6">
-        <div class="max-w-3xl">
-          <div class="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-[var(--color-coral)]/30 bg-[var(--color-coral)]/10" data-animate="fade-up">
-            <span class="w-2 h-2 rounded-full bg-[var(--color-coral)] animate-pulse"></span>
-            <span class="text-[var(--color-coral)] text-sm font-medium">Now Booking</span>
-          </div>
-          
-          <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-[var(--color-cream)] mb-6" data-animate="fade-up">
-            Book the 
-            <span class="text-gradient">Studio</span>
-          </h1>
-          
-          <p class="text-xl md:text-2xl text-[var(--color-mist)] mb-8 leading-relaxed" data-animate="fade-up">
-            Eagle's only dedicated media production studio. Professional equipment, multiple setups, and everything you need to create.
-          </p>
-          
-          <div class="flex flex-wrap gap-4" data-animate="fade-up">
-            <a 
-              href="#booking"
-              class="px-8 py-4 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold rounded-xl hover:bg-[var(--color-coral-light)] transition-all duration-300 hover:shadow-xl hover:shadow-[var(--color-coral)]/30"
-            >
-              Check Availability
-            </a>
-            <a 
-              href="#pricing"
-              class="px-8 py-4 border-2 border-[var(--color-ash)] text-[var(--color-cream)] font-semibold rounded-xl hover:border-[var(--color-coral)] transition-colors"
-            >
-              View Pricing
-            </a>
-          </div>
+      <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-[var(--color-coral)]/30 bg-[var(--color-void)]/50 backdrop-blur-sm">
+          <span class="w-2 h-2 rounded-full bg-[var(--color-coral)] animate-pulse"></span>
+          <span class="text-[var(--color-coral)] text-sm font-medium tracking-wider uppercase">Now Booking</span>
         </div>
+        
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-[var(--color-cream)] mb-6 tracking-tight">
+          The Studio
+        </h1>
+        
+        <p class="text-xl md:text-2xl text-[var(--color-mist)] mb-10 max-w-2xl mx-auto">
+          Eagle's only dedicated media production space. Your creative home base.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="#booking"
+            class="px-8 py-4 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold text-lg rounded-full hover:bg-[var(--color-coral-light)] transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-[var(--color-coral)]/30"
+          >
+            Book Your Session
+          </a>
+          <a 
+            href="#tour"
+            class="px-8 py-4 border-2 border-[var(--color-cream)]/30 text-[var(--color-cream)] font-semibold text-lg rounded-full hover:border-[var(--color-cream)] hover:bg-[var(--color-cream)]/5 transition-all duration-300"
+          >
+            Take a Tour
+          </a>
+        </div>
+      </div>
+      
+      <!-- Scroll indicator -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
+        <a href="#tour" class="flex flex-col items-center gap-2 text-[var(--color-mist)]/60 hover:text-[var(--color-cream)] transition-colors">
+          <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </a>
       </div>
     </section>
     
-    <!-- Studio Gallery -->
-    <section class="py-20 bg-[var(--color-charcoal)]">
+    <!-- Immersive Gallery -->
+    <section id="tour" class="py-24 bg-[var(--color-void)]">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-12" data-animate="fade-up">
-          <h2 class="text-3xl md:text-4xl font-bold text-[var(--color-cream)] mb-4">
+        <div class="text-center mb-16">
+          <p class="text-[var(--color-coral)] text-sm font-medium tracking-widest uppercase mb-4">
             Tour the Space
-          </h2>
-          <p class="text-[var(--color-mist)]">
-            A creative environment designed for storytelling
           </p>
+          <h2 class="text-4xl md:text-5xl font-bold text-[var(--color-cream)]">
+            Where creativity comes to life
+          </h2>
         </div>
         
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4" data-animate-stagger>
-          {studioImages.map((src, index) => (
-            <div 
-              class:list={[
-                "group relative overflow-hidden rounded-2xl cursor-pointer",
-                index === 0 ? "col-span-2 row-span-2" : ""
-              ]}
-              data-animate-child
-            >
+        <!-- Large Featured Image -->
+        <div class="mb-6 rounded-3xl overflow-hidden">
+          <img 
+            src="/images/studio/studio-interior-1.jpg" 
+            alt="Main studio space"
+            class="w-full h-[50vh] object-cover hover:scale-105 transition-transform duration-700"
+          />
+        </div>
+        
+        <!-- Grid of smaller images -->
+        <div class="grid grid-cols-3 gap-6">
+          {studioImages.slice(1).map((src, index) => (
+            <div class="rounded-2xl overflow-hidden aspect-[4/3]">
               <img 
                 src={src} 
-                alt={`Studio view ${index + 1}`}
-                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                alt={`Studio view ${index + 2}`}
+                class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
                 loading="lazy"
               />
-              <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-void)]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
           ))}
         </div>
       </div>
     </section>
     
-    <!-- Features -->
-    <section class="py-20 bg-[var(--color-void)]">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16" data-animate="fade-up">
-          <h2 class="text-3xl md:text-4xl font-bold text-[var(--color-cream)] mb-4">
-            Everything You Need
-          </h2>
-          <p class="text-[var(--color-mist)] max-w-2xl mx-auto">
-            Professional equipment and amenities to make your production seamless
+    <!-- Features - Clean Grid -->
+    <section class="py-24 bg-[var(--color-charcoal)]">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <p class="text-[var(--color-coral)] text-sm font-medium tracking-widest uppercase mb-4">
+            What's Included
           </p>
+          <h2 class="text-4xl md:text-5xl font-bold text-[var(--color-cream)]">
+            Everything you need
+          </h2>
         </div>
         
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" data-animate-stagger>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
           {studioFeatures.map((feature) => (
-            <div 
-              class="p-6 bg-[var(--color-charcoal)] rounded-2xl border border-[var(--color-graphite)] hover:border-[var(--color-coral)]/30 transition-all duration-300 group"
-              data-animate-child
-            >
-              <div class="w-12 h-12 mb-4 rounded-xl bg-[var(--color-coral)]/10 flex items-center justify-center group-hover:bg-[var(--color-coral)]/20 transition-colors">
-                <svg class="w-6 h-6 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  {feature.icon === 'camera' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z M15 13a3 3 0 11-6 0 3 3 0 016 0z" />}
-                  {feature.icon === 'mic' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />}
+            <div class="text-center group">
+              <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[var(--color-coral)]/10 flex items-center justify-center group-hover:bg-[var(--color-coral)]/20 group-hover:scale-110 transition-all duration-300">
+                <svg class="w-7 h-7 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   {feature.icon === 'video' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />}
-                  {feature.icon === 'wifi' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />}
-                  {feature.icon === 'coffee' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 19h16M6 9V7a1 1 0 011-1h10a1 1 0 011 1v2M6 9h12l-1 10H7L6 9zm6 0v4" />}
-                  {feature.icon === 'car' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18 10l-2-4H8L6 10l-2.5 1.1C2.7 11.3 2 12.1 2 13v3c0 .6.4 1 1 1h2m14 0H5m14 0a2 2 0 11-4 0m4 0a2 2 0 10-4 0m-6 0a2 2 0 11-4 0m4 0a2 2 0 10-4 0" />}
+                  {feature.icon === 'mic' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />}
                   {feature.icon === 'layout' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />}
+                  {feature.icon === 'wifi' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />}
+                  {feature.icon === 'coffee' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />}
+                  {feature.icon === 'car' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />}
                 </svg>
               </div>
               <h3 class="text-lg font-semibold text-[var(--color-cream)] mb-1">
                 {feature.label}
               </h3>
-              <p class="text-[var(--color-stone)] text-sm">
+              <p class="text-sm text-[var(--color-stone)]">
                 {feature.desc}
               </p>
             </div>
@@ -185,55 +194,74 @@ const studioImages = [
       </div>
     </section>
     
-    <!-- Pricing -->
-    <section id="pricing" class="py-20 bg-[var(--color-charcoal)]">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16" data-animate="fade-up">
-          <h2 class="text-3xl md:text-4xl font-bold text-[var(--color-cream)] mb-4">
-            Simple, Transparent Pricing
+    <!-- Pricing - Bold & Clear -->
+    <section id="pricing" class="py-24 bg-[var(--color-void)]">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <p class="text-[var(--color-coral)] text-sm font-medium tracking-widest uppercase mb-4">
+            Pricing
+          </p>
+          <h2 class="text-4xl md:text-5xl font-bold text-[var(--color-cream)] mb-4">
+            Transparent rates
           </h2>
-          <p class="text-[var(--color-mist)]">
-            Choose the option that works best for your production
+          <p class="text-[var(--color-mist)] text-lg">
+            No hidden fees. Book what works for you.
           </p>
         </div>
         
-        <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto" data-animate-stagger>
+        <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {pricingTiers.map((tier) => (
             <div 
               class:list={[
-                "relative p-8 rounded-2xl border transition-all duration-300",
+                "relative p-8 rounded-3xl transition-all duration-300",
                 tier.popular 
-                  ? "bg-gradient-to-b from-[var(--color-coral)]/10 to-[var(--color-charcoal)] border-[var(--color-coral)]/50 scale-105" 
-                  : "bg-[var(--color-slate)] border-[var(--color-graphite)] hover:border-[var(--color-ash)]"
+                  ? "bg-[var(--color-coral)] text-[var(--color-void)] scale-105 shadow-2xl shadow-[var(--color-coral)]/30" 
+                  : "bg-[var(--color-charcoal)] border border-[var(--color-graphite)] hover:border-[var(--color-ash)]"
               ]}
-              data-animate-child
             >
               {tier.popular && (
-                <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-[var(--color-coral)] text-[var(--color-void)] text-xs font-bold rounded-full uppercase tracking-wider">
-                  Most Popular
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-[var(--color-void)] text-[var(--color-coral)] text-xs font-bold rounded-full uppercase tracking-wider">
+                  Best Value
                 </div>
               )}
               
-              <div class="text-center mb-6">
-                <h3 class="text-xl font-bold text-[var(--color-cream)] mb-2">
+              <div class="text-center mb-8">
+                <h3 class:list={[
+                  "text-lg font-medium mb-4",
+                  tier.popular ? "text-[var(--color-void)]/70" : "text-[var(--color-stone)]"
+                ]}>
                   {tier.name}
                 </h3>
                 <div class="flex items-baseline justify-center gap-1">
-                  <span class="text-4xl font-bold text-[var(--color-cream)]">{tier.price}</span>
-                  <span class="text-[var(--color-stone)]">{tier.unit}</span>
+                  <span class:list={[
+                    "text-5xl font-bold",
+                    tier.popular ? "text-[var(--color-void)]" : "text-[var(--color-cream)]"
+                  ]}>{tier.price}</span>
+                  <span class:list={[
+                    tier.popular ? "text-[var(--color-void)]/70" : "text-[var(--color-stone)]"
+                  ]}>{tier.unit}</span>
                 </div>
-                <p class="text-sm text-[var(--color-mist)] mt-3">
+                <p class:list={[
+                  "text-sm mt-4",
+                  tier.popular ? "text-[var(--color-void)]/80" : "text-[var(--color-mist)]"
+                ]}>
                   {tier.description}
                 </p>
               </div>
               
               <ul class="space-y-3 mb-8">
                 {tier.features.map((feature) => (
-                  <li class="flex items-center gap-3 text-[var(--color-mist)]">
-                    <svg class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <li class:list={[
+                    "flex items-center gap-3 text-sm",
+                    tier.popular ? "text-[var(--color-void)]" : "text-[var(--color-mist)]"
+                  ]}>
+                    <svg class:list={[
+                      "w-5 h-5 flex-shrink-0",
+                      tier.popular ? "text-[var(--color-void)]" : "text-[var(--color-coral)]"
+                    ]} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
-                    <span class="text-sm">{feature}</span>
+                    {feature}
                   </li>
                 ))}
               </ul>
@@ -241,9 +269,9 @@ const studioImages = [
               <a 
                 href="#booking"
                 class:list={[
-                  "block w-full py-3 text-center font-semibold rounded-xl transition-all duration-300",
+                  "block w-full py-4 text-center font-semibold rounded-full transition-all duration-300",
                   tier.popular 
-                    ? "bg-[var(--color-coral)] text-[var(--color-void)] hover:bg-[var(--color-coral-light)] hover:shadow-lg hover:shadow-[var(--color-coral)]/30" 
+                    ? "bg-[var(--color-void)] text-[var(--color-coral)] hover:bg-[var(--color-charcoal)]" 
                     : "border-2 border-[var(--color-ash)] text-[var(--color-cream)] hover:border-[var(--color-coral)] hover:text-[var(--color-coral)]"
                 ]}
               >
@@ -252,106 +280,58 @@ const studioImages = [
             </div>
           ))}
         </div>
-        
-        <p class="text-center text-[var(--color-stone)] text-sm mt-8" data-animate="fade-up">
-          Need a custom package? <a href="/#contact" class="text-[var(--color-coral)] hover:underline">Get in touch</a>
-        </p>
       </div>
     </section>
     
-    <!-- Booking Calendar -->
-    <section id="booking" class="py-20 bg-[var(--color-void)]">
+    <!-- Booking Section -->
+    <section id="booking" class="py-24 bg-[var(--color-charcoal)]">
       <div class="max-w-4xl mx-auto px-6">
-        <div class="text-center mb-12" data-animate="fade-up">
-          <h2 class="text-3xl md:text-4xl font-bold text-[var(--color-cream)] mb-4">
-            Book Your Session
+        <div class="text-center mb-12">
+          <p class="text-[var(--color-coral)] text-sm font-medium tracking-widest uppercase mb-4">
+            Ready?
+          </p>
+          <h2 class="text-4xl md:text-5xl font-bold text-[var(--color-cream)] mb-4">
+            Book your session
           </h2>
-          <p class="text-[var(--color-mist)]">
-            Select a date and time that works for you
+          <p class="text-[var(--color-mist)] text-lg">
+            Pick a time that works for you.
           </p>
         </div>
         
-        <!-- Cal.com Embed Placeholder -->
+        <!-- Cal.com Embed -->
         <div 
-          class="bg-[var(--color-charcoal)] rounded-2xl border border-[var(--color-graphite)] p-8 md:p-12 text-center"
-          data-animate="fade-up"
+          id="cal-embed"
+          class="bg-[var(--color-void)] rounded-3xl border border-[var(--color-graphite)] overflow-hidden"
         >
-          <div class="max-w-md mx-auto">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-[var(--color-coral)]/10 flex items-center justify-center">
-              <svg class="w-8 h-8 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-[var(--color-cream)] mb-3">
-              Booking Calendar Coming Soon
-            </h3>
-            <p class="text-[var(--color-mist)] mb-6">
-              We're setting up our online booking system. In the meantime, reach out directly to schedule your session.
-            </p>
-            <a 
-              href="mailto:media@alohapublishing.com?subject=Studio Booking Inquiry"
-              class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold rounded-xl hover:bg-[var(--color-coral-light)] transition-colors"
-            >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              Email to Book
-            </a>
-            
-            <!-- Cal.com embed will go here once you set it up -->
-            <!-- 
-            <div 
-              id="cal-booking" 
-              data-cal-link="YOUR_CAL_USERNAME/studio-booking"
-              data-cal-config='{"theme":"dark"}'
-              style="width:100%;height:600px;"
-            ></div>
-            -->
-          </div>
+          <iframe 
+            src="https://cal.com/nation-goetter-peowyk?embed=true&theme=dark&hideEventTypeDetails=false"
+            style="width: 100%; height: 700px; border: none;"
+            frameborder="0"
+          ></iframe>
         </div>
         
-        <div class="mt-8 p-6 bg-[var(--color-slate)] rounded-xl border border-[var(--color-graphite)]" data-animate="fade-up">
-          <h4 class="font-semibold text-[var(--color-cream)] mb-2">Good to Know</h4>
-          <ul class="text-sm text-[var(--color-mist)] space-y-2">
-            <li>• 50% deposit required to confirm booking</li>
-            <li>• Cancellations must be made 48 hours in advance for full refund</li>
-            <li>• Equipment rental available at additional cost</li>
-            <li>• Production assistance available upon request</li>
-          </ul>
+        <!-- Policies -->
+        <div class="mt-12 grid md:grid-cols-2 gap-6">
+          <div class="p-6 bg-[var(--color-void)] rounded-2xl border border-[var(--color-graphite)]">
+            <h4 class="font-semibold text-[var(--color-cream)] mb-3">Booking Policy</h4>
+            <ul class="text-sm text-[var(--color-mist)] space-y-2">
+              <li>• 50% deposit to confirm</li>
+              <li>• 48-hour cancellation for full refund</li>
+              <li>• Rescheduling available with notice</li>
+            </ul>
+          </div>
+          <div class="p-6 bg-[var(--color-void)] rounded-2xl border border-[var(--color-graphite)]">
+            <h4 class="font-semibold text-[var(--color-cream)] mb-3">Add-Ons</h4>
+            <ul class="text-sm text-[var(--color-mist)] space-y-2">
+              <li>• Equipment rental available</li>
+              <li>• Production assistance on request</li>
+              <li>• Editing services available</li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </section>
-    
-    <!-- CTA -->
-    <section class="py-20 bg-[var(--color-charcoal)]">
-      <div class="max-w-4xl mx-auto px-6 text-center" data-animate="fade-up">
-        <h2 class="text-3xl md:text-4xl font-bold text-[var(--color-cream)] mb-4">
-          Questions about the studio?
-        </h2>
-        <p class="text-[var(--color-mist)] mb-8">
-          We're happy to give you a tour or answer any questions before you book.
-        </p>
-        <a 
-          href="/#contact"
-          class="inline-flex items-center gap-2 px-8 py-4 border-2 border-[var(--color-ash)] text-[var(--color-cream)] font-semibold rounded-xl hover:border-[var(--color-coral)] hover:text-[var(--color-coral)] transition-colors"
-        >
-          Get in Touch
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
       </div>
     </section>
   </main>
   
   <Footer />
 </Layout>
-
-<style>
-  .text-gradient {
-    background: linear-gradient(135deg, var(--color-coral) 0%, var(--color-sunset) 50%, var(--color-gold) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-</style>

@@ -1,0 +1,80 @@
+---
+// Cinematic Hero - Full screen YouTube video background with single CTA
+// Video: https://www.youtube.com/watch?v=yaAKbA2IpeU
+const videoId = 'yaAKbA2IpeU'
+---
+
+<section class="relative h-screen flex items-center justify-center overflow-hidden">
+  <!-- YouTube Video Background -->
+  <div class="absolute inset-0 z-0 pointer-events-none">
+    <div class="absolute inset-0 scale-150">
+      <iframe
+        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=${Astro.url.origin}`}
+        title="Aloha Media Studio Showreel"
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vh] min-w-[177.77vh] min-h-[56.25vw]"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <!-- Dark overlay for text readability -->
+    <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-void)]/80 via-[var(--color-void)]/60 to-[var(--color-void)]/95"></div>
+  </div>
+  
+  <!-- Content - Centered, minimal -->
+  <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+    <!-- Main headline - visible within 2.6 seconds -->
+    <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-[0.95] tracking-tight">
+      <span class="block text-[var(--color-cream)]">Your story.</span>
+      <span class="block text-gradient">Our craft.</span>
+    </h1>
+    
+    <!-- Brief tagline -->
+    <p class="text-lg md:text-xl text-[var(--color-mist)] max-w-xl mx-auto mb-10">
+      Full-service media production in Eagle, Idaho.
+    </p>
+    
+    <!-- Single Primary CTA -->
+    <a 
+      href="#contact"
+      class="inline-flex items-center gap-3 px-8 py-4 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold text-lg rounded-full transition-all duration-300 hover:bg-[var(--color-coral-light)] hover:scale-105 hover:shadow-2xl hover:shadow-[var(--color-coral)]/30"
+    >
+      Let's Create Together
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+      </svg>
+    </a>
+  </div>
+  
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block">
+    <a href="#work" class="flex flex-col items-center gap-2 text-[var(--color-mist)]/60 hover:text-[var(--color-cream)] transition-colors">
+      <span class="text-xs tracking-widest uppercase">Our Work</span>
+      <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+    </a>
+  </div>
+  
+  <!-- Subtle corner frames -->
+  <div class="absolute top-6 left-6 w-16 h-16 border-l border-t border-[var(--color-cream)]/20"></div>
+  <div class="absolute top-6 right-6 w-16 h-16 border-r border-t border-[var(--color-cream)]/20"></div>
+  <div class="absolute bottom-6 left-6 w-16 h-16 border-l border-b border-[var(--color-cream)]/20"></div>
+  <div class="absolute bottom-6 right-6 w-16 h-16 border-r border-b border-[var(--color-cream)]/20"></div>
+</section>
+
+<style>
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-coral) 0%, var(--color-sunset) 50%, var(--color-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 200%;
+    animation: gradient-shift 5s ease infinite;
+  }
+  
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+</style>

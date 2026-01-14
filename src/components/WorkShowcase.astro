@@ -1,0 +1,96 @@
+---
+// Work Showcase - Featured projects with real client work
+const projects = [
+  {
+    title: "Worth Beyond Wealth",
+    client: "Podcast Production",
+    image: "/images/projects/wbw-podcast.png",
+    category: "Podcasting",
+    link: "https://www.youtube.com/@WorthBeyondWealth"
+  },
+  {
+    title: "The Lab",
+    client: "Jay Clouse",
+    image: "/images/projects/jay-clouse-thumb.jpg",
+    category: "Video Production",
+    link: null
+  },
+  {
+    title: "AuthorVoice",
+    client: "Website Design & Development",
+    image: "/images/projects/authorvoice-site.png",
+    category: "Branding",
+    link: "https://www.authorvoice.io/"
+  }
+]
+---
+
+<section id="work" class="py-24 md:py-32 bg-[var(--color-charcoal)]">
+  <div class="max-w-7xl mx-auto px-6">
+    <!-- Section header -->
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+      <div>
+        <p class="text-[var(--color-coral)] text-sm font-medium tracking-widest uppercase mb-4">
+          Selected Work
+        </p>
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-cream)]">
+          Recent Projects
+        </h2>
+      </div>
+      <a 
+        href="#contact" 
+        class="text-[var(--color-mist)] hover:text-[var(--color-coral)] transition-colors flex items-center gap-2 group"
+      >
+        Start your project
+        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+    
+    <!-- Projects grid - 3 equal columns -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+      {projects.map((project) => {
+        const CardWrapper = project.link ? 'a' : 'div';
+        return (
+          <a 
+            href={project.link || '#'}
+            target={project.link ? '_blank' : undefined}
+            rel={project.link ? 'noopener noreferrer' : undefined}
+            class={`group relative overflow-hidden rounded-2xl aspect-video block ${project.link ? 'cursor-pointer' : 'cursor-default'}`}
+          >
+            <img 
+              src={project.image} 
+              alt={project.title}
+              class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+            />
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-void)] via-[var(--color-void)]/40 to-transparent opacity-90"></div>
+            
+            <!-- Content -->
+            <div class="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
+              <span class="text-[var(--color-coral)] text-sm font-medium tracking-wider uppercase mb-2">
+                {project.category}
+              </span>
+              <h3 class="text-2xl md:text-3xl font-bold text-[var(--color-cream)] mb-1">
+                {project.title}
+              </h3>
+              <p class="text-[var(--color-mist)]">
+                {project.client}
+              </p>
+              {project.link && (
+                <span class="mt-3 text-[var(--color-coral)] text-sm flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  View Project
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </span>
+              )}
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</section>
