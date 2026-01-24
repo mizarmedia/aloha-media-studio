@@ -267,6 +267,89 @@ export function initScrollProgress() {
   })
 }
 
+// Timeline thread animation - line draws and nodes activate on scroll
+export function initTimelineThread() {
+  const container = document.querySelector('[data-timeline-container]')
+  if (!container) return
+
+  const progressLine = document.querySelector('[data-timeline-progress]')
+  const progressLineMobile = document.querySelector('[data-timeline-progress-mobile]')
+  const nodes = document.querySelectorAll('[data-timeline-node]')
+  const numbers = document.querySelectorAll('[data-timeline-number]')
+
+  if (prefersReducedMotion) {
+    // Show everything immediately
+    if (progressLine) (progressLine as SVGLineElement).style.strokeDashoffset = '0'
+    if (progressLineMobile) (progressLineMobile as SVGLineElement).style.strokeDashoffset = '0'
+    nodes.forEach(node => node.classList.add('active'))
+    numbers.forEach(num => {
+      const target = (num as HTMLElement).dataset.numberTarget || '00'
+      num.textContent = target
+    })
+    return
+  }
+
+  // Create main timeline
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: container,
+      start: 'top 70%',
+      end: 'bottom 50%',
+      scrub: 1,
+    }
+  })
+
+  // Animate the progress line (desktop)
+  if (progressLine) {
+    tl.to(progressLine, {
+      strokeDashoffset: 0,
+      duration: 1,
+      ease: 'none',
+    }, 0)
+  }
+
+  // Animate the progress line (mobile)
+  if (progressLineMobile) {
+    tl.to(progressLineMobile, {
+      strokeDashoffset: 0,
+      duration: 1,
+      ease: 'none',
+    }, 0)
+  }
+
+  // Activate nodes at specific points
+  nodes.forEach((node, index) => {
+    const progress = index / (nodes.length - 1) // 0, 0.5, 1
+    const numEl = numbers[index] as HTMLElement
+    const target = numEl?.dataset.numberTarget || '00'
+
+    // Add active class at the right moment
+    ScrollTrigger.create({
+      trigger: container,
+      start: `top+=${index * 33}% 70%`,
+      onEnter: () => {
+        node.classList.add('active')
+        // Animate number
+        if (numEl) {
+          const targetNum = parseInt(target)
+          gsap.to({ val: 0 }, {
+            val: targetNum,
+            duration: 0.6,
+            ease: 'power2.out',
+            onUpdate: function() {
+              numEl.textContent = String(Math.round(this.targets()[0].val)).padStart(2, '0')
+            }
+          })
+        }
+      },
+      onLeaveBack: () => {
+        node.classList.remove('active')
+        if (numEl) numEl.textContent = '00'
+      }
+    })
+  })
+}
+
 // Quote reveal animation - words reveal as you scroll
 export function initQuoteReveal() {
   if (prefersReducedMotion) {
@@ -312,4 +395,5 @@ export function initAllAnimations() {
   initCounters()
   initScrollProgress()
   initQuoteReveal()
+  initTimelineThread()
 }

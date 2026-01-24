@@ -1,55 +1,169 @@
 ---
-// ProcessOverview - Visual 3-step process with brief descriptions
+// ProcessOverview - Timeline Thread with scroll-triggered line drawing
+// New messaging: "Your Investment: 45 Minutes" vs "Ours: 40+ Hours"
 const steps = [
   {
     number: "01",
-    title: "One Call. Six Episodes.",
-    description: "One strategy call. We map your topics, guests, and episode flow."
+    title: "One Conversation",
+    description: "We map your entire season in a single strategy call."
   },
   {
     number: "02",
-    title: "You Show Up & Talk",
-    description: "45 minutes per episode in our Eagle studio. Cameras, lights, audio handled."
+    title: "Show Up. Talk. Leave.",
+    description: "45 minutes in our Eagle studio. That's your only job."
   },
   {
     number: "03",
-    title: "We Deliver Your Show",
-    description: "Full editing, your branding, published to YouTube, Spotify, and Apple Podcasts."
+    title: "Hit Publish",
+    description: "Six episodes, fully produced, delivered to your inbox."
   }
 ]
 ---
 
-<section class="py-20 md:py-28 bg-[var(--color-void)]">
+<section id="process" class="py-20 md:py-28 bg-[var(--color-void)] overflow-hidden">
   <div class="max-w-5xl mx-auto px-6">
-    <!-- Header -->
-    <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--color-cream)]" data-animate="fade-up">
+    <!-- Header with Time Contrast -->
+    <div class="text-center mb-16 md:mb-20">
+      <p class="text-sm uppercase tracking-widest text-[var(--color-coral)] mb-4" data-animate="fade-up">
         How It Works
+      </p>
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--color-cream)] mb-4" data-animate="fade-up">
+        Your Investment: <span class="text-[var(--color-coral)]">45 Minutes</span>
       </h2>
+      <p class="text-xl md:text-2xl text-[var(--color-mist)]" data-animate="fade-up">
+        Ours: 40+ Hours Per Episode
+      </p>
     </div>
 
-    <!-- Steps -->
-    <div class="grid md:grid-cols-3 gap-8 md:gap-12">
-      {steps.map((step, index) => (
-        <div
-          class="text-center"
-          data-animate="fade-up"
-          style={`--delay: ${index * 0.15}s`}
-        >
-          <!-- Number -->
-          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[var(--color-charcoal)] border-2 border-[var(--color-coral)] mb-6">
-            <span class="text-xl font-bold text-[var(--color-coral)]">{step.number}</span>
-          </div>
+    <!-- Timeline Container -->
+    <div class="relative" data-timeline-container>
+      <!-- SVG Connecting Line (Desktop) -->
+      <svg
+        class="hidden md:block absolute top-[40px] left-0 w-full h-[4px] pointer-events-none"
+        viewBox="0 0 1000 4"
+        preserveAspectRatio="none"
+        data-timeline-line
+      >
+        <line
+          x1="80"
+          y1="2"
+          x2="920"
+          y2="2"
+          stroke="var(--color-graphite)"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+        <line
+          x1="80"
+          y1="2"
+          x2="920"
+          y2="2"
+          stroke="var(--color-coral)"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-dasharray="840"
+          stroke-dashoffset="840"
+          data-timeline-progress
+        />
+      </svg>
 
-          <!-- Content -->
-          <h3 class="text-xl font-semibold text-[var(--color-cream)] mb-3">
-            {step.title}
-          </h3>
-          <p class="text-[var(--color-mist)] text-sm leading-relaxed">
-            {step.description}
-          </p>
-        </div>
-      ))}
+      <!-- SVG Connecting Line (Mobile - Vertical) -->
+      <svg
+        class="md:hidden absolute left-[31px] top-[40px] w-[4px] pointer-events-none"
+        style="height: calc(100% - 80px);"
+        viewBox="0 0 4 300"
+        preserveAspectRatio="none"
+        data-timeline-line-mobile
+      >
+        <line
+          x1="2"
+          y1="0"
+          x2="2"
+          y2="300"
+          stroke="var(--color-graphite)"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+        <line
+          x1="2"
+          y1="0"
+          x2="2"
+          y2="300"
+          stroke="var(--color-coral)"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-dasharray="300"
+          stroke-dashoffset="300"
+          data-timeline-progress-mobile
+        />
+      </svg>
+
+      <!-- Steps Grid -->
+      <div class="grid md:grid-cols-3 gap-12 md:gap-8">
+        {steps.map((step, index) => (
+          <div
+            class="relative flex md:flex-col items-start md:items-center text-left md:text-center"
+            data-timeline-step
+          >
+            <!-- Node Circle -->
+            <div
+              class="relative z-10 flex-shrink-0 w-16 h-16 rounded-full bg-[var(--color-void)] border-2 border-[var(--color-graphite)] flex items-center justify-center mr-6 md:mr-0 md:mb-8 transition-all duration-500"
+              data-timeline-node
+            >
+              <span
+                class="text-xl font-bold text-[var(--color-stone)] transition-colors duration-500"
+                data-timeline-number
+                data-number-target={step.number}
+              >
+                00
+              </span>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1">
+              <h3 class="text-xl md:text-2xl font-semibold text-[var(--color-cream)] mb-2">
+                {step.title}
+              </h3>
+              <p class="text-[var(--color-mist)] text-sm md:text-base leading-relaxed max-w-xs mx-auto">
+                {step.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Bottom CTA Line -->
+    <div class="text-center mt-16">
+      <p class="text-lg text-[var(--color-mist)]" data-animate="fade-up">
+        Your only job? <span class="text-[var(--color-cream)] font-medium">Show up and be yourself.</span>
+      </p>
     </div>
   </div>
 </section>
+
+<style>
+  /* Node active state */
+  [data-timeline-node].active {
+    border-color: var(--color-coral);
+    box-shadow: 0 0 20px rgba(255, 107, 74, 0.3);
+  }
+
+  [data-timeline-node].active [data-timeline-number] {
+    color: var(--color-coral);
+  }
+
+  /* Pulse animation for active nodes */
+  @keyframes node-pulse {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(255, 107, 74, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 10px rgba(255, 107, 74, 0);
+    }
+  }
+
+  [data-timeline-node].active {
+    animation: node-pulse 2s ease-in-out infinite;
+  }
+</style>
