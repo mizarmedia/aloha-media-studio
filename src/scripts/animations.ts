@@ -396,6 +396,40 @@ export function initQuoteReveal() {
   })
 }
 
+// Price countdown animation - counts down from agency price to actual price
+export function initPriceCountdown() {
+  const priceEl = document.querySelector('[data-price-counter]') as HTMLElement
+  if (!priceEl) return
+
+  const startValue = parseInt(priceEl.dataset.counterStart || '15000')
+  const endValue = parseInt(priceEl.dataset.counterEnd || '4500')
+
+  if (prefersReducedMotion) {
+    priceEl.textContent = endValue.toLocaleString()
+    return
+  }
+
+  let animated = false
+
+  ScrollTrigger.create({
+    trigger: priceEl,
+    start: 'top 80%',
+    onEnter: () => {
+      if (animated) return
+      animated = true
+
+      gsap.to({ val: startValue }, {
+        val: endValue,
+        duration: 2,
+        ease: 'power2.out',
+        onUpdate: function() {
+          priceEl.textContent = Math.round(this.targets()[0].val).toLocaleString()
+        }
+      })
+    }
+  })
+}
+
 // Initialize all animations
 export function initAllAnimations() {
   initSmoothScroll()
@@ -406,4 +440,5 @@ export function initAllAnimations() {
   initScrollProgress()
   initQuoteReveal()
   initTimelineThread()
+  initPriceCountdown()
 }

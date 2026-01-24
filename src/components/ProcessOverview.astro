@@ -5,17 +5,38 @@ const steps = [
   {
     number: "01",
     title: "Pre-Production",
-    description: "We plan everything together. Your format, topics, guests, and brand. You walk in ready."
+    description: "We plan everything together. Your format, topics, guests, and brand.",
+    details: [
+      "60-minute strategy session",
+      "Define your podcast format and style",
+      "Map out your first 6 episode topics",
+      "Guest strategy and outreach templates",
+      "Brand voice and positioning"
+    ]
   },
   {
     number: "02",
     title: "You Record. We Capture.",
-    description: "Bring your expertise. Our team handles cameras, lighting, audio, and direction."
+    description: "Bring your expertise. Our team handles cameras, lighting, audio, and direction.",
+    details: [
+      "Professional studio in Eagle, Idaho",
+      "Multi-camera video setup",
+      "Broadcast-quality audio",
+      "On-camera coaching if needed",
+      "Remote recording options available"
+    ]
   },
   {
     number: "03",
     title: "We Distribute Everywhere",
-    description: "Editing, thumbnails, graphics, publishing. YouTube, Spotify, Apple. Done."
+    description: "Editing, thumbnails, graphics, publishing. YouTube, Spotify, Apple. Done.",
+    details: [
+      "Full video and audio editing",
+      "Custom thumbnails for each episode",
+      "Show notes and descriptions",
+      "Published to all major platforms",
+      "Social media clips included"
+    ]
   }
 ]
 ---
@@ -39,37 +60,51 @@ const steps = [
 
     <!-- Timeline Container -->
     <div class="relative" data-timeline-container>
-      <!-- SVG Connecting Line (Desktop) -->
+      <!-- SVG Connecting Line (Desktop) with fade on ends -->
       <svg
         class="hidden md:block absolute top-[40px] left-0 w-full h-[4px] pointer-events-none"
         viewBox="0 0 1000 4"
         preserveAspectRatio="none"
         data-timeline-line
       >
+        <defs>
+          <linearGradient id="line-fade" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="var(--color-graphite)" stop-opacity="0" />
+            <stop offset="10%" stop-color="var(--color-graphite)" stop-opacity="1" />
+            <stop offset="90%" stop-color="var(--color-graphite)" stop-opacity="1" />
+            <stop offset="100%" stop-color="var(--color-graphite)" stop-opacity="0" />
+          </linearGradient>
+          <linearGradient id="line-fade-coral" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="var(--color-coral)" stop-opacity="0" />
+            <stop offset="10%" stop-color="var(--color-coral)" stop-opacity="1" />
+            <stop offset="90%" stop-color="var(--color-coral)" stop-opacity="1" />
+            <stop offset="100%" stop-color="var(--color-coral)" stop-opacity="0" />
+          </linearGradient>
+        </defs>
         <line
-          x1="80"
+          x1="0"
           y1="2"
-          x2="920"
+          x2="1000"
           y2="2"
-          stroke="var(--color-graphite)"
+          stroke="url(#line-fade)"
           stroke-width="2"
           stroke-linecap="round"
         />
         <line
-          x1="80"
+          x1="0"
           y1="2"
-          x2="920"
+          x2="1000"
           y2="2"
-          stroke="var(--color-coral)"
+          stroke="url(#line-fade-coral)"
           stroke-width="2"
           stroke-linecap="round"
-          stroke-dasharray="840"
-          stroke-dashoffset="840"
+          stroke-dasharray="1000"
+          stroke-dashoffset="1000"
           data-timeline-progress
         />
       </svg>
 
-      <!-- SVG Connecting Line (Mobile - Vertical) -->
+      <!-- SVG Connecting Line (Mobile - Vertical) with fade -->
       <svg
         class="md:hidden absolute left-[31px] top-[40px] w-[4px] pointer-events-none"
         style="height: calc(100% - 80px);"
@@ -77,12 +112,26 @@ const steps = [
         preserveAspectRatio="none"
         data-timeline-line-mobile
       >
+        <defs>
+          <linearGradient id="line-fade-mobile" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="var(--color-graphite)" stop-opacity="0" />
+            <stop offset="10%" stop-color="var(--color-graphite)" stop-opacity="1" />
+            <stop offset="90%" stop-color="var(--color-graphite)" stop-opacity="1" />
+            <stop offset="100%" stop-color="var(--color-graphite)" stop-opacity="0" />
+          </linearGradient>
+          <linearGradient id="line-fade-coral-mobile" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="var(--color-coral)" stop-opacity="0" />
+            <stop offset="10%" stop-color="var(--color-coral)" stop-opacity="1" />
+            <stop offset="90%" stop-color="var(--color-coral)" stop-opacity="1" />
+            <stop offset="100%" stop-color="var(--color-coral)" stop-opacity="0" />
+          </linearGradient>
+        </defs>
         <line
           x1="2"
           y1="0"
           x2="2"
           y2="300"
-          stroke="var(--color-graphite)"
+          stroke="url(#line-fade-mobile)"
           stroke-width="2"
           stroke-linecap="round"
         />
@@ -91,7 +140,7 @@ const steps = [
           y1="0"
           x2="2"
           y2="300"
-          stroke="var(--color-coral)"
+          stroke="url(#line-fade-coral-mobile)"
           stroke-width="2"
           stroke-linecap="round"
           stroke-dasharray="300"
@@ -121,14 +170,23 @@ const steps = [
               </span>
             </div>
 
-            <!-- Content -->
+            <!-- Content - Clickable -->
             <div class="flex-1">
-              <h3 class="text-xl md:text-2xl font-semibold text-[var(--color-cream)] mb-2">
-                {step.title}
-              </h3>
-              <p class="text-[var(--color-mist)] text-sm md:text-base leading-relaxed max-w-xs mx-auto">
-                {step.description}
-              </p>
+              <button
+                class="text-left md:text-center w-full group cursor-pointer"
+                data-step-trigger={index}
+                type="button"
+              >
+                <h3 class="text-xl md:text-2xl font-semibold text-[var(--color-cream)] mb-2 group-hover:text-[var(--color-coral)] transition-colors">
+                  {step.title}
+                  <svg class="inline-block w-4 h-4 ml-2 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </h3>
+                <p class="text-[var(--color-mist)] text-sm md:text-base leading-relaxed max-w-xs mx-auto">
+                  {step.description}
+                </p>
+              </button>
             </div>
           </div>
         ))}
@@ -138,11 +196,53 @@ const steps = [
     <!-- Bottom CTA Line -->
     <div class="text-center mt-16">
       <p class="text-lg text-[var(--color-mist)]" data-animate="fade-up">
-        You focus on what you do best. <span class="text-[var(--color-cream)] font-medium">We make it look and sound incredible.</span>
+        You focus on what you do best. <span class="text-[var(--color-cream)] font-medium">We make it look and sound professional.</span>
       </p>
     </div>
   </div>
 </section>
+
+<!-- Step Detail Modals -->
+{steps.map((step, index) => (
+  <div
+    id={`step-modal-${index}`}
+    class="fixed inset-0 z-50 hidden items-center justify-center p-4"
+    role="dialog"
+    aria-modal="true"
+    data-step-modal={index}
+  >
+    <div class="absolute inset-0 bg-[var(--color-void)]/90 backdrop-blur-sm" data-modal-backdrop></div>
+    <div class="relative bg-[var(--color-charcoal)] rounded-2xl max-w-md w-full p-8 border border-[var(--color-graphite)]">
+      <button
+        type="button"
+        class="absolute top-4 right-4 w-8 h-8 rounded-full bg-[var(--color-void)] flex items-center justify-center text-[var(--color-mist)] hover:text-[var(--color-cream)] transition-colors"
+        data-modal-close
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <div class="flex items-center gap-4 mb-6">
+        <div class="w-12 h-12 rounded-full bg-[var(--color-coral)]/20 flex items-center justify-center">
+          <span class="text-lg font-bold text-[var(--color-coral)]">{step.number}</span>
+        </div>
+        <h3 class="text-2xl font-bold text-[var(--color-cream)]">{step.title}</h3>
+      </div>
+
+      <ul class="space-y-3">
+        {step.details.map((detail) => (
+          <li class="flex items-start gap-3 text-[var(--color-mist)]">
+            <svg class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>{detail}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+))}
 
 <style>
   /* Node active state */
@@ -169,3 +269,41 @@ const steps = [
     animation: node-pulse 2s ease-in-out infinite;
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Step modal handlers
+    const triggers = document.querySelectorAll('[data-step-trigger]')
+
+    triggers.forEach(trigger => {
+      const index = trigger.getAttribute('data-step-trigger')
+      const modal = document.querySelector(`[data-step-modal="${index}"]`)
+      if (!modal) return
+
+      const backdrop = modal.querySelector('[data-modal-backdrop]')
+      const closeBtn = modal.querySelector('[data-modal-close]')
+
+      function openModal() {
+        modal.classList.remove('hidden')
+        modal.classList.add('flex')
+        document.body.style.overflow = 'hidden'
+      }
+
+      function closeModal() {
+        modal.classList.add('hidden')
+        modal.classList.remove('flex')
+        document.body.style.overflow = ''
+      }
+
+      trigger.addEventListener('click', openModal)
+      backdrop?.addEventListener('click', closeModal)
+      closeBtn?.addEventListener('click', closeModal)
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+          closeModal()
+        }
+      })
+    })
+  })
+</script>

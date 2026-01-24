@@ -23,23 +23,27 @@ const includes = [
 
       <!-- Left Column - Package Details -->
       <div data-animate="fade-up">
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--color-cream)] mb-4">
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--color-cream)] mb-8">
           The Investment
         </h2>
-        <p class="text-[var(--color-mist)] text-lg mb-8">
-          6 episodes. Everything included.
-        </p>
 
         <!-- Price Card -->
         <div class="bg-[var(--color-charcoal)] rounded-2xl p-8 border border-[var(--color-graphite)] mb-8" data-animate="scale-up">
           <div class="text-center mb-6">
-            <p class="text-[var(--color-stone)] text-sm uppercase tracking-wider mb-2">Investment</p>
+            <p class="text-[var(--color-stone)] text-sm uppercase tracking-wider mb-2 line-through" data-agency-label>
+              Agency Price: $15,000
+            </p>
             <div class="flex items-start justify-center gap-1">
               <span class="text-[var(--color-mist)] text-2xl mt-2">$</span>
-              <span class="text-5xl md:text-6xl font-bold text-[var(--color-cream)]">4,500</span>
+              <span
+                class="text-5xl md:text-6xl font-bold text-[var(--color-cream)]"
+                data-price-counter
+                data-counter-start="15000"
+                data-counter-end="4500"
+              >15,000</span>
             </div>
             <p class="text-[var(--color-coral)] text-sm mt-3 font-medium">
-              Half the cost of a marketing agency. None of the hassle.
+              Full-service production. No hidden fees.
             </p>
           </div>
 
@@ -64,10 +68,10 @@ const includes = [
       <div data-animate="fade-up">
         <div class="bg-[var(--color-charcoal)]/50 backdrop-blur-sm rounded-2xl p-8 border border-[var(--color-graphite)]">
           <h3 class="text-2xl font-bold text-[var(--color-cream)] mb-2">
-            Book a Free Call
+            Start Your Podcast
           </h3>
           <p class="text-[var(--color-mist)] mb-8">
-            30 minutes. We'll talk about your goals and see if this is a fit.
+            Tell us about your vision. We'll reach out within 24 hours.
           </p>
 
           <form
@@ -132,7 +136,7 @@ const includes = [
               class="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold text-lg rounded-full transition-all duration-300 hover:bg-[var(--color-coral-light)] hover:scale-[1.02] hover:shadow-2xl hover:shadow-[var(--color-coral)]/30"
               data-magnetic
             >
-              Book My Call
+              Start Your Podcast
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
