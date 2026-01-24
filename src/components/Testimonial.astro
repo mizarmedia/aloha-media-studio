@@ -1,24 +1,9 @@
 ---
-// Single featured testimonial with results strip
-const stats = [
-  { value: '20-30k', label: 'Views/Month' },
-  { value: 'All', label: 'Platforms' },
-  { value: '2+', label: 'Years Together' }
-]
+// Single featured testimonial - clean, focused design
 ---
 
 <section class="py-24 bg-[var(--color-void)]">
   <div class="max-w-4xl mx-auto px-6">
-    <!-- Results Strip -->
-    <div class="flex flex-wrap justify-center gap-8 md:gap-16 mb-16">
-      {stats.map((stat) => (
-        <div class="text-center">
-          <div class="text-3xl md:text-4xl font-bold text-[var(--color-coral)]">{stat.value}</div>
-          <div class="text-sm text-[var(--color-stone)] mt-1">{stat.label}</div>
-        </div>
-      ))}
-    </div>
-
     <div class="text-center">
       <!-- Quote icon -->
       <svg class="w-12 h-12 mx-auto mb-8 text-[var(--color-coral)]/30" fill="currentColor" viewBox="0 0 24 24">
@@ -26,20 +11,30 @@ const stats = [
       </svg>
 
       <!-- Quote -->
-      <blockquote class="text-xl md:text-2xl lg:text-3xl text-[var(--color-cream)] font-medium leading-relaxed mb-10">
+      <blockquote class="text-xl md:text-2xl lg:text-3xl text-[var(--color-cream)] font-medium leading-relaxed mb-10" data-quote-reveal>
         "It has been a pleasure to work with Nation Goetter and his team at Aloha Media for the last two years. It is great that Nation makes the process of video and podcasting easy, it is even better that he is an expert. The quality of the product is higher than many other well-funded media enterprises."
       </blockquote>
 
       <!-- Author -->
-      <div class="flex items-center justify-center gap-4">
-        <img
-          src="/images/testimonials/roger-hall.jpg"
-          alt="Dr. Roger Hall"
-          class="w-16 h-16 rounded-full object-cover object-top border-2 border-[var(--color-coral)]/30"
-        />
-        <div class="text-left">
-          <div class="font-semibold text-[var(--color-cream)]">Dr. Roger Hall</div>
-          <div class="text-sm text-[var(--color-stone)]">Host, Second Thoughts Podcast</div>
+      <div class="flex flex-col items-center gap-4">
+        <div class="flex items-center gap-4">
+          <img
+            src="/images/testimonials/roger-hall.jpg"
+            alt="Dr. Roger Hall"
+            class="w-16 h-16 rounded-full object-cover object-top border-2 border-[var(--color-coral)]/30"
+          />
+          <div class="text-left">
+            <div class="font-semibold text-[var(--color-cream)]">Dr. Roger Hall</div>
+            <div class="text-sm text-[var(--color-stone)]">Host, Second Thoughts Podcast</div>
+          </div>
+        </div>
+        <!-- Views badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-coral)]/10 rounded-full border border-[var(--color-coral)]/20 mt-2">
+          <svg class="w-4 h-4 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+          </svg>
+          <span class="text-sm font-medium text-[var(--color-coral)]">600,000+ views</span>
         </div>
       </div>
     </div>

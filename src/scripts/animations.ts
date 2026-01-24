@@ -220,9 +220,176 @@ export function initMagneticButtons() {
   })
 }
 
+
+// Mouse-following gradient glow
+export function initMouseGradient() {
+  const containers = document.querySelectorAll('[data-mouse-glow]')
+
+  containers.forEach((container) => {
+    const el = container as HTMLElement
+
+    // Create gradient element
+    const glow = document.createElement('div')
+    glow.className = 'mouse-glow absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-500'
+    glow.style.background = 'radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 107, 74, 0.15), transparent 40%)'
+    el.style.position = 'relative'
+    el.insertBefore(glow, el.firstChild)
+
+    el.addEventListener('mouseenter', () => {
+      glow.style.opacity = '1'
+    })
+
+    el.addEventListener('mouseleave', () => {
+      glow.style.opacity = '0'
+    })
+
+    el.addEventListener('mousemove', (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect()
+      const x = ((e.clientX - rect.left) / rect.width) * 100
+      const y = ((e.clientY - rect.top) / rect.height) * 100
+      glow.style.setProperty('--mouse-x', `${x}%`)
+      glow.style.setProperty('--mouse-y', `${y}%`)
+    })
+  })
+}
+
+// Counter animation - numbers count up on scroll
+export function initCounters() {
+  gsap.utils.toArray<HTMLElement>('[data-counter]').forEach((el) => {
+    const target = parseFloat(el.dataset.counter || el.textContent?.replace(/[^0-9.]/g, '') || '0')
+    const prefix = el.dataset.counterPrefix || ''
+    const suffix = el.dataset.counterSuffix || ''
+    const decimals = el.dataset.counterDecimals ? parseInt(el.dataset.counterDecimals) : 0
+
+    const counter = { value: 0 }
+
+    gsap.to(counter, {
+      value: target,
+      duration: 2,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 80%',
+        once: true,
+      },
+      onUpdate: () => {
+        el.textContent = prefix + counter.value.toLocaleString('en-US', {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals
+        }) + suffix
+      }
+    })
+  })
+}
+
+
+// Step number reveal animation - simple fade + scale
+export function initStepReveal() {
+  gsap.utils.toArray<HTMLElement>('[data-step-reveal]').forEach((el, index) => {
+    gsap.fromTo(el,
+      {
+        scale: 0.8,
+        opacity: 0
+      },
+      {
+        scale: 1,
+        opacity: 1,
+        duration: 0.6,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+        },
+        delay: index * 0.1
+      }
+    )
+  })
+}
+
+// Hero scroll progress indicator
+export function initScrollProgress() {
+  const progressBar = document.querySelector('[data-scroll-progress]')
+  if (!progressBar) return
+
+  gsap.to(progressBar, {
+    scaleX: 1,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: 'body',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 0.5,
+    },
+  })
+}
+
+// Split text animation - words animate in with stagger
+export function initSplitText() {
+  gsap.utils.toArray<HTMLElement>('[data-split-text]').forEach((el) => {
+    // Split text into words
+    const text = el.textContent || ''
+    const words = text.split(' ')
+
+    // Wrap each word in a span
+    el.innerHTML = words.map(word =>
+      `<span class="split-word inline-block" style="opacity: 0; transform: translateY(30px);">${word}</span>`
+    ).join(' ')
+
+    const wordSpans = el.querySelectorAll('.split-word')
+
+    gsap.to(wordSpans, {
+      opacity: 1,
+      y: 0,
+      duration: 0.6,
+      stagger: 0.05,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 85%',
+        toggleActions: 'play none none reverse',
+      },
+    })
+  })
+}
+
+// Quote reveal animation - words reveal as you scroll
+export function initQuoteReveal() {
+  gsap.utils.toArray<HTMLElement>('[data-quote-reveal]').forEach((el) => {
+    // Split text into words
+    const text = el.textContent || ''
+    const words = text.split(' ')
+
+    // Wrap each word in a span
+    el.innerHTML = words.map(word =>
+      `<span class="quote-word inline-block" style="opacity: 0.15;">${word}</span>`
+    ).join(' ')
+
+    const wordSpans = el.querySelectorAll('.quote-word')
+
+    // Create a scrub animation that reveals words as you scroll
+    gsap.to(wordSpans, {
+      opacity: 1,
+      stagger: 0.02,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 80%',
+        end: 'bottom 40%',
+        scrub: 1,
+      },
+    })
+  })
+}
+
 // Initialize all animations
 export function initAllAnimations() {
   initSmoothScroll()
   initScrollAnimations()
   initMagneticButtons()
+  initMouseGradient()
+  initCounters()
+  initStepReveal()
+  initScrollProgress()
+  initSplitText()
+  initQuoteReveal()
 }
