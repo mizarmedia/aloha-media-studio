@@ -1,5 +1,9 @@
 # build output
 dist/
+
+# Claude Code session files
+.claude/
+CURRENT_TASK.md
 # generated types
 .astro/
 
