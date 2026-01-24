@@ -1,22 +1,23 @@
 ---
-// Cinematic Homepage
-// Structure based on conversion research:
-// 1. Hero with video (CTA visible in 2.6 sec)
-// 2. Credibility strip (client logos)
-// 3. Work showcase (3-4 projects)
-// 4. Services (minimal)
-// 5. Studio CTA
-// 6. Contact (simple form)
+// Podcast-Focused Homepage
+// Structure:
+// 1. Hero (full screen video, aspiration + intrigue)
+// 2. Credibility Strip (quick trust stats)
+// 3. Problem Statement (empathy - make them feel seen)
+// 4. Process Overview (relief - how simple it is)
+// 5. Testimonial (transformation - social proof)
+// 6. Studio CTA (tangible experience)
+// 7. Investment + Contact (convert)
 
 import Layout from '../layouts/Layout.astro'
 import Header from '../components/Header.astro'
 import HeroCinematic from '../components/HeroCinematic.astro'
-import ClientCarousel from '../components/ClientCarousel.astro'
-import WorkShowcase from '../components/WorkShowcase.astro'
-import ServicesMinimal from '../components/ServicesMinimal.astro'
+import CredibilityStrip from '../components/CredibilityStrip.astro'
+import ProblemStatement from '../components/ProblemStatement.astro'
+import ProcessOverview from '../components/ProcessOverview.astro'
 import Testimonial from '../components/Testimonial.astro'
 import StudioCTA from '../components/StudioCTA.astro'
-import ContactSimple from '../components/ContactSimple.astro'
+import InvestmentContact from '../components/InvestmentContact.astro'
 import Footer from '../components/Footer.astro'
 ---
 
@@ -24,12 +25,12 @@ import Footer from '../components/Footer.astro'
   <Header />
   <main>
     <HeroCinematic />
-    <ClientCarousel />
-    <WorkShowcase />
-    <ServicesMinimal />
+    <CredibilityStrip />
+    <ProblemStatement />
+    <ProcessOverview />
     <Testimonial />
     <StudioCTA />
-    <ContactSimple />
+    <InvestmentContact />
   </main>
   <Footer />
 </Layout>

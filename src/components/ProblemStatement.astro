@@ -1,0 +1,62 @@
+---
+// ProblemStatement - Real pain points based on research
+const problems = [
+  { icon: 'clock', title: "I don't have time" },
+  { icon: 'gear', title: "I don't know the tech" },
+  { icon: 'mic', title: "Who would even listen?" }
+]
+---
+
+<section id="problem" class="py-20 md:py-28 bg-[var(--color-void)]">
+  <div class="max-w-6xl mx-auto px-6">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--color-cream)]" data-animate="fade-up">
+        What's Really Stopping You?
+      </h2>
+    </div>
+
+    <!-- 3-Column Grid -->
+    <div class="grid md:grid-cols-3 gap-8" data-animate-stagger>
+      {problems.map((problem, index) => (
+        <div
+          class="text-center p-8 rounded-2xl bg-[var(--color-charcoal)]/50 border border-[var(--color-graphite)] hover:border-[var(--color-coral)]/30 transition-colors"
+          data-animate-child
+        >
+          <!-- Icon -->
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-[var(--color-coral)]/10 flex items-center justify-center">
+            {problem.icon === 'clock' && (
+              <svg class="w-8 h-8 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            )}
+            {problem.icon === 'gear' && (
+              <svg class="w-8 h-8 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            )}
+            {problem.icon === 'mic' && (
+              <svg class="w-8 h-8 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01" />
+              </svg>
+            )}
+          </div>
+
+          <!-- Content -->
+          <h3 class="text-xl font-semibold text-[var(--color-cream)]">
+            {problem.title}
+          </h3>
+        </div>
+      ))}
+    </div>
+
+    <!-- Transition statement -->
+    <div class="text-center mt-16">
+      <p class="text-xl md:text-2xl font-medium text-[var(--color-mist)]" data-animate="fade-up">
+        What if you just showed up and talked—and we handled everything else?
+      </p>
+    </div>
+  </div>
+</section>

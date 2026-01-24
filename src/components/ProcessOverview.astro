@@ -1,0 +1,55 @@
+---
+// ProcessOverview - Visual 3-step process with brief descriptions
+const steps = [
+  {
+    number: "01",
+    title: "We Plan Together",
+    description: "One strategy call. We map out your 6 episodes, topics, and guests."
+  },
+  {
+    number: "02",
+    title: "You Show Up & Talk",
+    description: "45 minutes in our Eagle, ID studio. That's your only job."
+  },
+  {
+    number: "03",
+    title: "We Do the Rest",
+    description: "Editing, branding, distribution to YouTube, Spotify, Apple—everywhere."
+  }
+]
+---
+
+<section class="py-20 md:py-28 bg-[var(--color-void)]">
+  <div class="max-w-5xl mx-auto px-6">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--color-cream)]" data-animate="fade-up">
+        Here's How It Works
+      </h2>
+    </div>
+
+    <!-- Steps -->
+    <div class="grid md:grid-cols-3 gap-8 md:gap-12">
+      {steps.map((step, index) => (
+        <div
+          class="text-center"
+          data-animate="fade-up"
+          style={`--delay: ${index * 0.15}s`}
+        >
+          <!-- Number -->
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[var(--color-charcoal)] border-2 border-[var(--color-coral)] mb-6" data-step-reveal>
+            <span class="text-xl font-bold text-[var(--color-coral)]">{step.number}</span>
+          </div>
+
+          <!-- Content -->
+          <h3 class="text-xl font-semibold text-[var(--color-cream)] mb-3">
+            {step.title}
+          </h3>
+          <p class="text-[var(--color-mist)] text-sm leading-relaxed">
+            {step.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

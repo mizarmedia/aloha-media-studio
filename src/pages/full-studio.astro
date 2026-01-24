@@ -1,0 +1,186 @@
+---
+// The Full Studio - All our media services beyond podcast production
+import Layout from '../layouts/Layout.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+
+const services = [
+  {
+    title: 'Video Production',
+    description: 'Event coverage, brand films, promotional videos, and corporate content. Professional multi-camera production with full post-production.',
+    icon: 'video',
+    examples: ['Brand Stories', 'Event Coverage', 'Promotional Videos', 'Corporate Content']
+  },
+  {
+    title: 'Photography',
+    description: 'Headshots, product photography, event documentation, and brand imagery. Studio or on-location shoots available.',
+    icon: 'camera',
+    examples: ['Professional Headshots', 'Product Photography', 'Event Documentation', 'Brand Imagery']
+  },
+  {
+    title: 'Branding & Web Design',
+    description: 'Logo design, brand identity, website design and development. Complete brand packages for businesses ready to level up their presence.',
+    icon: 'brush',
+    examples: ['Logo Design', 'Brand Identity', 'Website Design', 'Marketing Materials']
+  },
+  {
+    title: 'Studio Rental',
+    description: 'Book our professional studio space in Eagle, Idaho. Perfect for video shoots, podcast recording, photo sessions, and more.',
+    icon: 'building',
+    pricing: [
+      { rate: '$100', period: 'per hour' },
+      { rate: '$350', period: 'half day (4hrs)' },
+      { rate: '$600', period: 'full day (8hrs)' }
+    ],
+    cta: { text: 'Book the Studio', href: '/studio' }
+  }
+]
+---
+
+<Layout
+  title="The Full Studio | Aloha Media Studio"
+  description="Video production, photography, branding, and studio rental services in Eagle, Idaho."
+>
+  <Header />
+
+  <main class="pt-24">
+    <!-- Hero -->
+    <section class="py-16 md:py-24 bg-[var(--color-void)]">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <p class="text-[var(--color-coral)] text-sm font-medium tracking-widest uppercase mb-4">
+          Beyond Podcasting
+        </p>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-cream)] mb-6">
+          The Full Studio
+        </h1>
+        <p class="text-xl text-[var(--color-mist)] max-w-2xl mx-auto">
+          Podcast production is our specialty, but we do much more. Here's everything we can create together.
+        </p>
+      </div>
+    </section>
+
+    <!-- Podcast CTA Banner -->
+    <section class="py-8 bg-[var(--color-coral)]">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <p class="text-[var(--color-void)] font-medium">
+          Looking for podcast production?
+          <a href="/#package" class="underline hover:no-underline ml-2">
+            See our 6-Episode Package →
+          </a>
+        </p>
+      </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="py-20 md:py-28 bg-[var(--color-charcoal)]">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-8">
+          {services.map((service) => (
+            <div class="p-8 rounded-2xl bg-[var(--color-slate)] border border-[var(--color-graphite)]">
+              <!-- Icon -->
+              <div class="w-14 h-14 rounded-xl bg-[var(--color-coral)]/10 flex items-center justify-center mb-6">
+                {service.icon === 'video' && (
+                  <svg class="w-7 h-7 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                )}
+                {service.icon === 'camera' && (
+                  <svg class="w-7 h-7 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                )}
+                {service.icon === 'brush' && (
+                  <svg class="w-7 h-7 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                )}
+                {service.icon === 'building' && (
+                  <svg class="w-7 h-7 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                )}
+              </div>
+
+              <!-- Title & Description -->
+              <h2 class="text-2xl font-bold text-[var(--color-cream)] mb-3">
+                {service.title}
+              </h2>
+              <p class="text-[var(--color-mist)] mb-6 leading-relaxed">
+                {service.description}
+              </p>
+
+              <!-- Examples or Pricing -->
+              {service.examples && (
+                <div class="flex flex-wrap gap-2 mb-6">
+                  {service.examples.map((example) => (
+                    <span class="px-3 py-1 text-sm bg-[var(--color-void)]/50 text-[var(--color-stone)] rounded-full">
+                      {example}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {service.pricing && (
+                <div class="flex flex-wrap gap-3 mb-6">
+                  {service.pricing.map((price) => (
+                    <div class="px-4 py-2 bg-[var(--color-void)]/50 rounded-lg">
+                      <div class="text-lg font-bold text-[var(--color-cream)]">{price.rate}</div>
+                      <div class="text-xs text-[var(--color-stone)]">{price.period}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <!-- CTA -->
+              {service.cta ? (
+                <a
+                  href={service.cta.href}
+                  class="inline-flex items-center gap-2 text-[var(--color-coral)] hover:text-[var(--color-coral-light)] font-medium transition-colors"
+                >
+                  {service.cta.text}
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              ) : (
+                <a
+                  href="/#contact"
+                  class="inline-flex items-center gap-2 text-[var(--color-coral)] hover:text-[var(--color-coral-light)] font-medium transition-colors"
+                >
+                  Get a Quote
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="py-20 bg-[var(--color-void)]">
+      <div class="max-w-3xl mx-auto px-6 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-[var(--color-cream)] mb-4">
+          Have a Project in Mind?
+        </h2>
+        <p class="text-[var(--color-mist)] text-lg mb-8">
+          Let's discuss your needs and find the right solution for your business.
+        </p>
+        <a
+          href="/#contact"
+          class="inline-flex items-center gap-3 px-8 py-4 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold text-lg rounded-full transition-all duration-300 hover:bg-[var(--color-coral-light)] hover:scale-105 hover:shadow-2xl hover:shadow-[var(--color-coral)]/30"
+        >
+          Get in Touch
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

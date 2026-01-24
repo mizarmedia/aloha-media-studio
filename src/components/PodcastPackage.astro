@@ -1,0 +1,307 @@
+---
+// PodcastPackage - Core sales section for 6-episode podcast season
+// Package name: "The Complete Podcast Launch"
+
+const episodes = [1, 2, 3, 4, 5, 6]
+
+const phases = [
+  {
+    icon: 'plan',
+    title: 'Pre-Production',
+    items: [
+      'Podcast naming & branding',
+      'Season topic development',
+      '6 episode outlines',
+      'Guest coordination',
+      'Bullet point packets'
+    ]
+  },
+  {
+    icon: 'record',
+    title: 'Production',
+    items: [
+      '6 studio sessions in Eagle',
+      'Multi-camera video',
+      'Professional audio',
+      'On-camera coaching'
+    ]
+  },
+  {
+    icon: 'edit',
+    title: 'Post-Production',
+    items: [
+      'Full video editing',
+      'YouTube Shorts from each episode',
+      'Audio podcast versions'
+    ]
+  },
+  {
+    icon: 'distribute',
+    title: 'Distribution',
+    items: [
+      'Podcast brand setup',
+      'Photography session',
+      'YouTube, Spotify, Apple',
+      'All major platforms'
+    ]
+  }
+]
+
+const valueProps = [
+  { icon: 'star', title: 'Become the Go-To Expert' },
+  { icon: 'users', title: 'Turn Guests Into Clients' },
+  { icon: 'chart', title: 'Reach 20-30k People/Month' }
+]
+---
+
+<section id="package" class="py-24 md:py-32 bg-[var(--color-charcoal)] relative overflow-hidden">
+  <!-- Subtle gradient glow background -->
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-[var(--color-coral)]/5 rounded-full blur-[120px]"></div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <h2
+        class="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-cream)] mb-6"
+        data-animate="fade-up"
+      >
+        The Complete Podcast Launch
+      </h2>
+      <p
+        class="text-[var(--color-mist)] text-xl md:text-2xl max-w-2xl mx-auto"
+        data-animate="fade-up"
+      >
+        6 episodes. 90 days. One price.
+      </p>
+    </div>
+
+    <!-- Value Props -->
+    <div class="grid md:grid-cols-3 gap-6 mb-16" data-animate="fade-up">
+      {valueProps.map((prop) => (
+        <div class="p-6 rounded-xl bg-[var(--color-slate)]/50 border border-[var(--color-graphite)]">
+          <div class="w-10 h-10 rounded-full bg-[var(--color-coral)]/10 flex items-center justify-center mb-4">
+            {prop.icon === 'star' && (
+              <svg class="w-5 h-5 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+              </svg>
+            )}
+            {prop.icon === 'users' && (
+              <svg class="w-5 h-5 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            )}
+            {prop.icon === 'chart' && (
+              <svg class="w-5 h-5 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
+            )}
+          </div>
+          <h3 class="text-lg font-semibold text-[var(--color-cream)]">{prop.title}</h3>
+        </div>
+      ))}
+    </div>
+
+    <!-- Episode Timeline -->
+    <div class="mb-16" data-animate="fade-up">
+      <div class="relative flex items-center justify-center gap-2 md:gap-4">
+        <!-- Connecting line (behind circles) -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-3rem)] h-0.5 bg-gradient-to-r from-transparent via-[var(--color-graphite)] to-transparent"></div>
+
+        <!-- Episode circles -->
+        {episodes.map((ep, index) => (
+          <div
+            class="episode-circle relative z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-[var(--color-slate)] border-2 border-[var(--color-graphite)] flex items-center justify-center text-[var(--color-mist)] font-semibold text-sm md:text-base transition-all duration-300 hover:border-[var(--color-coral)] hover:text-[var(--color-coral)] hover:scale-110"
+            style={`--delay: ${index * 0.1}s`}
+            data-episode={ep}
+          >
+            {ep}
+          </div>
+        ))}
+      </div>
+
+      <!-- Timeline label -->
+      <p class="text-center text-[var(--color-stone)] text-sm mt-4">
+        6 professionally produced episodes = Your Season 1
+      </p>
+    </div>
+
+    <!-- 4-Phase Timeline -->
+    <div class="mb-16" data-animate="fade-up">
+      <h3 class="text-center text-xl font-semibold text-[var(--color-cream)] mb-8">
+        What's Included
+      </h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {phases.map((phase, index) => (
+          <div class="p-6 rounded-xl bg-[var(--color-slate)] border border-[var(--color-graphite)]">
+            <!-- Phase icon -->
+            <div class="w-12 h-12 rounded-full bg-[var(--color-coral)]/10 flex items-center justify-center mb-4">
+              {phase.icon === 'plan' && (
+                <svg class="w-6 h-6 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
+              )}
+              {phase.icon === 'record' && (
+                <svg class="w-6 h-6 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+              )}
+              {phase.icon === 'edit' && (
+                <svg class="w-6 h-6 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              )}
+              {phase.icon === 'distribute' && (
+                <svg class="w-6 h-6 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                </svg>
+              )}
+            </div>
+
+            <!-- Phase title -->
+            <h4 class="text-lg font-semibold text-[var(--color-cream)] mb-3">
+              {phase.title}
+            </h4>
+
+            <!-- Phase items -->
+            <ul class="space-y-2">
+              {phase.items.map((item) => (
+                <li class="flex items-start gap-2 text-sm text-[var(--color-mist)]">
+                  <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Price Card -->
+    <div
+      class="max-w-md mx-auto mb-12"
+      data-animate="scale-up"
+    >
+      <div class="bg-[var(--color-slate)] rounded-2xl p-8 md:p-10 border border-[var(--color-graphite)] text-center relative overflow-hidden">
+        <!-- Corner accent -->
+        <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-[var(--color-coral)]/10 to-transparent"></div>
+
+        <!-- Price -->
+        <p class="text-[var(--color-mist)] text-sm uppercase tracking-wider mb-1">Investment</p>
+        <div class="mb-2">
+          <span class="text-[var(--color-mist)] text-lg">$</span>
+          <span class="text-5xl md:text-6xl font-bold text-[var(--color-cream)] price-counter" data-counter="4500" data-counter-prefix="">
+            4,500
+          </span>
+        </div>
+        <p class="text-[var(--color-stone)] text-sm mb-2">
+          Includes everything. No hidden fees.
+        </p>
+        <p class="text-[var(--color-mist)] text-xs mb-6">
+          Less than hiring one freelance editor for a year
+        </p>
+
+        <!-- CTA inside price card -->
+        <a
+          href="#contact"
+          class="inline-flex items-center justify-center gap-3 w-full px-8 py-4 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold text-lg rounded-full transition-all duration-300 hover:bg-[var(--color-coral-light)] hover:scale-105 hover:shadow-2xl hover:shadow-[var(--color-coral)]/30"
+          data-magnetic
+        >
+          See If You Qualify
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Results Callout -->
+    <div class="text-center" data-animate="fade-up">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-void)]/50 border border-[var(--color-graphite)]">
+        <span class="w-2 h-2 rounded-full bg-[var(--color-coral)] animate-pulse"></span>
+        <span class="text-[var(--color-mist)] text-sm">Average 20-30k views/month across all platforms</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Episode circle stagger animation */
+  .episode-circle {
+    opacity: 0;
+    transform: scale(0.5);
+    animation: episode-pop 0.5s ease forwards;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes episode-pop {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    70% {
+      transform: scale(1.1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Only animate when in view - controlled by scroll trigger */
+  [data-animate="fade-up"] .episode-circle,
+  [data-animate="scale-up"] .episode-circle {
+    animation-play-state: paused;
+  }
+</style>
+
+<script>
+  // Price counter animation using GSAP
+  import { gsap } from 'gsap'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+  gsap.registerPlugin(ScrollTrigger)
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const priceEl = document.querySelector('.price-counter')
+    if (!priceEl) return
+
+    // Quick pop-in reveal animation (not a slow count-up)
+    gsap.fromTo(priceEl,
+      {
+        scale: 0.8,
+        opacity: 0
+      },
+      {
+        scale: 1,
+        opacity: 1,
+        duration: 0.5,
+        ease: 'back.out(1.7)',
+        scrollTrigger: {
+          trigger: priceEl,
+          start: 'top 80%',
+          once: true
+        }
+      }
+    )
+
+    // Animate episode circles when section comes into view
+    const episodeCircles = document.querySelectorAll('.episode-circle')
+    if (episodeCircles.length > 0) {
+      ScrollTrigger.create({
+        trigger: episodeCircles[0].parentElement,
+        start: 'top 80%',
+        once: true,
+        onEnter: () => {
+          episodeCircles.forEach((el) => {
+            (el as HTMLElement).style.animationPlayState = 'running'
+          })
+        }
+      })
+    }
+  })
+</script>
