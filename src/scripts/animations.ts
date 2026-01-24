@@ -316,35 +316,47 @@ export function initTimelineThread() {
     }, 0)
   }
 
-  // Each step triggers its own node activation
-  steps.forEach((step, index) => {
-    const node = nodes[index]
-    const numEl = numbers[index] as HTMLElement
-    const target = numEl?.dataset.numberTarget || '00'
+  // Staggered node activation - trigger once when container enters, then stagger the animations
+  let nodesActivated = false
 
-    ScrollTrigger.create({
-      trigger: step,
-      start: 'top 75%',
-      onEnter: () => {
-        node.classList.add('active')
-        // Animate number
-        if (numEl) {
-          const targetNum = parseInt(target)
-          gsap.to({ val: 0 }, {
-            val: targetNum,
-            duration: 0.5,
-            ease: 'power2.out',
-            onUpdate: function() {
-              numEl.textContent = String(Math.round(this.targets()[0].val)).padStart(2, '0')
-            }
-          })
-        }
-      },
-      onLeaveBack: () => {
+  ScrollTrigger.create({
+    trigger: container,
+    start: 'top 70%',
+    onEnter: () => {
+      if (nodesActivated) return
+      nodesActivated = true
+
+      // Stagger each node with delay
+      nodes.forEach((node, index) => {
+        const numEl = numbers[index] as HTMLElement
+        const target = numEl?.dataset.numberTarget || '00'
+        const delay = index * 0.4 // 0s, 0.4s, 0.8s
+
+        gsap.delayedCall(delay, () => {
+          node.classList.add('active')
+          // Animate number
+          if (numEl) {
+            const targetNum = parseInt(target)
+            gsap.to({ val: 0 }, {
+              val: targetNum,
+              duration: 0.5,
+              ease: 'power2.out',
+              onUpdate: function() {
+                numEl.textContent = String(Math.round(this.targets()[0].val)).padStart(2, '0')
+              }
+            })
+          }
+        })
+      })
+    },
+    onLeaveBack: () => {
+      nodesActivated = false
+      nodes.forEach((node, index) => {
         node.classList.remove('active')
+        const numEl = numbers[index] as HTMLElement
         if (numEl) numEl.textContent = '00'
-      }
-    })
+      })
+    }
   })
 }
 
