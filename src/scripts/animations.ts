@@ -267,123 +267,328 @@ export function initScrollProgress() {
   })
 }
 
-// NLE Timeline scroll animation - horizontal scroll driven by vertical scroll
+// NLE Timeline scroll animation - Hybrid Timeline + Render Queue
+// Two-act story: Timeline (0-55%) → Render Queue (60-95%) → Success (95-100%)
 export function initTimelineScroll() {
   const section = document.querySelector('[data-timeline-section]')
   if (!section) return
 
-  const content = document.querySelector('[data-tracks-content]') as HTMLElement
+  // Act 1: Timeline elements
+  const actTimeline = document.querySelector('[data-act-timeline]') as HTMLElement
   const playhead = document.querySelector('[data-playhead]') as HTMLElement
   const timecodeDisplay = document.querySelector('[data-current-timecode]') as HTMLElement
   const scrollHint = document.querySelector('[data-scroll-hint]') as HTMLElement
-  const clipDetails = document.querySelectorAll('[data-clip-detail-content]')
-  const clips = document.querySelectorAll('[data-clip]')
+  const clips = document.querySelectorAll('[data-clip]') as NodeListOf<HTMLElement>
+  const detailPlanning = document.querySelector('[data-detail-planning]') as HTMLElement
+  const detailRecording = document.querySelector('[data-detail-recording]') as HTMLElement
+  const detailPost = document.querySelector('[data-detail-post]') as HTMLElement
+  const actHeader = document.querySelector('[data-act-header]') as HTMLElement
 
-  if (!content || !playhead) return
+  // Act 2: Render Queue elements
+  const actRender = document.querySelector('[data-act-render]') as HTMLElement
+  const queueStatus = document.querySelector('[data-queue-status]') as HTMLElement
+  const queueIndicator = document.querySelector('[data-queue-indicator]') as HTMLElement
 
-  // Clip boundaries (as percentages of scroll progress)
-  const clipBoundaries = [
-    { id: 'pre-production', start: 0, end: 0.30 },
-    { id: 'recording', start: 0.30, end: 0.67 },
-    { id: 'distribution', start: 0.67, end: 1.0 }
-  ]
+  // Act 3: Success elements
+  const actSuccess = document.querySelector('[data-act-success]') as HTMLElement
+  const confettiParticles = document.querySelectorAll('[data-confetti-particle]') as NodeListOf<HTMLElement>
+
+  // Render job elements
+  const jobs = ['editing', 'thumbnail', 'publish']
+  const jobElements = jobs.map(id => ({
+    id,
+    progress: document.querySelector(`[data-job-progress="${id}"]`) as HTMLElement,
+    status: document.querySelector(`[data-job-status="${id}"]`) as HTMLElement,
+    percent: document.querySelector(`[data-job-percent="${id}"]`) as HTMLElement,
+    icon: document.querySelector(`[data-job-icon="${id}"]`) as HTMLElement
+  }))
+
+  if (!actTimeline || !playhead) return
+
+  // Scroll zone boundaries
+  const ZONES = {
+    TIMELINE_END: 0.55,      // Timeline phase ends
+    TRANSITION_END: 0.60,    // Transition complete
+    RENDER_END: 0.95,        // Render queue ends
+    SUCCESS: 1.0             // Success state
+  }
 
   // Format seconds to timecode
   function formatTimecode(seconds: number): string {
     const mins = Math.floor(seconds / 60)
     const secs = Math.floor(seconds % 60)
-    const frames = Math.floor((seconds % 1) * 30) // Assuming 30fps
     return `00:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`
   }
 
-  // Get active clip based on progress
-  function getActiveClip(progress: number): string {
-    for (const boundary of clipBoundaries) {
-      if (progress >= boundary.start && progress < boundary.end) {
-        return boundary.id
+  // Update timeline detail panel based on progress
+  function updateTimelineDetail(progress: number) {
+    const timelineProgress = progress / ZONES.TIMELINE_END // Normalize to 0-1 within timeline phase
+
+    // Hide all first
+    if (detailPlanning) detailPlanning.classList.add('hidden')
+    if (detailRecording) detailRecording.classList.add('hidden')
+    if (detailPost) detailPost.classList.add('hidden')
+
+    // Show appropriate detail
+    if (timelineProgress < 0.35) {
+      if (detailPlanning) {
+        detailPlanning.classList.remove('hidden')
+        detailPlanning.classList.add('block')
+      }
+    } else if (timelineProgress < 0.75) {
+      if (detailRecording) {
+        detailRecording.classList.remove('hidden')
+        detailRecording.classList.add('block')
+      }
+    } else {
+      if (detailPost) {
+        detailPost.classList.remove('hidden')
+        detailPost.classList.add('block')
       }
     }
-    return clipBoundaries[clipBoundaries.length - 1].id
   }
 
-  // Update active clip display
-  function updateActiveClip(clipId: string) {
-    // Update detail panel
-    clipDetails.forEach(detail => {
-      const el = detail as HTMLElement
-      if (el.dataset.clipDetailContent === clipId) {
-        el.classList.remove('hidden')
-        el.classList.add('block')
+  // Reveal clips as playhead passes them
+  function updateClipVisibility(progress: number) {
+    const playheadPosition = (progress / ZONES.TIMELINE_END) * 100 // Convert to percentage
+
+    clips.forEach(clip => {
+      const clipStart = parseFloat(clip.dataset.clipStart || '0')
+      // Clip appears when playhead reaches its start position
+      if (playheadPosition >= clipStart) {
+        clip.style.opacity = '1'
+        clip.style.transform = 'scaleX(1)'
       } else {
-        el.classList.add('hidden')
-        el.classList.remove('block')
+        clip.style.opacity = '0'
+        clip.style.transform = 'scaleX(0.8)'
+      }
+    })
+  }
+
+  // Update render queue progress bars
+  function updateRenderQueue(progress: number) {
+    // Normalize progress within render phase (0.60 to 0.95)
+    const renderProgress = (progress - ZONES.TRANSITION_END) / (ZONES.RENDER_END - ZONES.TRANSITION_END)
+
+    // Each job takes 1/3 of the render phase
+    jobElements.forEach((job, index) => {
+      const jobStart = index / 3
+      const jobEnd = (index + 1) / 3
+      let jobProgress = 0
+
+      if (renderProgress >= jobEnd) {
+        jobProgress = 100
+      } else if (renderProgress > jobStart) {
+        jobProgress = ((renderProgress - jobStart) / (jobEnd - jobStart)) * 100
+      }
+
+      // Update progress bar
+      if (job.progress) {
+        job.progress.style.width = `${jobProgress}%`
+      }
+
+      // Update percentage text
+      if (job.percent) {
+        job.percent.textContent = `${Math.round(jobProgress)}%`
+      }
+
+      // Update status text
+      if (job.status) {
+        if (jobProgress >= 100) {
+          job.status.textContent = 'COMPLETE'
+          job.status.classList.add('text-emerald-400')
+          job.status.classList.remove('text-[var(--color-stone)]')
+        } else if (jobProgress > 0) {
+          job.status.textContent = 'RENDERING'
+          job.status.classList.add('text-[var(--color-coral)]')
+          job.status.classList.remove('text-[var(--color-stone)]')
+        } else {
+          job.status.textContent = 'QUEUED'
+          job.status.classList.remove('text-emerald-400', 'text-[var(--color-coral)]')
+          job.status.classList.add('text-[var(--color-stone)]')
+        }
+      }
+
+      // Update icon
+      if (job.icon) {
+        if (jobProgress >= 100) {
+          job.icon.classList.add('bg-emerald-500/20', 'border-emerald-500')
+          job.icon.classList.remove('bg-[var(--color-void)]', 'border-[var(--color-graphite)]')
+          job.icon.innerHTML = '<svg class="w-3 h-3 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>'
+        }
       }
     })
 
-    // Update clip highlights
-    clips.forEach(clip => {
-      const el = clip as HTMLElement
-      if (el.dataset.clip === clipId) {
-        el.classList.add('active')
-      } else {
-        el.classList.remove('active')
+    // Update queue status
+    if (queueStatus) {
+      const allComplete = renderProgress >= 1
+      queueStatus.textContent = allComplete ? 'Complete!' : 'Processing...'
+      if (allComplete && queueIndicator) {
+        queueIndicator.classList.remove('bg-[var(--color-coral)]')
+        queueIndicator.classList.add('bg-emerald-500')
       }
+    }
+  }
+
+  // Animate confetti
+  function triggerConfetti() {
+    confettiParticles.forEach((particle, i) => {
+      gsap.to(particle, {
+        opacity: 1,
+        y: 400 + Math.random() * 200,
+        x: (Math.random() - 0.5) * 100,
+        rotation: Math.random() * 720,
+        duration: 2 + Math.random(),
+        ease: 'power2.out',
+        delay: i * 0.05
+      })
     })
   }
 
   if (prefersReducedMotion) {
-    // No animation, just show final state
+    // Show all clips immediately
+    clips.forEach(clip => {
+      clip.style.opacity = '1'
+    })
     return
   }
 
-  // Calculate scroll distance (content width minus visible area)
-  const contentWidth = content.offsetWidth
-  const containerWidth = content.parentElement?.offsetWidth || contentWidth / 2
-  const scrollDistance = contentWidth - containerWidth
-
   // Track label width (48px = w-12)
   const trackLabelWidth = 48
-  const playheadStartPos = trackLabelWidth + 4 // 4px padding
+
+  let confettiTriggered = false
+  let currentPhase = 'timeline'
 
   // Create the scroll-triggered animation
-  gsap.timeline({
-    scrollTrigger: {
-      trigger: section,
-      start: 'top top',
-      end: 'bottom bottom',
-      scrub: 1,
-      onUpdate: (self) => {
-        const progress = self.progress
+  ScrollTrigger.create({
+    trigger: section,
+    start: 'top top',
+    end: 'bottom bottom',
+    scrub: 1,
+    onUpdate: (self) => {
+      const progress = self.progress
 
-        // Update timecode (0 to 15 minutes = 900 seconds)
-        const currentTime = progress * 900
+      // === ACT 1: TIMELINE (0% - 55%) ===
+      if (progress < ZONES.TIMELINE_END) {
+        if (currentPhase !== 'timeline') {
+          currentPhase = 'timeline'
+          // Show timeline, hide others
+          actTimeline.style.opacity = '1'
+          actTimeline.style.transform = 'translateX(0)'
+          actTimeline.style.pointerEvents = 'auto'
+          if (actRender) {
+            actRender.style.opacity = '0'
+            actRender.style.transform = 'translateX(100px)'
+            actRender.style.pointerEvents = 'none'
+          }
+          if (actSuccess) {
+            actSuccess.style.opacity = '0'
+            actSuccess.style.transform = 'scale(0.95)'
+            actSuccess.style.pointerEvents = 'none'
+          }
+          // Update header
+          if (actHeader) {
+            actHeader.innerHTML = 'Your Content. <span class="text-[var(--color-coral)]">Our Timeline.</span>'
+          }
+        }
+
+        // Update timeline progress
+        const timelineProgress = progress / ZONES.TIMELINE_END
+
+        // Move playhead
+        const playheadLeft = trackLabelWidth + 4 + (timelineProgress * (window.innerWidth - trackLabelWidth - 100))
+        playhead.style.left = `${Math.min(playheadLeft, window.innerWidth - 50)}px`
+
+        // Update timecode (0 to 20 minutes = 1200 seconds)
+        const currentTime = timelineProgress * 1200
         if (timecodeDisplay) {
           timecodeDisplay.textContent = formatTimecode(currentTime)
         }
 
-        // Update active clip
-        const activeClipId = getActiveClip(progress)
-        updateActiveClip(activeClipId)
+        // Reveal clips
+        updateClipVisibility(progress)
 
-        // Hide scroll hint after scrolling starts
-        if (scrollHint && progress > 0.05) {
-          scrollHint.style.opacity = '0'
-        } else if (scrollHint && progress <= 0.05) {
-          scrollHint.style.opacity = '0.6'
+        // Update detail panel
+        updateTimelineDetail(progress)
+
+        // Hide scroll hint
+        if (scrollHint) {
+          scrollHint.style.opacity = progress > 0.05 ? '0' : '0.6'
+        }
+      }
+
+      // === TRANSITION (55% - 60%) ===
+      else if (progress < ZONES.TRANSITION_END) {
+        const transitionProgress = (progress - ZONES.TIMELINE_END) / (ZONES.TRANSITION_END - ZONES.TIMELINE_END)
+
+        // Cross-fade timeline out, render queue in
+        actTimeline.style.opacity = String(1 - transitionProgress)
+        actTimeline.style.transform = `translateX(${-transitionProgress * 100}px)`
+
+        if (actRender) {
+          actRender.style.opacity = String(transitionProgress)
+          actRender.style.transform = `translateX(${(1 - transitionProgress) * 100}px)`
+        }
+
+        // Update header mid-transition
+        if (actHeader && transitionProgress > 0.5) {
+          actHeader.innerHTML = 'Your Content. <span class="text-[var(--color-coral)]">Delivered.</span>'
+        }
+
+        currentPhase = 'transition'
+      }
+
+      // === ACT 2: RENDER QUEUE (60% - 95%) ===
+      else if (progress < ZONES.RENDER_END) {
+        if (currentPhase !== 'render') {
+          currentPhase = 'render'
+          // Show render queue, hide timeline
+          actTimeline.style.opacity = '0'
+          actTimeline.style.pointerEvents = 'none'
+          if (actRender) {
+            actRender.style.opacity = '1'
+            actRender.style.transform = 'translateX(0)'
+            actRender.style.pointerEvents = 'auto'
+          }
+          if (actSuccess) {
+            actSuccess.style.opacity = '0'
+            actSuccess.style.pointerEvents = 'none'
+          }
+        }
+
+        // Update render queue progress
+        updateRenderQueue(progress)
+      }
+
+      // === ACT 3: SUCCESS (95% - 100%) ===
+      else {
+        if (currentPhase !== 'success') {
+          currentPhase = 'success'
+          // Hide render queue, show success
+          if (actRender) {
+            actRender.style.opacity = '0'
+            actRender.style.pointerEvents = 'none'
+          }
+          if (actSuccess) {
+            actSuccess.style.opacity = '1'
+            actSuccess.style.transform = 'scale(1)'
+            actSuccess.style.pointerEvents = 'auto'
+          }
+
+          // Trigger confetti once
+          if (!confettiTriggered) {
+            confettiTriggered = true
+            triggerConfetti()
+          }
+
+          // Update header
+          if (actHeader) {
+            actHeader.innerHTML = 'Your Episode is <span class="text-[var(--color-coral)]">Live!</span>'
+          }
         }
       }
     }
   })
-  // Animate the tracks content (horizontal scroll)
-  .to(content, {
-    x: -scrollDistance,
-    ease: 'none'
-  }, 0)
-  // Animate the playhead position
-  .to(playhead, {
-    left: `calc(100% - 10px)`,
-    ease: 'none'
-  }, 0)
 }
 
 // Quote reveal animation - words reveal as you scroll

@@ -108,7 +108,7 @@ const studioImages = [
 
     <!-- Gallery -->
     <div class="p-6 overflow-y-auto max-h-[calc(90vh-200px)]">
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {studioImages.map((image) => (
           <div class="rounded-xl overflow-hidden aspect-video">
             <img
@@ -124,7 +124,7 @@ const studioImages = [
       <!-- Features in modal -->
       <div class="mt-6 pt-6 border-t border-[var(--color-graphite)]">
         <h4 class="text-lg font-semibold text-[var(--color-cream)] mb-4">What's Included</h4>
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {features.map((feature) => (
             <div class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
               <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
