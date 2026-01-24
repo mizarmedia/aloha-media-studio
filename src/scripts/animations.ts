@@ -267,6 +267,42 @@ export function initScrollProgress() {
   })
 }
 
+// Quote reveal animation - words reveal as you scroll
+export function initQuoteReveal() {
+  if (prefersReducedMotion) {
+    gsap.utils.toArray<HTMLElement>('[data-quote-reveal]').forEach((el) => {
+      el.style.opacity = '1'
+    })
+    return
+  }
+
+  gsap.utils.toArray<HTMLElement>('[data-quote-reveal]').forEach((el) => {
+    // Split text into words
+    const text = el.textContent || ''
+    const words = text.split(' ')
+
+    // Wrap each word in a span
+    el.innerHTML = words.map(word =>
+      `<span class="quote-word inline-block" style="opacity: 0.15;">${word}</span>`
+    ).join(' ')
+
+    const wordSpans = el.querySelectorAll('.quote-word')
+
+    // Create a scrub animation that reveals words as you scroll
+    gsap.to(wordSpans, {
+      opacity: 1,
+      stagger: 0.02,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 80%',
+        end: 'bottom 40%',
+        scrub: 1,
+      },
+    })
+  })
+}
+
 // Initialize all animations
 export function initAllAnimations() {
   initSmoothScroll()
@@ -275,4 +311,5 @@ export function initAllAnimations() {
   initMouseGradient()
   initCounters()
   initScrollProgress()
+  initQuoteReveal()
 }

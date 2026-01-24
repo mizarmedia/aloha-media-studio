@@ -12,9 +12,9 @@ const problems = [
     description: "And you shouldn't have to be."
   },
   {
-    icon: 'mic',
-    title: "You're not sure anyone would watch.",
-    description: "(They will.)"
+    icon: 'algorithm',
+    title: "You're the expert.",
+    description: "You shouldn't have to fight the algorithm."
   }
 ]
 ---
@@ -24,8 +24,11 @@ const problems = [
     <!-- Header -->
     <div class="text-center mb-16">
       <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--color-cream)]" data-animate="fade-up">
-        You've Thought About Starting a Podcast. Here's Why You Haven't.
+        You've thought about starting a podcast.
       </h2>
+      <p class="text-xl text-[var(--color-mist)] mt-4" data-animate="fade-up">
+        Here's why you haven't.
+      </p>
     </div>
 
     <!-- 3-Column Grid -->
@@ -48,10 +51,9 @@ const problems = [
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
             )}
-            {problem.icon === 'mic' && (
+            {problem.icon === 'algorithm' && (
               <svg class="w-8 h-8 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             )}
           </div>
