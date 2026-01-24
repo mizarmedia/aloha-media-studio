@@ -4,11 +4,11 @@ import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
 
 const studioFeatures = [
-  { icon: 'video', label: '4K Production', desc: 'Sony cameras & Aputure lighting' },
+  { icon: 'light', label: 'Lighting Equipment', desc: 'Professional Aputure lighting included' },
+  { icon: 'video', label: 'Camera Equipment', desc: 'Available upon request & approval' },
   { icon: 'mic', label: 'Pro Audio', desc: 'Professional microphones & recording' },
   { icon: 'layout', label: 'Dual Spaces', desc: 'Podcast room + main production studio' },
   { icon: 'wifi', label: 'High-Speed WiFi', desc: 'Fast, reliable connection' },
-  { icon: 'coffee', label: 'Guest Area', desc: 'Comfortable seating & refreshments' },
   { icon: 'car', label: 'Free Parking', desc: 'Dedicated spots for clients' },
 ]
 
@@ -51,6 +51,7 @@ const pricingTiers = [
       'Post-production workspace',
     ],
     popular: false,
+    contactOnly: true,
   },
 ]
 
@@ -174,6 +175,7 @@ const studioImages = [
             <div class="text-center group">
               <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[var(--color-coral)]/10 flex items-center justify-center group-hover:bg-[var(--color-coral)]/20 group-hover:scale-110 transition-all duration-300">
                 <svg class="w-7 h-7 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  {feature.icon === 'light' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />}
                   {feature.icon === 'video' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />}
                   {feature.icon === 'mic' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />}
                   {feature.icon === 'layout' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />}
@@ -266,16 +268,16 @@ const studioImages = [
                 ))}
               </ul>
               
-              <a 
-                href="#booking"
+              <a
+                href={tier.contactOnly ? "/#contact" : "#booking"}
                 class:list={[
                   "block w-full py-4 text-center font-semibold rounded-full transition-all duration-300",
-                  tier.popular 
-                    ? "bg-[var(--color-void)] text-[var(--color-coral)] hover:bg-[var(--color-charcoal)]" 
+                  tier.popular
+                    ? "bg-[var(--color-void)] text-[var(--color-coral)] hover:bg-[var(--color-charcoal)]"
                     : "border-2 border-[var(--color-ash)] text-[var(--color-cream)] hover:border-[var(--color-coral)] hover:text-[var(--color-coral)]"
                 ]}
               >
-                Book Now
+                {tier.contactOnly ? "Contact Us" : "Book Now"}
               </a>
             </div>
           ))}
@@ -315,17 +317,17 @@ const studioImages = [
           <div class="p-6 bg-[var(--color-void)] rounded-2xl border border-[var(--color-graphite)]">
             <h4 class="font-semibold text-[var(--color-cream)] mb-3">Booking Policy</h4>
             <ul class="text-sm text-[var(--color-mist)] space-y-2">
-              <li>• 50% deposit to confirm</li>
+              <li>• 100% deposit required to confirm</li>
               <li>• 48-hour cancellation for full refund</li>
-              <li>• Rescheduling available with notice</li>
+              <li>• Rescheduling available by <a href="/#contact" class="text-[var(--color-coral)] hover:underline">contacting us</a></li>
             </ul>
           </div>
           <div class="p-6 bg-[var(--color-void)] rounded-2xl border border-[var(--color-graphite)]">
-            <h4 class="font-semibold text-[var(--color-cream)] mb-3">Add-Ons</h4>
+            <h4 class="font-semibold text-[var(--color-cream)] mb-3">What's Included</h4>
             <ul class="text-sm text-[var(--color-mist)] space-y-2">
-              <li>• Equipment rental available</li>
-              <li>• Production assistance on request</li>
-              <li>• Editing services available</li>
+              <li>• Professional lighting equipment</li>
+              <li>• Camera equipment upon request & approval</li>
+              <li>• Full-day bookings require <a href="/#contact" class="text-[var(--color-coral)] hover:underline">advance contact</a></li>
             </ul>
           </div>
         </div>

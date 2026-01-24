@@ -1,116 +1,110 @@
 ---
-// Contact - Simple, minimal form
-// Research: 3-5 fields max for best conversion
+// Contact - Discovery call focused form
 ---
 
 <section id="contact" class="py-24 md:py-32 bg-[var(--color-void)]">
   <div class="max-w-4xl mx-auto px-6">
     <!-- Header -->
     <div class="text-center mb-12">
-      <p class="text-[var(--color-coral)] text-sm font-medium tracking-widest uppercase mb-4">
-        Start a Conversation
-      </p>
-      <h2 class="text-4xl md:text-5xl font-bold text-[var(--color-cream)] mb-4">
-        Let's create together
+      <h2 class="text-4xl md:text-5xl font-bold text-[var(--color-cream)] mb-4" data-animate="fade-up">
+        Ready to Launch?
       </h2>
-      <p class="text-[var(--color-mist)] text-lg">
-        Tell us about your project. We'll get back to you within 24 hours.
+      <p class="text-[var(--color-mist)] text-lg max-w-xl mx-auto" data-animate="fade-up">
+        Book a free discovery call. No pressure, no pitch—just a conversation about your podcast.
       </p>
     </div>
-    
+
     <!-- Form -->
-    <form 
-      action="https://formsubmit.co/media@alohapublishing.com" 
+    <form
+      action="https://formsubmit.co/media@alohapublishing.com"
       method="POST"
       class="space-y-6"
     >
       <!-- Honeypot -->
       <input type="text" name="_honey" style="display:none">
-      <!-- Disable captcha -->
-      <input type="hidden" name="_captcha" value="false">
+      <!-- Enable CAPTCHA for spam protection -->
+      <input type="hidden" name="_captcha" value="true">
+      <!-- Time check field (spam bots submit too fast) -->
+      <input type="hidden" name="_form_loaded" id="form-loaded-time" value="">
       <!-- Success redirect -->
       <input type="hidden" name="_next" value="https://alohamediastudio.com/?submitted=true">
-      
+      <!-- Subject line for email -->
+      <input type="hidden" name="_subject" value="New Podcast Discovery Call Request">
+
       <div class="grid md:grid-cols-2 gap-6">
         <!-- Name -->
         <div>
           <label for="name" class="block text-sm font-medium text-[var(--color-mist)] mb-2">
             Name
           </label>
-          <input 
-            type="text" 
-            id="name" 
-            name="name" 
+          <input
+            type="text"
+            id="name"
+            name="name"
             required
             class="w-full px-4 py-3 bg-[var(--color-charcoal)] border border-[var(--color-graphite)] rounded-xl text-[var(--color-cream)] placeholder-[var(--color-stone)] focus:outline-none focus:border-[var(--color-coral)] transition-colors"
             placeholder="Your name"
           />
         </div>
-        
+
         <!-- Email -->
         <div>
           <label for="email" class="block text-sm font-medium text-[var(--color-mist)] mb-2">
             Email
           </label>
-          <input 
-            type="email" 
-            id="email" 
-            name="email" 
+          <input
+            type="email"
+            id="email"
+            name="email"
             required
             class="w-full px-4 py-3 bg-[var(--color-charcoal)] border border-[var(--color-graphite)] rounded-xl text-[var(--color-cream)] placeholder-[var(--color-stone)] focus:outline-none focus:border-[var(--color-coral)] transition-colors"
             placeholder="you@example.com"
           />
         </div>
       </div>
-      
-      <!-- Project Type -->
+
+      <!-- Expertise Topic -->
       <div>
-        <label for="project-type" class="block text-sm font-medium text-[var(--color-mist)] mb-2">
-          What are you looking for?
+        <label for="expertise" class="block text-sm font-medium text-[var(--color-mist)] mb-2">
+          What topic would you be the expert on?
         </label>
-        <select 
-          id="project-type" 
-          name="project_type"
-          class="w-full px-4 py-3 bg-[var(--color-charcoal)] border border-[var(--color-graphite)] rounded-xl text-[var(--color-cream)] focus:outline-none focus:border-[var(--color-coral)] transition-colors"
-        >
-          <option value="">Select a service</option>
-          <option value="video">Video Production</option>
-          <option value="photo">Photography</option>
-          <option value="podcast">Podcasting</option>
-          <option value="branding">Branding & Design</option>
-          <option value="studio">Studio Rental</option>
-          <option value="other">Something else</option>
-        </select>
+        <input
+          type="text"
+          id="expertise"
+          name="expertise_topic"
+          class="w-full px-4 py-3 bg-[var(--color-charcoal)] border border-[var(--color-graphite)] rounded-xl text-[var(--color-cream)] placeholder-[var(--color-stone)] focus:outline-none focus:border-[var(--color-coral)] transition-colors"
+          placeholder="e.g., Real estate investing, Leadership coaching, Small business finance..."
+        />
       </div>
-      
+
       <!-- Message -->
       <div>
         <label for="message" class="block text-sm font-medium text-[var(--color-mist)] mb-2">
-          Tell us about your project
+          Tell us more (optional)
         </label>
-        <textarea 
-          id="message" 
-          name="message" 
+        <textarea
+          id="message"
+          name="message"
           rows="4"
           class="w-full px-4 py-3 bg-[var(--color-charcoal)] border border-[var(--color-graphite)] rounded-xl text-[var(--color-cream)] placeholder-[var(--color-stone)] focus:outline-none focus:border-[var(--color-coral)] transition-colors resize-none"
-          placeholder="Brief description of what you're looking to create..."
+          placeholder="Any additional context about your business or podcast goals..."
         ></textarea>
       </div>
-      
+
       <!-- Submit -->
       <div class="text-center">
-        <button 
+        <button
           type="submit"
           class="inline-flex items-center gap-3 px-8 py-4 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold text-lg rounded-full transition-all duration-300 hover:bg-[var(--color-coral-light)] hover:scale-105 hover:shadow-2xl hover:shadow-[var(--color-coral)]/30"
         >
-          Send Message
+          Book My Call
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
         </button>
       </div>
     </form>
-    
+
     <!-- Alternative contact -->
     <div class="mt-12 pt-12 border-t border-[var(--color-graphite)] text-center">
       <p class="text-[var(--color-stone)] mb-4">Prefer email?</p>
@@ -120,3 +114,32 @@
     </div>
   </div>
 </section>
+
+<script>
+  // Spam protection: Time-based validation
+  // Bots typically submit forms instantly, humans take at least a few seconds
+  const MIN_SUBMISSION_TIME = 3000 // 3 seconds minimum
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('#contact form') as HTMLFormElement
+    const loadedTimeInput = document.getElementById('form-loaded-time') as HTMLInputElement
+
+    if (!form || !loadedTimeInput) return
+
+    // Record when form became visible/loaded
+    const loadTime = Date.now()
+    loadedTimeInput.value = loadTime.toString()
+
+    form.addEventListener('submit', (e) => {
+      const submitTime = Date.now()
+      const elapsed = submitTime - loadTime
+
+      // Block if submitted too quickly (likely a bot)
+      if (elapsed < MIN_SUBMISSION_TIME) {
+        e.preventDefault()
+        alert('Please take a moment to fill out the form completely.')
+        return false
+      }
+    })
+  })
+</script>
