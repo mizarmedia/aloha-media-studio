@@ -1,10 +1,17 @@
 ---
-// StudioCTA - Professional studio in Eagle, Idaho
+// StudioCTA - Professional studio in Eagle, Idaho with modal gallery
 const features = [
   'Sony cameras & Aputure lighting',
   'Professional audio equipment',
   'Podcast room + main studio',
   'On-camera coaching available'
+]
+
+const studioImages = [
+  { src: '/images/studio/studio-interior-1.jpg', alt: 'Main studio space' },
+  { src: '/images/studio/studio-interior-2.jpg', alt: 'Podcast recording setup' },
+  { src: '/images/studio/studio-interior-3.jpg', alt: 'Studio lighting setup' },
+  { src: '/images/studio/studio-exterior-1.jpg', alt: 'Studio exterior' },
 ]
 ---
 
@@ -34,16 +41,17 @@ const features = [
           Professional podcast studio in Eagle, Idaho. You talk. We handle cameras, lights, and audio.
         </p>
 
-        <!-- CTA -->
-        <a
-          href="/studio"
+        <!-- CTA - Opens Modal -->
+        <button
+          id="open-studio-modal"
+          type="button"
           class="inline-flex items-center gap-3 px-6 py-3 bg-transparent border-2 border-[var(--color-coral)] text-[var(--color-coral)] font-semibold rounded-full transition-all duration-300 hover:bg-[var(--color-coral)] hover:text-[var(--color-void)]"
         >
           See the Studio
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
-        </a>
+        </button>
 
         <!-- Remote option -->
         <p class="mt-4 text-sm text-[var(--color-stone)]">
@@ -67,3 +75,117 @@ const features = [
     </div>
   </div>
 </section>
+
+<!-- Studio Modal -->
+<div
+  id="studio-modal"
+  class="fixed inset-0 z-50 hidden items-center justify-center p-4"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="studio-modal-title"
+>
+  <!-- Backdrop -->
+  <div class="absolute inset-0 bg-[var(--color-void)]/90 backdrop-blur-sm" id="studio-modal-backdrop"></div>
+
+  <!-- Modal Content -->
+  <div class="relative bg-[var(--color-charcoal)] rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden border border-[var(--color-graphite)]">
+    <!-- Header -->
+    <div class="flex items-center justify-between p-6 border-b border-[var(--color-graphite)]">
+      <h3 id="studio-modal-title" class="text-2xl font-bold text-[var(--color-cream)]">
+        The Studio
+      </h3>
+      <button
+        id="close-studio-modal"
+        type="button"
+        class="w-10 h-10 rounded-full bg-[var(--color-void)] flex items-center justify-center text-[var(--color-mist)] hover:text-[var(--color-cream)] transition-colors"
+        aria-label="Close modal"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Gallery -->
+    <div class="p-6 overflow-y-auto max-h-[calc(90vh-200px)]">
+      <div class="grid grid-cols-2 gap-4">
+        {studioImages.map((image) => (
+          <div class="rounded-xl overflow-hidden aspect-video">
+            <img
+              src={image.src}
+              alt={image.alt}
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+
+      <!-- Features in modal -->
+      <div class="mt-6 pt-6 border-t border-[var(--color-graphite)]">
+        <h4 class="text-lg font-semibold text-[var(--color-cream)] mb-4">What's Included</h4>
+        <div class="grid grid-cols-2 gap-3">
+          {features.map((feature) => (
+            <div class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
+              <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              {feature}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="p-6 border-t border-[var(--color-graphite)] bg-[var(--color-void)]/30">
+      <a
+        href="#contact"
+        id="modal-cta"
+        class="block w-full py-4 text-center bg-[var(--color-coral)] text-[var(--color-void)] font-semibold rounded-full hover:bg-[var(--color-coral-light)] transition-colors"
+      >
+        Book Your Session
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('studio-modal')
+    const openBtn = document.getElementById('open-studio-modal')
+    const closeBtn = document.getElementById('close-studio-modal')
+    const backdrop = document.getElementById('studio-modal-backdrop')
+    const modalCta = document.getElementById('modal-cta')
+
+    if (!modal || !openBtn || !closeBtn || !backdrop) return
+
+    function openModal() {
+      modal.classList.remove('hidden')
+      modal.classList.add('flex')
+      document.body.style.overflow = 'hidden'
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden')
+      modal.classList.remove('flex')
+      document.body.style.overflow = ''
+    }
+
+    openBtn.addEventListener('click', openModal)
+    closeBtn.addEventListener('click', closeModal)
+    backdrop.addEventListener('click', closeModal)
+
+    // Close on CTA click (after navigation starts)
+    modalCta?.addEventListener('click', () => {
+      closeModal()
+    })
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeModal()
+      }
+    })
+  })
+</script>

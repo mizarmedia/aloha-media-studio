@@ -4,17 +4,17 @@ const steps = [
   {
     number: "01",
     title: "One Call. Six Episodes.",
-    description: "One strategy call. We map out your 6 episodes, topics, and guests."
+    description: "One strategy call. We map your topics, guests, and episode flow."
   },
   {
     number: "02",
     title: "You Show Up & Talk",
-    description: "45 minutes in our Eagle, ID studio. That's your only job."
+    description: "45 minutes per episode in our Eagle studio. Cameras, lights, audio handled."
   },
   {
     number: "03",
-    title: "We Take It From Here",
-    description: "Professional editing. Your brand. YouTube, Spotify, Apple, and more."
+    title: "We Deliver Your Show",
+    description: "Full editing, your branding, published to YouTube, Spotify, and Apple Podcasts."
   }
 ]
 ---
@@ -23,8 +23,8 @@ const steps = [
   <div class="max-w-5xl mx-auto px-6">
     <!-- Header -->
     <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--color-cream)]" data-split-text>
-        Here's How It Works
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--color-cream)]" data-animate="fade-up">
+        Your Only Job: Show Up and Talk
       </h2>
     </div>
 
@@ -37,7 +37,7 @@ const steps = [
           style={`--delay: ${index * 0.15}s`}
         >
           <!-- Number -->
-          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[var(--color-charcoal)] border-2 border-[var(--color-coral)] mb-6" data-step-reveal>
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[var(--color-charcoal)] border-2 border-[var(--color-coral)] mb-6">
             <span class="text-xl font-bold text-[var(--color-coral)]">{step.number}</span>
           </div>
 

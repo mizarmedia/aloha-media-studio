@@ -1,18 +1,30 @@
 ---
 // ProblemStatement - Real pain points based on research
 const problems = [
-  { icon: 'clock', title: "I don't have time" },
-  { icon: 'gear', title: "I don't know the tech" },
-  { icon: 'mic', title: "Who would even listen?" }
+  {
+    icon: 'clock',
+    title: "You're running a business.",
+    description: "You don't have 10 hours a week for content."
+  },
+  {
+    icon: 'gear',
+    title: "You're not a video editor.",
+    description: "And you shouldn't have to be."
+  },
+  {
+    icon: 'mic',
+    title: "You're not sure anyone would watch.",
+    description: "(They will.)"
+  }
 ]
 ---
 
-<section id="problem" class="py-20 md:py-28 bg-[var(--color-void)]">
+<section id="problem" class="py-20 md:py-28 bg-[var(--color-charcoal)]">
   <div class="max-w-6xl mx-auto px-6">
     <!-- Header -->
     <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--color-cream)]" data-split-text>
-        What's Really Stopping You?
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--color-cream)]" data-animate="fade-up">
+        You've Thought About Starting a Podcast. Here's Why You Haven't.
       </h2>
     </div>
 
@@ -20,7 +32,7 @@ const problems = [
     <div class="grid md:grid-cols-3 gap-8" data-animate-stagger>
       {problems.map((problem, index) => (
         <div
-          class="text-center p-8 rounded-2xl bg-[var(--color-charcoal)]/50 border border-[var(--color-graphite)] hover:border-[var(--color-coral)]/30 transition-colors"
+          class="text-center p-8 rounded-2xl bg-[var(--color-void)]/50 border border-[var(--color-graphite)] hover:border-[var(--color-coral)]/30 transition-colors"
           data-animate-child
         >
           <!-- Icon -->
@@ -45,9 +57,12 @@ const problems = [
           </div>
 
           <!-- Content -->
-          <h3 class="text-xl font-semibold text-[var(--color-cream)]">
+          <h3 class="text-xl font-semibold text-[var(--color-cream)] mb-2">
             {problem.title}
           </h3>
+          <p class="text-[var(--color-mist)] text-sm">
+            {problem.description}
+          </p>
         </div>
       ))}
     </div>

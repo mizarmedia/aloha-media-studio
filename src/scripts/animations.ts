@@ -1,4 +1,5 @@
 // Premium animations with GSAP + Lenis
+// Stripped to core 6: fade-up, scale-up, stagger, smooth scroll, magnetic buttons, gradient-shift
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from '@studio-freight/lenis'
@@ -6,8 +7,13 @@ import Lenis from '@studio-freight/lenis'
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger)
 
+// Check for reduced motion preference
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
 // Initialize smooth scroll
 export function initSmoothScroll() {
+  if (prefersReducedMotion) return null
+
   const lenis = new Lenis({
     duration: 1.2,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -29,12 +35,25 @@ export function initSmoothScroll() {
 
 // Initialize scroll animations
 export function initScrollAnimations() {
-  // Fade up animations
+  if (prefersReducedMotion) {
+    // Show all elements immediately if reduced motion is preferred
+    gsap.utils.toArray<HTMLElement>('[data-animate]').forEach((el) => {
+      el.style.opacity = '1'
+      el.style.transform = 'none'
+    })
+    gsap.utils.toArray<HTMLElement>('[data-animate-child]').forEach((el) => {
+      el.style.opacity = '1'
+      el.style.transform = 'none'
+    })
+    return
+  }
+
+  // Fade up animations (primary reveal)
   gsap.utils.toArray<HTMLElement>('[data-animate="fade-up"]').forEach((el) => {
-    gsap.fromTo(el, 
-      { 
-        opacity: 0, 
-        y: 60 
+    gsap.fromTo(el,
+      {
+        opacity: 0,
+        y: 60
       },
       {
         opacity: 1,
@@ -67,12 +86,12 @@ export function initScrollAnimations() {
     )
   })
 
-  // Scale up animations
+  // Scale up animations (price card)
   gsap.utils.toArray<HTMLElement>('[data-animate="scale-up"]').forEach((el) => {
     gsap.fromTo(el,
-      { 
-        opacity: 0, 
-        scale: 0.9 
+      {
+        opacity: 0,
+        scale: 0.9
       },
       {
         opacity: 1,
@@ -92,9 +111,9 @@ export function initScrollAnimations() {
   gsap.utils.toArray<HTMLElement>('[data-animate-stagger]').forEach((container) => {
     const children = container.querySelectorAll('[data-animate-child]')
     gsap.fromTo(children,
-      { 
-        opacity: 0, 
-        y: 40 
+      {
+        opacity: 0,
+        y: 40
       },
       {
         opacity: 1,
@@ -110,97 +129,21 @@ export function initScrollAnimations() {
       }
     )
   })
-
-  // Parallax effect
-  gsap.utils.toArray<HTMLElement>('[data-parallax]').forEach((el) => {
-    const speed = parseFloat(el.dataset.parallax || '0.2')
-    gsap.to(el, {
-      yPercent: -30 * speed,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: el,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: true,
-      },
-    })
-  })
-
-  // Text reveal animation
-  gsap.utils.toArray<HTMLElement>('[data-animate="text-reveal"]').forEach((el) => {
-    gsap.fromTo(el,
-      { 
-        clipPath: 'inset(0 100% 0 0)',
-        opacity: 0 
-      },
-      {
-        clipPath: 'inset(0 0% 0 0)',
-        opacity: 1,
-        duration: 1.2,
-        ease: 'power4.out',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
-        },
-      }
-    )
-  })
-
-  // Slide in from left
-  gsap.utils.toArray<HTMLElement>('[data-animate="slide-left"]').forEach((el) => {
-    gsap.fromTo(el,
-      { 
-        opacity: 0, 
-        x: -60 
-      },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-      }
-    )
-  })
-
-  // Slide in from right
-  gsap.utils.toArray<HTMLElement>('[data-animate="slide-right"]').forEach((el) => {
-    gsap.fromTo(el,
-      { 
-        opacity: 0, 
-        x: 60 
-      },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 85%',
-          toggleActions: 'play none none reverse',
-        },
-      }
-    )
-  })
 }
 
-// Magnetic button effect
+// Magnetic button effect (CTAs only)
 export function initMagneticButtons() {
+  if (prefersReducedMotion) return
+
   const buttons = document.querySelectorAll('[data-magnetic]')
-  
+
   buttons.forEach((btn) => {
     btn.addEventListener('mousemove', (e: Event) => {
       const mouseEvent = e as MouseEvent
       const rect = (btn as HTMLElement).getBoundingClientRect()
       const x = mouseEvent.clientX - rect.left - rect.width / 2
       const y = mouseEvent.clientY - rect.top - rect.height / 2
-      
+
       gsap.to(btn, {
         x: x * 0.3,
         y: y * 0.3,
@@ -208,7 +151,7 @@ export function initMagneticButtons() {
         ease: 'power2.out',
       })
     })
-    
+
     btn.addEventListener('mouseleave', () => {
       gsap.to(btn, {
         x: 0,
@@ -220,10 +163,12 @@ export function initMagneticButtons() {
   })
 }
 
-
-// Mouse-following gradient glow
+// Mouse-following gradient glow - throttled to 60fps
 export function initMouseGradient() {
+  if (prefersReducedMotion) return
+
   const containers = document.querySelectorAll('[data-mouse-glow]')
+  const frameInterval = 1000 / 60 // 60fps throttle
 
   containers.forEach((container) => {
     const el = container as HTMLElement
@@ -243,7 +188,13 @@ export function initMouseGradient() {
       glow.style.opacity = '0'
     })
 
+    // Throttled mousemove handler
+    let lastTime = 0
     el.addEventListener('mousemove', (e: MouseEvent) => {
+      const now = Date.now()
+      if (now - lastTime < frameInterval) return
+      lastTime = now
+
       const rect = el.getBoundingClientRect()
       const x = ((e.clientX - rect.left) / rect.width) * 100
       const y = ((e.clientY - rect.top) / rect.height) * 100
@@ -255,6 +206,21 @@ export function initMouseGradient() {
 
 // Counter animation - numbers count up on scroll
 export function initCounters() {
+  if (prefersReducedMotion) {
+    // Just show the final values
+    gsap.utils.toArray<HTMLElement>('[data-counter]').forEach((el) => {
+      const target = parseFloat(el.dataset.counter || el.textContent?.replace(/[^0-9.]/g, '') || '0')
+      const prefix = el.dataset.counterPrefix || ''
+      const suffix = el.dataset.counterSuffix || ''
+      const decimals = el.dataset.counterDecimals ? parseInt(el.dataset.counterDecimals) : 0
+      el.textContent = prefix + target.toLocaleString('en-US', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+      }) + suffix
+    })
+    return
+  }
+
   gsap.utils.toArray<HTMLElement>('[data-counter]').forEach((el) => {
     const target = parseFloat(el.dataset.counter || el.textContent?.replace(/[^0-9.]/g, '') || '0')
     const prefix = el.dataset.counterPrefix || ''
@@ -282,32 +248,10 @@ export function initCounters() {
   })
 }
 
-
-// Step number reveal animation - simple fade + scale
-export function initStepReveal() {
-  gsap.utils.toArray<HTMLElement>('[data-step-reveal]').forEach((el, index) => {
-    gsap.fromTo(el,
-      {
-        scale: 0.8,
-        opacity: 0
-      },
-      {
-        scale: 1,
-        opacity: 1,
-        duration: 0.6,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 85%',
-        },
-        delay: index * 0.1
-      }
-    )
-  })
-}
-
 // Hero scroll progress indicator
 export function initScrollProgress() {
+  if (prefersReducedMotion) return
+
   const progressBar = document.querySelector('[data-scroll-progress]')
   if (!progressBar) return
 
@@ -323,64 +267,6 @@ export function initScrollProgress() {
   })
 }
 
-// Split text animation - words animate in with stagger
-export function initSplitText() {
-  gsap.utils.toArray<HTMLElement>('[data-split-text]').forEach((el) => {
-    // Split text into words
-    const text = el.textContent || ''
-    const words = text.split(' ')
-
-    // Wrap each word in a span
-    el.innerHTML = words.map(word =>
-      `<span class="split-word inline-block" style="opacity: 0; transform: translateY(30px);">${word}</span>`
-    ).join(' ')
-
-    const wordSpans = el.querySelectorAll('.split-word')
-
-    gsap.to(wordSpans, {
-      opacity: 1,
-      y: 0,
-      duration: 0.6,
-      stagger: 0.05,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: el,
-        start: 'top 85%',
-        toggleActions: 'play none none reverse',
-      },
-    })
-  })
-}
-
-// Quote reveal animation - words reveal as you scroll
-export function initQuoteReveal() {
-  gsap.utils.toArray<HTMLElement>('[data-quote-reveal]').forEach((el) => {
-    // Split text into words
-    const text = el.textContent || ''
-    const words = text.split(' ')
-
-    // Wrap each word in a span
-    el.innerHTML = words.map(word =>
-      `<span class="quote-word inline-block" style="opacity: 0.15;">${word}</span>`
-    ).join(' ')
-
-    const wordSpans = el.querySelectorAll('.quote-word')
-
-    // Create a scrub animation that reveals words as you scroll
-    gsap.to(wordSpans, {
-      opacity: 1,
-      stagger: 0.02,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: el,
-        start: 'top 80%',
-        end: 'bottom 40%',
-        scrub: 1,
-      },
-    })
-  })
-}
-
 // Initialize all animations
 export function initAllAnimations() {
   initSmoothScroll()
@@ -388,8 +274,5 @@ export function initAllAnimations() {
   initMagneticButtons()
   initMouseGradient()
   initCounters()
-  initStepReveal()
   initScrollProgress()
-  initSplitText()
-  initQuoteReveal()
 }

@@ -2,21 +2,21 @@
 // Single featured testimonial - clean, focused design
 ---
 
-<section class="py-24 bg-[var(--color-void)]">
+<section class="py-24 bg-[var(--color-charcoal)]">
   <div class="max-w-4xl mx-auto px-6">
     <div class="text-center">
       <!-- Quote icon -->
-      <svg class="w-12 h-12 mx-auto mb-8 text-[var(--color-coral)]/30" fill="currentColor" viewBox="0 0 24 24">
+      <svg class="w-12 h-12 mx-auto mb-8 text-[var(--color-coral)]/30" fill="currentColor" viewBox="0 0 24 24" data-animate="fade-up">
         <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
       </svg>
 
       <!-- Quote -->
-      <blockquote class="text-xl md:text-2xl lg:text-3xl text-[var(--color-cream)] font-medium leading-relaxed mb-10" data-quote-reveal>
+      <blockquote class="text-xl md:text-2xl lg:text-3xl text-[var(--color-cream)] font-medium leading-relaxed mb-10" data-animate="fade-up">
         "It has been a pleasure to work with Nation Goetter and his team at Aloha Media for the last two years. It is great that Nation makes the process of video and podcasting easy, it is even better that he is an expert. The quality of the product is higher than many other well-funded media enterprises."
       </blockquote>
 
       <!-- Author -->
-      <div class="flex flex-col items-center gap-4">
+      <div class="flex flex-col items-center gap-4" data-animate="fade-up">
         <div class="flex items-center gap-4">
           <img
             src="/images/testimonials/roger-hall.jpg"
@@ -44,6 +44,18 @@
             <span class="text-sm font-medium text-[var(--color-coral)]">260,000+ views</span>
           </div>
         </div>
+        <!-- Link to podcast -->
+        <a
+          href="https://www.youtube.com/@SecondThoughtsTV"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 mt-4 text-sm text-[var(--color-coral)] hover:text-[var(--color-coral-light)] transition-colors"
+        >
+          See his podcast
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
       </div>
     </div>
   </div>
