@@ -1,79 +1,30 @@
 ---
-// ProblemStatement - Real pain points based on research
-const problems = [
-  {
-    icon: 'clock',
-    title: "You're running a business.",
-    description: "You don't have 10 hours a week for content."
-  },
-  {
-    icon: 'gear',
-    title: "You're not a video editor.",
-    description: "And you shouldn't have to be."
-  },
-  {
-    icon: 'algorithm',
-    title: "You're the expert.",
-    description: "You shouldn't have to fight the algorithm."
-  }
+// ProblemStatement - Brief empathy with strong value proposition
+const points = [
+  "You're running a business. You don't have 10 hours a week for content.",
+  "You're not a video editor. And you shouldn't have to be.",
+  "You're the expert. You shouldn't have to fight the algorithm."
 ]
 ---
 
 <section id="problem" class="py-20 md:py-28 bg-[var(--color-charcoal)]">
-  <div class="max-w-6xl mx-auto px-6">
-    <!-- Header -->
-    <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--color-cream)]" data-animate="fade-up">
-        You've thought about starting a podcast.
-      </h2>
-      <p class="text-xl text-[var(--color-mist)] mt-4" data-animate="fade-up">
-        Here's why you haven't.
-      </p>
-    </div>
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <!-- Big Headline -->
+    <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-[var(--color-cream)] mb-12" data-animate="fade-up">
+      You talk.<br />
+      <span class="text-[var(--color-coral)]">We do everything else.</span>
+    </h2>
 
-    <!-- 3-Column Grid -->
-    <div class="grid md:grid-cols-3 gap-8" data-animate-stagger>
-      {problems.map((problem, index) => (
-        <div
-          class="text-center p-8 rounded-2xl bg-[var(--color-void)]/50 border border-[var(--color-graphite)] hover:border-[var(--color-coral)]/30 transition-colors"
+    <!-- Brief Points - No boxes, just clean text -->
+    <div class="space-y-6 max-w-2xl mx-auto" data-animate-stagger>
+      {points.map((point) => (
+        <p
+          class="text-lg md:text-xl text-[var(--color-mist)]"
           data-animate-child
         >
-          <!-- Icon -->
-          <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-[var(--color-coral)]/10 flex items-center justify-center">
-            {problem.icon === 'clock' && (
-              <svg class="w-8 h-8 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            )}
-            {problem.icon === 'gear' && (
-              <svg class="w-8 h-8 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            )}
-            {problem.icon === 'algorithm' && (
-              <svg class="w-8 h-8 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            )}
-          </div>
-
-          <!-- Content -->
-          <h3 class="text-xl font-semibold text-[var(--color-cream)] mb-2">
-            {problem.title}
-          </h3>
-          <p class="text-[var(--color-mist)] text-sm">
-            {problem.description}
-          </p>
-        </div>
+          {point}
+        </p>
       ))}
-    </div>
-
-    <!-- Transition statement -->
-    <div class="text-center mt-16">
-      <p class="text-xl md:text-2xl font-medium text-[var(--color-mist)]" data-animate="fade-up">
-        You talk. We do everything else.
-      </p>
     </div>
   </div>
 </section>
