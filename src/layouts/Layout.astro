@@ -69,8 +69,19 @@ const {
     }
     </script>
   </head>
-  <body class="antialiased">
-    <slot />
+  <body class="antialiased bg-[var(--color-void)] relative">
+    <!-- Ambient gradient for visual continuity -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      <!-- Top-left coral glow -->
+      <div class="absolute -top-[40vh] -left-[20vw] w-[80vw] h-[80vh] rounded-full bg-[var(--color-coral)]/[0.03] blur-[120px]"></div>
+      <!-- Bottom-right subtle glow -->
+      <div class="absolute -bottom-[30vh] -right-[20vw] w-[70vw] h-[70vh] rounded-full bg-[var(--color-coral)]/[0.02] blur-[150px]"></div>
+    </div>
+
+    <!-- Page content -->
+    <div class="relative z-10">
+      <slot />
+    </div>
     
     <!-- Initialize animations -->
     <script>

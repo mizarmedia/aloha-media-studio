@@ -274,6 +274,7 @@ export function initTimelineThread() {
 
   const progressLine = document.querySelector('[data-timeline-progress]')
   const progressLineMobile = document.querySelector('[data-timeline-progress-mobile]')
+  const steps = document.querySelectorAll('[data-timeline-step]')
   const nodes = document.querySelectorAll('[data-timeline-node]')
   const numbers = document.querySelectorAll('[data-timeline-number]')
 
@@ -289,44 +290,41 @@ export function initTimelineThread() {
     return
   }
 
-  // Create main timeline
-  const tl = gsap.timeline({
+  // Line drawing animation - starts when container enters, completes when last step is centered
+  const lineAnimation = gsap.timeline({
     scrollTrigger: {
       trigger: container,
-      start: 'top 70%',
-      end: 'bottom 50%',
-      scrub: 1,
+      start: 'top 80%',
+      end: 'bottom 60%',
+      scrub: 0.5,
     }
   })
 
   // Animate the progress line (desktop)
   if (progressLine) {
-    tl.to(progressLine, {
+    lineAnimation.to(progressLine, {
       strokeDashoffset: 0,
-      duration: 1,
       ease: 'none',
     }, 0)
   }
 
   // Animate the progress line (mobile)
   if (progressLineMobile) {
-    tl.to(progressLineMobile, {
+    lineAnimation.to(progressLineMobile, {
       strokeDashoffset: 0,
-      duration: 1,
       ease: 'none',
     }, 0)
   }
 
-  // Activate nodes at specific points
-  nodes.forEach((node, index) => {
-    const progress = index / (nodes.length - 1) // 0, 0.5, 1
+  // Each step triggers its own node activation
+  steps.forEach((step, index) => {
+    const node = nodes[index]
     const numEl = numbers[index] as HTMLElement
     const target = numEl?.dataset.numberTarget || '00'
 
-    // Add active class at the right moment
     ScrollTrigger.create({
-      trigger: container,
-      start: `top+=${index * 33}% 70%`,
+      trigger: step,
+      start: 'top 75%',
       onEnter: () => {
         node.classList.add('active')
         // Animate number
@@ -334,7 +332,7 @@ export function initTimelineThread() {
           const targetNum = parseInt(target)
           gsap.to({ val: 0 }, {
             val: targetNum,
-            duration: 0.6,
+            duration: 0.5,
             ease: 'power2.out',
             onUpdate: function() {
               numEl.textContent = String(Math.round(this.targets()[0].val)).padStart(2, '0')
