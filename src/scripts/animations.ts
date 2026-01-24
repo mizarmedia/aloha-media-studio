@@ -267,97 +267,123 @@ export function initScrollProgress() {
   })
 }
 
-// Timeline thread animation - line draws and nodes activate on scroll
-export function initTimelineThread() {
-  const container = document.querySelector('[data-timeline-container]')
-  if (!container) return
+// NLE Timeline scroll animation - horizontal scroll driven by vertical scroll
+export function initTimelineScroll() {
+  const section = document.querySelector('[data-timeline-section]')
+  if (!section) return
 
-  const progressLine = document.querySelector('[data-timeline-progress]')
-  const progressLineMobile = document.querySelector('[data-timeline-progress-mobile]')
-  const steps = document.querySelectorAll('[data-timeline-step]')
-  const nodes = document.querySelectorAll('[data-timeline-node]')
-  const numbers = document.querySelectorAll('[data-timeline-number]')
+  const content = document.querySelector('[data-tracks-content]') as HTMLElement
+  const playhead = document.querySelector('[data-playhead]') as HTMLElement
+  const timecodeDisplay = document.querySelector('[data-current-timecode]') as HTMLElement
+  const scrollHint = document.querySelector('[data-scroll-hint]') as HTMLElement
+  const clipDetails = document.querySelectorAll('[data-clip-detail-content]')
+  const clips = document.querySelectorAll('[data-clip]')
+
+  if (!content || !playhead) return
+
+  // Clip boundaries (as percentages of scroll progress)
+  const clipBoundaries = [
+    { id: 'pre-production', start: 0, end: 0.30 },
+    { id: 'recording', start: 0.30, end: 0.67 },
+    { id: 'distribution', start: 0.67, end: 1.0 }
+  ]
+
+  // Format seconds to timecode
+  function formatTimecode(seconds: number): string {
+    const mins = Math.floor(seconds / 60)
+    const secs = Math.floor(seconds % 60)
+    const frames = Math.floor((seconds % 1) * 30) // Assuming 30fps
+    return `00:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`
+  }
+
+  // Get active clip based on progress
+  function getActiveClip(progress: number): string {
+    for (const boundary of clipBoundaries) {
+      if (progress >= boundary.start && progress < boundary.end) {
+        return boundary.id
+      }
+    }
+    return clipBoundaries[clipBoundaries.length - 1].id
+  }
+
+  // Update active clip display
+  function updateActiveClip(clipId: string) {
+    // Update detail panel
+    clipDetails.forEach(detail => {
+      const el = detail as HTMLElement
+      if (el.dataset.clipDetailContent === clipId) {
+        el.classList.remove('hidden')
+        el.classList.add('block')
+      } else {
+        el.classList.add('hidden')
+        el.classList.remove('block')
+      }
+    })
+
+    // Update clip highlights
+    clips.forEach(clip => {
+      const el = clip as HTMLElement
+      if (el.dataset.clip === clipId) {
+        el.classList.add('active')
+      } else {
+        el.classList.remove('active')
+      }
+    })
+  }
 
   if (prefersReducedMotion) {
-    // Show everything immediately
-    if (progressLine) (progressLine as SVGLineElement).style.strokeDashoffset = '0'
-    if (progressLineMobile) (progressLineMobile as SVGLineElement).style.strokeDashoffset = '0'
-    nodes.forEach(node => node.classList.add('active'))
-    numbers.forEach(num => {
-      const target = (num as HTMLElement).dataset.numberTarget || '00'
-      num.textContent = target
-    })
+    // No animation, just show final state
     return
   }
 
-  // Line drawing animation - starts when container enters, completes when last step is centered
-  const lineAnimation = gsap.timeline({
+  // Calculate scroll distance (content width minus visible area)
+  const contentWidth = content.offsetWidth
+  const containerWidth = content.parentElement?.offsetWidth || contentWidth / 2
+  const scrollDistance = contentWidth - containerWidth
+
+  // Track label width (48px = w-12)
+  const trackLabelWidth = 48
+  const playheadStartPos = trackLabelWidth + 4 // 4px padding
+
+  // Create the scroll-triggered animation
+  gsap.timeline({
     scrollTrigger: {
-      trigger: container,
-      start: 'top 80%',
-      end: 'bottom 60%',
-      scrub: 0.5,
+      trigger: section,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 1,
+      onUpdate: (self) => {
+        const progress = self.progress
+
+        // Update timecode (0 to 15 minutes = 900 seconds)
+        const currentTime = progress * 900
+        if (timecodeDisplay) {
+          timecodeDisplay.textContent = formatTimecode(currentTime)
+        }
+
+        // Update active clip
+        const activeClipId = getActiveClip(progress)
+        updateActiveClip(activeClipId)
+
+        // Hide scroll hint after scrolling starts
+        if (scrollHint && progress > 0.05) {
+          scrollHint.style.opacity = '0'
+        } else if (scrollHint && progress <= 0.05) {
+          scrollHint.style.opacity = '0.6'
+        }
+      }
     }
   })
-
-  // Animate the progress line (desktop)
-  if (progressLine) {
-    lineAnimation.to(progressLine, {
-      strokeDashoffset: 0,
-      ease: 'none',
-    }, 0)
-  }
-
-  // Animate the progress line (mobile)
-  if (progressLineMobile) {
-    lineAnimation.to(progressLineMobile, {
-      strokeDashoffset: 0,
-      ease: 'none',
-    }, 0)
-  }
-
-  // Staggered node activation - trigger once when container enters, then stagger the animations
-  let nodesActivated = false
-
-  ScrollTrigger.create({
-    trigger: container,
-    start: 'top 70%',
-    onEnter: () => {
-      if (nodesActivated) return
-      nodesActivated = true
-
-      // Stagger each node with delay
-      nodes.forEach((node, index) => {
-        const numEl = numbers[index] as HTMLElement
-        const target = numEl?.dataset.numberTarget || '00'
-        const delay = index * 0.4 // 0s, 0.4s, 0.8s
-
-        gsap.delayedCall(delay, () => {
-          node.classList.add('active')
-          // Animate number
-          if (numEl) {
-            const targetNum = parseInt(target)
-            gsap.to({ val: 0 }, {
-              val: targetNum,
-              duration: 0.5,
-              ease: 'power2.out',
-              onUpdate: function() {
-                numEl.textContent = String(Math.round(this.targets()[0].val)).padStart(2, '0')
-              }
-            })
-          }
-        })
-      })
-    },
-    onLeaveBack: () => {
-      nodesActivated = false
-      nodes.forEach((node, index) => {
-        node.classList.remove('active')
-        const numEl = numbers[index] as HTMLElement
-        if (numEl) numEl.textContent = '00'
-      })
-    }
-  })
+  // Animate the tracks content (horizontal scroll)
+  .to(content, {
+    x: -scrollDistance,
+    ease: 'none'
+  }, 0)
+  // Animate the playhead position
+  .to(playhead, {
+    left: `calc(100% - 10px)`,
+    ease: 'none'
+  }, 0)
 }
 
 // Quote reveal animation - words reveal as you scroll
@@ -472,7 +498,7 @@ export function initAllAnimations() {
   initCounters()
   initScrollProgress()
   initQuoteReveal()
-  initTimelineThread()
+  initTimelineScroll()
   initPriceCountdown()
   initViewsCounter()
 }

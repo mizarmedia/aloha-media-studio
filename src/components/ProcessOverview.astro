@@ -1,11 +1,15 @@
 ---
-// ProcessOverview - Timeline Thread with scroll-triggered line drawing
-// Full-service focus: You're the expert, we amplify your message
-const steps = [
+// ProcessOverview - Premiere Pro NLE Timeline
+// Horizontal-scrolling timeline that responds to vertical scroll
+const clips = [
   {
-    number: "01",
+    id: "pre-production",
     title: "Pre-Production",
-    description: "We plan everything together. Your format, topics, guests, and brand.",
+    subtitle: "Strategy & Planning",
+    color: "coral",
+    tracks: { v: [1, 2], a: [1] },
+    startPercent: 0,
+    widthPercent: 30,
     details: [
       "60-minute strategy session",
       "Define your podcast format and style",
@@ -15,9 +19,13 @@ const steps = [
     ]
   },
   {
-    number: "02",
-    title: "You Record. We Capture.",
-    description: "Bring your expertise. Our team handles cameras, lighting, audio, and direction.",
+    id: "recording",
+    title: "Recording",
+    subtitle: "Studio Session",
+    color: "blue",
+    tracks: { v: [1, 2, 3], a: [1, 2, 3] },
+    startPercent: 33,
+    widthPercent: 34,
     details: [
       "Professional studio in Eagle, Idaho",
       "Multi-camera video setup",
@@ -27,9 +35,13 @@ const steps = [
     ]
   },
   {
-    number: "03",
-    title: "We Distribute Everywhere",
-    description: "Editing, thumbnails, graphics, publishing. YouTube, Spotify, Apple. Done.",
+    id: "distribution",
+    title: "Distribution",
+    subtitle: "Edit & Publish",
+    color: "gold",
+    tracks: { v: [1, 2], a: [1, 2] },
+    startPercent: 70,
+    widthPercent: 30,
     details: [
       "Full video and audio editing",
       "Custom thumbnails for each episode",
@@ -39,324 +51,365 @@ const steps = [
     ]
   }
 ]
+
+const tracks = [
+  { id: 'V3', type: 'video', label: 'V3' },
+  { id: 'V2', type: 'video', label: 'V2' },
+  { id: 'V1', type: 'video', label: 'V1' },
+  { id: 'A1', type: 'audio', label: 'A1' },
+  { id: 'A2', type: 'audio', label: 'A2' },
+  { id: 'A3', type: 'audio', label: 'A3' },
+]
+
+// Generate timecodes for the ruler
+const timecodes = ['00:00:00', '00:05:00', '00:10:00', '00:15:00']
 ---
 
-<section id="process" class="py-20 md:py-28 bg-[var(--color-void)] overflow-hidden">
-  <div class="max-w-5xl mx-auto px-6">
-    <!-- Header - Full Service Focus -->
-    <div class="text-center mb-16 md:mb-20">
-      <p class="text-sm uppercase tracking-widest text-[var(--color-coral)] mb-4" data-animate="fade-up">
-        How It Works
-      </p>
-      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-[var(--color-cream)] mb-4" data-animate="fade-up">
-        You Bring the Expertise.<br />
-        <span class="text-[var(--color-coral)]">We Handle Everything Else.</span>
-      </h2>
-      <p class="text-lg md:text-xl text-[var(--color-mist)] max-w-2xl mx-auto" data-animate="fade-up">
-        No editing. No thumbnails. No fighting the algorithm.<br class="hidden md:block" />
-        Full-service podcast production that amplifies your message.
-      </p>
-    </div>
+<!-- Desktop: Horizontal Scrolling Timeline -->
+<section id="process" class="hidden md:block bg-[var(--color-void)]" data-timeline-section>
+  <!-- 300vh tall for scroll distance -->
+  <div class="h-[300vh]">
 
-    <!-- Timeline Container -->
-    <div class="relative" data-timeline-container>
-      <!-- SVG Connecting Line (Desktop) with fade on ends -->
-      <svg
-        class="hidden md:block absolute top-[40px] left-0 w-full h-[4px] pointer-events-none"
-        viewBox="0 0 1000 4"
-        preserveAspectRatio="none"
-        data-timeline-line
-      >
-        <defs>
-          <linearGradient id="line-fade" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#2a2a30" stop-opacity="0" />
-            <stop offset="10%" stop-color="#2a2a30" stop-opacity="1" />
-            <stop offset="90%" stop-color="#2a2a30" stop-opacity="1" />
-            <stop offset="100%" stop-color="#2a2a30" stop-opacity="0" />
-          </linearGradient>
-          <linearGradient id="line-fade-coral" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#e07b5b" stop-opacity="0" />
-            <stop offset="10%" stop-color="#e07b5b" stop-opacity="1" />
-            <stop offset="90%" stop-color="#e07b5b" stop-opacity="1" />
-            <stop offset="100%" stop-color="#e07b5b" stop-opacity="0" />
-          </linearGradient>
-        </defs>
-        <line
-          x1="0"
-          y1="2"
-          x2="1000"
-          y2="2"
-          stroke="url(#line-fade)"
-          stroke-width="2"
-          stroke-linecap="round"
-        />
-        <line
-          x1="0"
-          y1="2"
-          x2="1000"
-          y2="2"
-          stroke="url(#line-fade-coral)"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-dasharray="1000"
-          stroke-dashoffset="1000"
-          data-timeline-progress
-        />
-      </svg>
+    <!-- Sticky container -->
+    <div class="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6 w-full">
 
-      <!-- SVG Connecting Line (Mobile - Vertical) with fade -->
-      <svg
-        class="md:hidden absolute left-[31px] top-[40px] w-[4px] pointer-events-none"
-        style="height: calc(100% - 80px);"
-        viewBox="0 0 4 300"
-        preserveAspectRatio="none"
-        data-timeline-line-mobile
-      >
-        <defs>
-          <linearGradient id="line-fade-mobile" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#2a2a30" stop-opacity="0" />
-            <stop offset="10%" stop-color="#2a2a30" stop-opacity="1" />
-            <stop offset="90%" stop-color="#2a2a30" stop-opacity="1" />
-            <stop offset="100%" stop-color="#2a2a30" stop-opacity="0" />
-          </linearGradient>
-          <linearGradient id="line-fade-coral-mobile" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#e07b5b" stop-opacity="0" />
-            <stop offset="10%" stop-color="#e07b5b" stop-opacity="1" />
-            <stop offset="90%" stop-color="#e07b5b" stop-opacity="1" />
-            <stop offset="100%" stop-color="#e07b5b" stop-opacity="0" />
-          </linearGradient>
-        </defs>
-        <line
-          x1="2"
-          y1="0"
-          x2="2"
-          y2="300"
-          stroke="url(#line-fade-mobile)"
-          stroke-width="2"
-          stroke-linecap="round"
-        />
-        <line
-          x1="2"
-          y1="0"
-          x2="2"
-          y2="300"
-          stroke="url(#line-fade-coral-mobile)"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-dasharray="300"
-          stroke-dashoffset="300"
-          data-timeline-progress-mobile
-        />
-      </svg>
+        <!-- Header -->
+        <div class="mb-8">
+          <p class="text-sm uppercase tracking-widest text-[var(--color-coral)] mb-2">
+            How It Works
+          </p>
+          <h2 class="text-3xl lg:text-4xl font-bold text-[var(--color-cream)]">
+            Your Content. <span class="text-[var(--color-coral)]">Our Timeline.</span>
+          </h2>
+        </div>
 
-      <!-- Steps Grid -->
-      <div class="grid md:grid-cols-3 gap-12 md:gap-8">
-        {steps.map((step, index) => (
+        <!-- Timeline UI Container -->
+        <div
+          class="relative bg-[var(--color-charcoal)] rounded-xl border border-[var(--color-graphite)] overflow-hidden"
+          data-timeline-ui
+        >
+
+          <!-- Timecode Ruler -->
           <div
-            class="relative flex md:flex-col items-start md:items-center text-left md:text-center group"
-            data-timeline-step
+            class="relative h-8 bg-[var(--color-slate)] border-b border-[var(--color-graphite)] flex items-center"
+            data-timecode-bar
           >
-            <!-- Node Circle - Clickable -->
-            <button
-              type="button"
-              class="relative z-10 flex-shrink-0 w-16 h-16 rounded-full bg-[var(--color-void)] border-2 border-[var(--color-graphite)] flex items-center justify-center mr-6 md:mr-0 md:mb-8 transition-all duration-500 cursor-pointer hover:border-[var(--color-coral)] hover:scale-105"
-              data-timeline-node
-              data-step-trigger={index}
-            >
-              <span
-                class="text-xl font-bold text-[var(--color-stone)] transition-colors duration-500"
-                data-timeline-number
-                data-number-target={step.number}
-              >
-                00
-              </span>
-            </button>
-
-            <!-- Content - Clickable -->
-            <div class="flex-1">
-              <button
-                class="text-left md:text-center w-full cursor-pointer"
-                data-step-trigger={index}
-                type="button"
-              >
-                <h3 class="text-xl md:text-2xl font-semibold text-[var(--color-cream)] mb-2 group-hover:text-[var(--color-coral)] transition-colors inline-flex items-center gap-2 flex-wrap justify-start md:justify-center">
-                  <span>{step.title}</span>
-                  <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </h3>
-                <p class="text-[var(--color-mist)] text-sm md:text-base leading-relaxed max-w-xs mx-auto">
-                  {step.description}
-                </p>
-              </button>
+            <div class="w-12 flex-shrink-0 border-r border-[var(--color-graphite)]"></div>
+            <div class="flex-1 relative overflow-hidden">
+              <div class="flex justify-between px-4 font-mono text-xs text-[var(--color-stone)]" data-timecode-display>
+                {timecodes.map(tc => (
+                  <span>{tc}</span>
+                ))}
+              </div>
+              <!-- Timecode markers -->
+              <div class="absolute inset-0 flex" data-timecode-markers>
+                {Array.from({ length: 16 }).map((_, i) => (
+                  <div class="flex-1 border-r border-[var(--color-graphite)]/30 last:border-r-0"></div>
+                ))}
+              </div>
             </div>
           </div>
-        ))}
-      </div>
-    </div>
 
-    <!-- Bottom CTA Line -->
-    <div class="text-center mt-16">
-      <p class="text-lg text-[var(--color-mist)]" data-animate="fade-up">
-        You focus on what you do best. <span class="text-[var(--color-cream)] font-medium">We make it look and sound professional.</span>
-      </p>
+          <!-- Playhead (positioned absolutely over tracks) -->
+          <div
+            class="absolute top-8 bottom-0 w-0.5 bg-[var(--color-coral)] z-20 pointer-events-none"
+            style="left: 52px; box-shadow: 0 0 10px var(--color-coral), 0 0 20px var(--color-coral);"
+            data-playhead
+          >
+            <!-- Playhead top triangle -->
+            <div class="absolute -top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-r-[6px] border-t-[8px] border-transparent border-t-[var(--color-coral)]"></div>
+          </div>
+
+          <!-- Tracks Container -->
+          <div class="flex">
+
+            <!-- Track Labels (fixed left) -->
+            <div class="w-12 flex-shrink-0 bg-[var(--color-slate)] border-r border-[var(--color-graphite)]">
+              {tracks.map((track, i) => (
+                <div
+                  class={`h-12 flex items-center justify-center font-mono text-xs border-b border-[var(--color-graphite)]/50 ${
+                    track.type === 'video' ? 'text-[var(--color-mist)]' : 'text-emerald-400/70'
+                  }`}
+                >
+                  {track.label}
+                </div>
+              ))}
+            </div>
+
+            <!-- Scrollable Tracks Content -->
+            <div class="flex-1 relative overflow-hidden">
+              <div
+                class="relative"
+                style="width: 200%;"
+                data-tracks-content
+              >
+                {tracks.map((track, trackIndex) => (
+                  <div
+                    class={`h-12 relative border-b border-[var(--color-graphite)]/30 ${
+                      trackIndex % 2 === 0 ? 'bg-[var(--color-void)]/50' : 'bg-[var(--color-slate)]/30'
+                    }`}
+                    data-track={track.id}
+                  >
+                    <!-- Vertical grid lines -->
+                    <div class="absolute inset-0 flex pointer-events-none">
+                      {Array.from({ length: 32 }).map((_, i) => (
+                        <div class="flex-1 border-r border-[var(--color-graphite)]/10"></div>
+                      ))}
+                    </div>
+
+                    <!-- Audio waveform pattern for audio tracks -->
+                    {track.type === 'audio' && (
+                      <div class="absolute inset-0 flex items-center opacity-20 pointer-events-none" data-waveform>
+                        <svg class="w-full h-8" viewBox="0 0 200 20" preserveAspectRatio="none">
+                          <path
+                            d="M0,10 Q5,5 10,10 T20,10 T30,10 T40,10 T50,10 T60,10 T70,10 T80,10 T90,10 T100,10 T110,10 T120,10 T130,10 T140,10 T150,10 T160,10 T170,10 T180,10 T190,10 T200,10"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1"
+                            class="text-emerald-400"
+                          />
+                        </svg>
+                      </div>
+                    )}
+
+                    <!-- Clips on this track -->
+                    {clips.map(clip => {
+                      const trackNum = parseInt(track.id.slice(1))
+                      const isVideo = track.type === 'video'
+                      const clipTracks = isVideo ? clip.tracks.v : clip.tracks.a
+
+                      if (!clipTracks.includes(trackNum)) return null
+
+                      const colorClasses = {
+                        coral: 'bg-[var(--color-coral)]/80 border-[var(--color-coral)] hover:bg-[var(--color-coral)]',
+                        blue: 'bg-blue-600/80 border-blue-500 hover:bg-blue-600',
+                        gold: 'bg-amber-500/80 border-amber-400 hover:bg-amber-500'
+                      }
+
+                      return (
+                        <div
+                          class={`absolute top-1 bottom-1 rounded cursor-pointer transition-all duration-200 border ${colorClasses[clip.color as keyof typeof colorClasses]} hover:scale-[1.02] hover:z-10`}
+                          style={`left: ${clip.startPercent}%; width: ${clip.widthPercent}%;`}
+                          data-clip={clip.id}
+                          data-clip-button
+                        >
+                          {/* Clip label - only show on V1 track */}
+                          {track.id === 'V1' && (
+                            <div class="absolute inset-0 flex items-center px-2 overflow-hidden">
+                              <span class="text-xs font-medium text-white/90 truncate">{clip.title}</span>
+                            </div>
+                          )}
+
+                          {/* Waveform overlay for audio clips */}
+                          {track.type === 'audio' && (
+                            <div class="absolute inset-0 flex items-center overflow-hidden opacity-60">
+                              <svg class="w-full h-6" viewBox="0 0 100 20" preserveAspectRatio="none">
+                                <path
+                                  d="M0,10 L2,8 L4,12 L6,6 L8,14 L10,7 L12,13 L14,5 L16,15 L18,8 L20,12 L22,6 L24,14 L26,7 L28,13 L30,5 L32,15 L34,8 L36,12 L38,6 L40,14 L42,7 L44,13 L46,5 L48,15 L50,8 L52,12 L54,6 L56,14 L58,7 L60,13 L62,5 L64,15 L66,8 L68,12 L70,6 L72,14 L74,7 L76,13 L78,5 L80,15 L82,8 L84,12 L86,6 L88,14 L90,7 L92,13 L94,5 L96,15 L98,8 L100,10"
+                                  fill="none"
+                                  stroke="white"
+                                  stroke-width="1.5"
+                                />
+                              </svg>
+                            </div>
+                          )}
+                        </div>
+                      )
+                    })}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <!-- Current timecode display -->
+          <div class="absolute bottom-2 right-4 font-mono text-sm text-[var(--color-coral)] bg-[var(--color-void)]/80 px-2 py-1 rounded" data-current-timecode>
+            00:00:00
+          </div>
+        </div>
+
+        <!-- Active Clip Detail Panel -->
+        <div
+          class="mt-6 p-6 bg-[var(--color-charcoal)]/50 rounded-xl border border-[var(--color-graphite)] min-h-[180px]"
+          data-clip-detail
+        >
+          {clips.map((clip, index) => {
+            const colorClasses = {
+              coral: 'bg-[var(--color-coral)]',
+              blue: 'bg-blue-600',
+              gold: 'bg-amber-500'
+            }
+            return (
+              <div
+                class={`${index === 0 ? 'block' : 'hidden'}`}
+                data-clip-detail-content={clip.id}
+              >
+                <div class="flex items-center gap-4 mb-4">
+                  <div class={`w-3 h-12 rounded ${colorClasses[clip.color as keyof typeof colorClasses]}`}></div>
+                  <div>
+                    <h3 class="text-xl font-bold text-[var(--color-cream)]">{clip.title}</h3>
+                    <p class="text-sm text-[var(--color-mist)]">{clip.subtitle}</p>
+                  </div>
+                </div>
+                <ul class="grid grid-cols-2 gap-x-8 gap-y-2">
+                  {clip.details.map(detail => (
+                    <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
+                      <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                      {detail}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          })}
+        </div>
+
+        <!-- Scroll hint -->
+        <div class="mt-4 text-center text-sm text-[var(--color-stone)] opacity-60" data-scroll-hint>
+          <span class="inline-flex items-center gap-2">
+            <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+            Scroll to advance timeline
+          </span>
+        </div>
+
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Step Detail Modals - Enhanced Animation -->
-{steps.map((step, index) => (
-  <div
-    id={`step-modal-${index}`}
-    class="fixed inset-0 z-50 hidden items-center justify-center p-4"
-    role="dialog"
-    aria-modal="true"
-    data-step-modal={index}
-  >
-    <div
-      class="absolute inset-0 bg-[var(--color-void)]/95 backdrop-blur-md transition-opacity duration-300 opacity-0"
-      data-modal-backdrop
-    ></div>
-    <div
-      class="relative bg-gradient-to-br from-[var(--color-charcoal)] to-[var(--color-slate)] rounded-3xl max-w-lg w-full p-8 border border-[var(--color-graphite)] shadow-2xl shadow-[var(--color-coral)]/10 transform scale-95 opacity-0 transition-all duration-300"
-      data-modal-content
-    >
-      <!-- Glow effect -->
-      <div class="absolute -inset-px rounded-3xl bg-gradient-to-br from-[var(--color-coral)]/20 to-transparent opacity-50 pointer-events-none"></div>
+<!-- Mobile: Vertical Editing Bay Cards -->
+<section id="process-mobile" class="md:hidden py-20 bg-[var(--color-void)]">
+  <div class="max-w-md mx-auto px-6">
 
-      <button
-        type="button"
-        class="absolute top-4 right-4 w-10 h-10 rounded-full bg-[var(--color-void)]/50 flex items-center justify-center text-[var(--color-mist)] hover:text-[var(--color-cream)] hover:bg-[var(--color-void)] transition-all cursor-pointer"
-        data-modal-close
-      >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-
-      <div class="relative">
-        <div class="flex items-center gap-4 mb-8">
-          <div class="w-14 h-14 rounded-2xl bg-[var(--color-coral)]/20 flex items-center justify-center border border-[var(--color-coral)]/30">
-            <span class="text-xl font-bold text-[var(--color-coral)]">{step.number}</span>
-          </div>
-          <div>
-            <p class="text-xs uppercase tracking-widest text-[var(--color-coral)] mb-1">Step {step.number}</p>
-            <h3 class="text-2xl font-bold text-[var(--color-cream)]">{step.title}</h3>
-          </div>
-        </div>
-
-        <ul class="space-y-4">
-          {step.details.map((detail, detailIndex) => (
-            <li
-              class="flex items-start gap-4 text-[var(--color-mist)]"
-              style={`--detail-delay: ${detailIndex * 0.05}s`}
-              data-detail-item
-            >
-              <div class="w-6 h-6 rounded-full bg-[var(--color-coral)]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg class="w-3.5 h-3.5 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <span class="text-base">{detail}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <p class="text-sm uppercase tracking-widest text-[var(--color-coral)] mb-2" data-animate="fade-up">
+        How It Works
+      </p>
+      <h2 class="text-2xl font-bold text-[var(--color-cream)]" data-animate="fade-up">
+        Your Content.<br /><span class="text-[var(--color-coral)]">Our Timeline.</span>
+      </h2>
     </div>
+
+    <!-- Vertical Cards -->
+    <div class="relative" data-animate-stagger>
+
+      <!-- Connecting line -->
+      <div class="absolute left-6 top-8 bottom-8 w-0.5 bg-gradient-to-b from-[var(--color-coral)] via-blue-500 to-amber-500 opacity-30"></div>
+
+      {clips.map((clip, index) => {
+        const colorClasses = {
+          coral: { bg: 'bg-[var(--color-coral)]', border: 'border-[var(--color-coral)]/30', glow: 'shadow-[var(--color-coral)]/20' },
+          blue: { bg: 'bg-blue-600', border: 'border-blue-500/30', glow: 'shadow-blue-500/20' },
+          gold: { bg: 'bg-amber-500', border: 'border-amber-400/30', glow: 'shadow-amber-500/20' }
+        }
+        const colors = colorClasses[clip.color as keyof typeof colorClasses]
+
+        return (
+          <div class="relative pl-14 pb-8 last:pb-0" data-animate-child>
+
+            <!-- Node circle -->
+            <div class={`absolute left-3 top-0 w-6 h-6 rounded-full ${colors.bg} flex items-center justify-center`}>
+              <span class="text-xs font-bold text-white">{String(index + 1).padStart(2, '0')}</span>
+            </div>
+
+            <!-- Card -->
+            <div class={`p-5 rounded-xl bg-[var(--color-charcoal)] border ${colors.border} shadow-lg ${colors.glow}`}>
+
+              <!-- Color bar -->
+              <div class={`h-1 w-16 ${colors.bg} rounded-full mb-4`}></div>
+
+              <h3 class="text-lg font-bold text-[var(--color-cream)] mb-1">{clip.title}</h3>
+              <p class="text-sm text-[var(--color-mist)] mb-4">{clip.subtitle}</p>
+
+              <ul class="space-y-2">
+                {clip.details.slice(0, 3).map(detail => (
+                  <li class="flex items-start gap-2 text-sm text-[var(--color-stone)]">
+                    <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    {detail}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+
   </div>
-))}
+</section>
 
 <style>
-  /* Node active state */
-  [data-timeline-node].active {
-    border-color: var(--color-coral) !important;
-    box-shadow: 0 0 20px rgba(255, 107, 74, 0.3);
+  /* Playhead glow animation */
+  [data-playhead] {
+    animation: playhead-glow 2s ease-in-out infinite;
   }
 
-  [data-timeline-node].active [data-timeline-number] {
-    color: var(--color-coral) !important;
-  }
-
-  /* Pulse animation for active nodes */
-  @keyframes node-pulse {
+  @keyframes playhead-glow {
     0%, 100% {
-      box-shadow: 0 0 0 0 rgba(255, 107, 74, 0.4);
+      box-shadow: 0 0 10px var(--color-coral), 0 0 20px var(--color-coral);
     }
     50% {
-      box-shadow: 0 0 0 10px rgba(255, 107, 74, 0);
+      box-shadow: 0 0 15px var(--color-coral), 0 0 30px var(--color-coral), 0 0 40px var(--color-coral);
     }
   }
 
-  [data-timeline-node].active {
-    animation: node-pulse 2s ease-in-out infinite;
+  /* Active clip highlight */
+  [data-clip].active {
+    transform: scale(1.02);
+    z-index: 10;
+    filter: brightness(1.2);
   }
 
-  /* Modal animations */
-  [data-step-modal].modal-open [data-modal-backdrop] {
-    opacity: 1;
-  }
-
-  [data-step-modal].modal-open [data-modal-content] {
-    transform: scale(1);
-    opacity: 1;
-  }
-
-  /* Detail item stagger animation */
-  [data-step-modal].modal-open [data-detail-item] {
-    animation: slideIn 0.4s ease-out forwards;
-    animation-delay: var(--detail-delay);
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-
-  @keyframes slideIn {
-    to {
-      opacity: 1;
-      transform: translateX(0);
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    [data-playhead] {
+      animation: none;
     }
+  }
+
+  /* Waveform animation */
+  [data-waveform] svg path {
+    stroke-dasharray: 1000;
+    animation: waveform-draw 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes waveform-draw {
+    0% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: 50; }
   }
 </style>
 
 <script>
+  // Minimal script for mobile card click expansion (optional)
   document.addEventListener('DOMContentLoaded', () => {
-    // Step modal handlers
-    const triggers = document.querySelectorAll('[data-step-trigger]')
+    // Handle clip clicks to show detail panel
+    const clipButtons = document.querySelectorAll('[data-clip-button]')
 
-    triggers.forEach(trigger => {
-      const index = trigger.getAttribute('data-step-trigger')
-      const modal = document.querySelector(`[data-step-modal="${index}"]`) as HTMLElement
-      if (!modal) return
+    clipButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const clipId = (btn as HTMLElement).dataset.clip
+        if (!clipId) return
 
-      const backdrop = modal.querySelector('[data-modal-backdrop]')
-      const closeBtn = modal.querySelector('[data-modal-close]')
-
-      function openModal() {
-        modal.classList.remove('hidden')
-        modal.classList.add('flex')
-        document.body.style.overflow = 'hidden'
-        // Trigger animation
-        requestAnimationFrame(() => {
-          modal.classList.add('modal-open')
+        // Update active clip detail
+        const details = document.querySelectorAll('[data-clip-detail-content]')
+        details.forEach(detail => {
+          const el = detail as HTMLElement
+          if (el.dataset.clipDetailContent === clipId) {
+            el.classList.remove('hidden')
+            el.classList.add('block')
+          } else {
+            el.classList.add('hidden')
+            el.classList.remove('block')
+          }
         })
-      }
-
-      function closeModal() {
-        modal.classList.remove('modal-open')
-        setTimeout(() => {
-          modal.classList.add('hidden')
-          modal.classList.remove('flex')
-          document.body.style.overflow = ''
-        }, 300)
-      }
-
-      trigger.addEventListener('click', openModal)
-      backdrop?.addEventListener('click', closeModal)
-      closeBtn?.addEventListener('click', closeModal)
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-          closeModal()
-        }
       })
     })
   })
