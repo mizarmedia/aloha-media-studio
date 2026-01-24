@@ -1,9 +1,9 @@
 ---
 // CredibilityStrip - Quick trust indicators (2-second scan)
 const stats = [
-  { value: '200+', label: 'Episodes Delivered' },
-  { value: '20,000+', label: 'Avg. Monthly Views Per Client' },
-  { value: 'Eagle, ID', label: 'Local Studio' }
+  { value: '200+', label: 'Episodes Delivered', isCounter: false },
+  { value: '20,000+', label: 'Avg. Monthly Views Per Client', isCounter: true, counterTarget: 20000 },
+  { value: 'Eagle, ID', label: 'Local Studio', isCounter: false }
 ]
 ---
 
@@ -16,9 +16,15 @@ const stats = [
           data-animate="fade-up"
           style={`--delay: ${index * 0.1}s`}
         >
-          <div class="text-3xl md:text-4xl font-bold text-[var(--color-coral)]">
-            {stat.value}
-          </div>
+          {stat.isCounter ? (
+            <div class="text-3xl md:text-4xl font-bold text-[var(--color-coral)]">
+              <span data-views-counter data-counter-target={stat.counterTarget}>0</span>+
+            </div>
+          ) : (
+            <div class="text-3xl md:text-4xl font-bold text-[var(--color-coral)]">
+              {stat.value}
+            </div>
+          )}
           <div class="text-xs md:text-sm text-[var(--color-stone)] mt-1 uppercase tracking-wider">
             {stat.label}
           </div>

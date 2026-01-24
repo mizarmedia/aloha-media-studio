@@ -396,6 +396,39 @@ export function initQuoteReveal() {
   })
 }
 
+// Views counter animation - counts up from 0 to target
+export function initViewsCounter() {
+  const counterEl = document.querySelector('[data-views-counter]') as HTMLElement
+  if (!counterEl) return
+
+  const target = parseInt(counterEl.dataset.counterTarget || '20000')
+
+  if (prefersReducedMotion) {
+    counterEl.textContent = target.toLocaleString()
+    return
+  }
+
+  let animated = false
+
+  ScrollTrigger.create({
+    trigger: counterEl,
+    start: 'top 85%',
+    onEnter: () => {
+      if (animated) return
+      animated = true
+
+      gsap.to({ val: 0 }, {
+        val: target,
+        duration: 2.5,
+        ease: 'power2.out',
+        onUpdate: function() {
+          counterEl.textContent = Math.round(this.targets()[0].val).toLocaleString()
+        }
+      })
+    }
+  })
+}
+
 // Price countdown animation - counts down from agency price to actual price
 export function initPriceCountdown() {
   const priceEl = document.querySelector('[data-price-counter]') as HTMLElement
@@ -441,4 +474,5 @@ export function initAllAnimations() {
   initQuoteReveal()
   initTimelineThread()
   initPriceCountdown()
+  initViewsCounter()
 }

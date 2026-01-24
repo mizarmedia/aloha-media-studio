@@ -71,13 +71,13 @@ const {
   </head>
   <body class="antialiased bg-[var(--color-void)] relative">
     <!-- Ambient gradient for visual continuity -->
-    <div class="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+    <div class="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true" style="z-index: 0;">
       <!-- Top-left retro blue glow -->
-      <div class="absolute -top-[20vh] -left-[10vw] w-[70vw] h-[70vh] rounded-full bg-[#4a7c9b]/20 blur-[150px]"></div>
+      <div class="absolute -top-[20vh] -left-[10vw] w-[70vw] h-[70vh] rounded-full blur-[150px]" style="background: rgba(74, 124, 155, 0.25);"></div>
       <!-- Center-right coral glow -->
-      <div class="absolute top-[30vh] -right-[10vw] w-[60vw] h-[60vh] rounded-full bg-[var(--color-coral)]/15 blur-[120px]"></div>
+      <div class="absolute top-[40vh] -right-[10vw] w-[60vw] h-[60vh] rounded-full blur-[120px]" style="background: rgba(224, 123, 91, 0.2);"></div>
       <!-- Bottom-left gold glow -->
-      <div class="absolute -bottom-[10vh] left-[5vw] w-[50vw] h-[50vh] rounded-full bg-[var(--color-gold)]/10 blur-[100px]"></div>
+      <div class="absolute bottom-[10vh] left-[5vw] w-[50vw] h-[50vh] rounded-full blur-[100px]" style="background: rgba(201, 169, 98, 0.15);"></div>
     </div>
 
     <!-- Page content -->
