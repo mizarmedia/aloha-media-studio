@@ -54,10 +54,10 @@ const services = [
 
   <main>
     <!-- ==========================================
-         HERO - Bold typographic statement
+         HERO - Compact, impactful
          ========================================== -->
-    <section class="min-h-[100svh] flex items-center justify-center bg-[var(--color-void)] relative overflow-hidden pt-20">
-      <!-- Animated gradient orbs - smaller on mobile -->
+    <section class="h-[100svh] flex items-center justify-center bg-[var(--color-void)] relative overflow-hidden">
+      <!-- Animated gradient orbs -->
       <div class="absolute top-1/4 -left-20 w-40 md:w-96 h-40 md:h-96 bg-[var(--color-coral)]/20 rounded-full blur-[80px] md:blur-[100px] animate-float"></div>
       <div class="absolute bottom-1/4 -right-20 w-40 md:w-96 h-40 md:h-96 bg-[var(--color-retro-blue)]/20 rounded-full blur-[80px] md:blur-[100px] animate-float-delayed"></div>
 
@@ -74,23 +74,17 @@ const services = [
       </div>
 
       <div class="relative z-10 max-w-6xl mx-auto px-5 text-center">
-        <p class="text-[var(--color-coral)] text-[10px] md:text-sm font-medium tracking-[0.15em] md:tracking-[0.3em] uppercase mb-3 md:mb-8" data-animate="fade-up">
-          Full-Service Creative Studio
-        </p>
-
-        <h1 class="text-[2.5rem] leading-[1] sm:text-5xl md:text-6xl lg:text-[5.5rem] font-bold text-[var(--color-cream)] mb-4 md:mb-8 md:leading-[0.95] tracking-tight" data-animate="fade-up">
-          We make brands<br/>
-          <span class="hero-highlight">look & sound</span><br/>
-          incredible.
+        <h1 class="text-[2rem] leading-[1.1] sm:text-5xl md:text-6xl lg:text-[5.5rem] font-bold text-[var(--color-cream)] mb-4 md:mb-8 md:leading-[0.95] tracking-tight" data-animate="fade-up">
+          Your brand.<br/>
+          <span class="hero-highlight">Every format.</span>
         </h1>
 
-        <p class="text-sm md:text-xl lg:text-2xl text-[var(--color-mist)] max-w-2xl mx-auto mb-5 md:mb-10" data-animate="fade-up">
-          Video. Photo. Branding. Audio.<br/>
-          One team that does it all.
+        <p class="text-sm md:text-xl text-[var(--color-mist)] max-w-md mx-auto mb-6 md:mb-10" data-animate="fade-up">
+          Video, photo, branding, and audio—all from one team that gets your vision.
         </p>
 
-        <!-- Service pills - more compact on mobile -->
-        <div class="flex flex-wrap justify-center gap-1.5 md:gap-3 mb-5 md:mb-10" data-animate="fade-up">
+        <!-- Service pills - desktop only -->
+        <div class="hidden md:flex flex-wrap justify-center gap-3 mb-10" data-animate="fade-up">
           <a href="#video" class="service-pill" style="--pill-color: #3b82f6;">
             <span class="pill-dot"></span>
             Video
@@ -111,11 +105,11 @@ const services = [
 
         <a
           href="/#contact"
-          class="inline-flex items-center gap-2 px-5 md:px-8 py-2.5 md:py-4 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold text-sm md:text-lg rounded-full transition-all duration-300 hover:bg-[var(--color-coral-light)] hover:scale-105 hover:shadow-2xl hover:shadow-[var(--color-coral)]/30"
+          class="inline-flex items-center gap-2 px-6 md:px-8 py-3 md:py-4 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold text-sm md:text-lg rounded-full transition-all duration-300 hover:bg-[var(--color-coral-light)] hover:scale-105 hover:shadow-2xl hover:shadow-[var(--color-coral)]/30"
           data-animate="fade-up"
           data-magnetic
         >
-          Start a Project
+          Let's Talk
           <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
