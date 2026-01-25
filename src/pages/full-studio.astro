@@ -366,33 +366,112 @@ const services = [
     </section>
 
     <!-- ==========================================
-         FINAL CTA
+         CONTACT FORM
          ========================================== -->
-    <section class="py-12 md:py-24 lg:py-32 bg-[var(--color-void)] relative overflow-hidden">
+    <section id="contact" class="py-16 md:py-24 lg:py-32 bg-[var(--color-void)] relative overflow-hidden">
       <!-- Gradient orb -->
       <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-[var(--color-coral)]/10 rounded-full blur-[100px] md:blur-[150px]"></div>
 
-      <div class="max-w-3xl mx-auto px-5 md:px-6 text-center relative z-10">
-        <h2 class="text-2xl md:text-4xl lg:text-6xl font-bold text-[var(--color-cream)] mb-3 md:mb-6" data-animate="fade-up">
-          Ready to create<br/>
-          <span class="text-[var(--color-coral)]">something great?</span>
-        </h2>
-        <p class="text-sm md:text-lg lg:text-xl text-[var(--color-mist)] mb-6 md:mb-10 max-w-xl mx-auto" data-animate="fade-up">
-          Tell us what you're working on. We'll make it happen.
-        </p>
-        <a
-          href="/#contact"
-          class="inline-flex items-center gap-2 px-6 md:px-10 py-3 md:py-5 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold text-sm md:text-xl rounded-full transition-all duration-300 hover:bg-[var(--color-coral-light)] hover:scale-105 hover:shadow-2xl hover:shadow-[var(--color-coral)]/30"
-          data-animate="fade-up"
-          data-magnetic
-        >
-          Start Your Project
-          <svg class="w-4 h-4 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </a>
+      <div class="max-w-2xl mx-auto px-5 md:px-6 relative z-10">
+        <div class="text-center mb-8 md:mb-12">
+          <h2 class="text-2xl md:text-4xl lg:text-5xl font-bold text-[var(--color-cream)] mb-3 md:mb-4" data-animate="fade-up">
+            Ready to create<br/>
+            <span class="text-[var(--color-coral)]">something great?</span>
+          </h2>
+          <p class="text-sm md:text-lg text-[var(--color-mist)]" data-animate="fade-up">
+            Tell us what you're working on.
+          </p>
+        </div>
 
-        <p class="mt-4 md:mt-8 text-xs md:text-base text-[var(--color-stone)]" data-animate="fade-up">
+        <form
+          action="https://formsubmit.co/media@alohapublishing.com"
+          method="POST"
+          class="bg-[var(--color-charcoal)] rounded-2xl p-6 md:p-8 border border-[var(--color-graphite)]"
+          data-animate="fade-up"
+        >
+          <!-- FormSubmit config -->
+          <input type="hidden" name="_subject" value="New inquiry from Full Studio page">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="text" name="_honey" style="display:none">
+
+          <div class="space-y-4 md:space-y-5">
+            <!-- Name & Email row -->
+            <div class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label for="fs-name" class="block text-xs md:text-sm font-medium text-[var(--color-cream)] mb-1.5 md:mb-2">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="fs-name"
+                  name="name"
+                  required
+                  class="w-full px-3 md:px-4 py-2.5 md:py-3 bg-[var(--color-slate)] border border-[var(--color-graphite)] rounded-lg text-sm md:text-base text-[var(--color-cream)] placeholder-[var(--color-stone)] focus:border-[var(--color-coral)] focus:ring-1 focus:ring-[var(--color-coral)] transition-colors"
+                  placeholder="Your name"
+                />
+              </div>
+              <div>
+                <label for="fs-email" class="block text-xs md:text-sm font-medium text-[var(--color-cream)] mb-1.5 md:mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="fs-email"
+                  name="email"
+                  required
+                  class="w-full px-3 md:px-4 py-2.5 md:py-3 bg-[var(--color-slate)] border border-[var(--color-graphite)] rounded-lg text-sm md:text-base text-[var(--color-cream)] placeholder-[var(--color-stone)] focus:border-[var(--color-coral)] focus:ring-1 focus:ring-[var(--color-coral)] transition-colors"
+                  placeholder="your@email.com"
+                />
+              </div>
+            </div>
+
+            <!-- Service type -->
+            <div>
+              <label for="fs-service" class="block text-xs md:text-sm font-medium text-[var(--color-cream)] mb-1.5 md:mb-2">
+                What can we help with?
+              </label>
+              <select
+                id="fs-service"
+                name="service"
+                class="w-full px-3 md:px-4 py-2.5 md:py-3 bg-[var(--color-slate)] border border-[var(--color-graphite)] rounded-lg text-sm md:text-base text-[var(--color-cream)] focus:border-[var(--color-coral)] focus:ring-1 focus:ring-[var(--color-coral)] transition-colors"
+              >
+                <option value="">Select a service</option>
+                <option value="video">Video Production</option>
+                <option value="photo">Photography</option>
+                <option value="branding">Branding & Web</option>
+                <option value="audio">Audio & Podcasts</option>
+                <option value="multiple">Multiple Services</option>
+                <option value="other">Something else</option>
+              </select>
+            </div>
+
+            <!-- Message -->
+            <div>
+              <label for="fs-message" class="block text-xs md:text-sm font-medium text-[var(--color-cream)] mb-1.5 md:mb-2">
+                Tell us about your project
+              </label>
+              <textarea
+                id="fs-message"
+                name="message"
+                rows="4"
+                required
+                class="w-full px-3 md:px-4 py-2.5 md:py-3 bg-[var(--color-slate)] border border-[var(--color-graphite)] rounded-lg text-sm md:text-base text-[var(--color-cream)] placeholder-[var(--color-stone)] focus:border-[var(--color-coral)] focus:ring-1 focus:ring-[var(--color-coral)] transition-colors resize-none"
+                placeholder="What are you working on?"
+              ></textarea>
+            </div>
+
+            <!-- Submit -->
+            <button
+              type="submit"
+              class="w-full px-6 py-3 md:py-4 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold text-sm md:text-base rounded-lg hover:bg-[var(--color-coral-light)] transition-all duration-300 hover:shadow-xl hover:shadow-[var(--color-coral)]/30"
+            >
+              Send Message
+            </button>
+          </div>
+        </form>
+
+        <p class="mt-6 text-center text-xs md:text-sm text-[var(--color-stone)]">
           Looking specifically for podcasting?
           <a href="/" class="text-[var(--color-coral)] hover:text-[var(--color-coral-light)] ml-1 underline underline-offset-4">
             See our 6-Episode Package
