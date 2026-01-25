@@ -65,38 +65,6 @@ const phases = [
   { label: 'RECORDING', start: 20, width: 60 },
   { label: 'POST', start: 80, width: 20 },
 ]
-
-// Mobile cards
-const mobileCards = [
-  {
-    step: '01',
-    title: 'Planning',
-    description: 'Strategy session & topic mapping',
-    color: 'slate',
-    icon: 'clipboard'
-  },
-  {
-    step: '02',
-    title: 'Recording',
-    description: 'Multi-camera studio session',
-    color: 'blue',
-    icon: 'video'
-  },
-  {
-    step: '03',
-    title: 'Editing',
-    description: 'Professional post-production',
-    color: 'coral',
-    icon: 'edit'
-  },
-  {
-    step: '04',
-    title: 'Published',
-    description: 'Live on all platforms',
-    color: 'emerald',
-    icon: 'check'
-  }
-]
 ---
 
 <!-- Desktop: Hybrid Timeline + Render Queue -->
@@ -118,506 +86,563 @@ const mobileCards = [
           </h2>
         </div>
 
-        <!-- ACT 1: Timeline Container -->
-        <div data-act-timeline class="transition-all duration-500">
-          <div
-            class="relative bg-[var(--color-charcoal)] rounded-xl border border-[var(--color-graphite)] overflow-hidden"
-            data-timeline-ui
-          >
+        <!-- Content wrapper - relative container for all acts -->
+        <div class="relative">
 
-            <!-- Phase Labels Bar -->
-            <div class="relative h-7 bg-[var(--color-slate)]/50 border-b border-[var(--color-graphite)] flex items-center">
-              <div class="w-12 flex-shrink-0"></div>
-              <div class="flex-1 relative">
-                <div class="absolute inset-0 flex" data-phase-labels>
-                  {phases.map(phase => (
-                    <div
-                      class="absolute h-full flex items-center justify-center"
-                      style={`left: ${phase.start}%; width: ${phase.width}%;`}
-                    >
-                      <span class="text-[10px] uppercase tracking-wider text-[var(--color-stone)] font-medium">
-                        {phase.label}
-                      </span>
-                      <div class="absolute right-0 top-0 bottom-0 w-px bg-[var(--color-graphite)]/50"></div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <!-- Timecode Ruler -->
+          <!-- ACT 1: Timeline Container -->
+          <div data-act-timeline class="transition-all duration-500">
             <div
-              class="relative h-6 bg-[var(--color-slate)] border-b border-[var(--color-graphite)] flex items-center"
-              data-timecode-bar
+              class="relative bg-[var(--color-charcoal)] rounded-xl border border-[var(--color-graphite)] overflow-hidden"
+              data-timeline-ui
             >
-              <div class="w-12 flex-shrink-0 border-r border-[var(--color-graphite)]"></div>
-              <div class="flex-1 relative overflow-hidden">
-                <div class="absolute inset-0 flex" data-timecode-markers>
-                  {Array.from({ length: 20 }).map((_, i) => (
-                    <div class="flex-1 border-r border-[var(--color-graphite)]/20 last:border-r-0 relative">
-                      {i % 4 === 0 && (
-                        <span class="absolute -top-0.5 left-0 text-[9px] font-mono text-[var(--color-stone)]/60">
-                          {String(Math.floor(i / 4 * 5)).padStart(2, '0')}:00
+
+              <!-- Phase Labels Bar -->
+              <div class="relative h-7 bg-[var(--color-slate)]/50 border-b border-[var(--color-graphite)] flex items-center">
+                <div class="w-12 flex-shrink-0"></div>
+                <div class="flex-1 relative">
+                  <div class="absolute inset-0 flex" data-phase-labels>
+                    {phases.map(phase => (
+                      <div
+                        class="absolute h-full flex items-center justify-center"
+                        style={`left: ${phase.start}%; width: ${phase.width}%;`}
+                      >
+                        <span class="text-[10px] uppercase tracking-wider text-[var(--color-stone)] font-medium">
+                          {phase.label}
                         </span>
-                      )}
+                        <div class="absolute right-0 top-0 bottom-0 w-px bg-[var(--color-graphite)]/50"></div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Timecode Ruler -->
+              <div
+                class="relative h-6 bg-[var(--color-slate)] border-b border-[var(--color-graphite)] flex items-center"
+                data-timecode-bar
+              >
+                <div class="w-12 flex-shrink-0 border-r border-[var(--color-graphite)]"></div>
+                <div class="flex-1 relative overflow-hidden">
+                  <div class="absolute inset-0 flex" data-timecode-markers>
+                    {Array.from({ length: 20 }).map((_, i) => (
+                      <div class="flex-1 border-r border-[var(--color-graphite)]/20 last:border-r-0 relative">
+                        {i % 4 === 0 && (
+                          <span class="absolute -top-0.5 left-0 text-[9px] font-mono text-[var(--color-stone)]/60">
+                            {String(Math.floor(i / 4 * 5)).padStart(2, '0')}:00
+                          </span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Playhead -->
+              <div
+                class="absolute top-[52px] bottom-0 w-0.5 bg-[var(--color-coral)] z-20 pointer-events-none transition-opacity duration-300"
+                style="left: 52px;"
+                data-playhead
+              >
+                <div class="absolute -top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-r-[6px] border-t-[8px] border-transparent border-t-[var(--color-coral)]"></div>
+              </div>
+
+              <!-- Tracks Container -->
+              <div class="flex">
+                <!-- Track Labels -->
+                <div class="w-12 flex-shrink-0 bg-[var(--color-slate)] border-r border-[var(--color-graphite)]">
+                  {tracks.map((track) => (
+                    <div
+                      class={`h-10 flex items-center justify-center font-mono text-xs border-b border-[var(--color-graphite)]/50 ${
+                        track.type === 'video' ? 'text-[var(--color-mist)]' : 'text-emerald-400/70'
+                      }`}
+                    >
+                      {track.label}
                     </div>
                   ))}
                 </div>
+
+                <!-- Tracks Content -->
+                <div class="flex-1 relative overflow-hidden">
+                  <div class="relative" data-tracks-content>
+                    {tracks.map((track, trackIndex) => (
+                      <div
+                        class={`h-10 relative border-b border-[var(--color-graphite)]/30 ${
+                          trackIndex % 2 === 0 ? 'bg-[var(--color-void)]/50' : 'bg-[var(--color-slate)]/20'
+                        }`}
+                        data-track={track.id}
+                      >
+                        <!-- Grid lines -->
+                        <div class="absolute inset-0 flex pointer-events-none">
+                          {Array.from({ length: 20 }).map(() => (
+                            <div class="flex-1 border-r border-[var(--color-graphite)]/10"></div>
+                          ))}
+                        </div>
+
+                        <!-- Clips for this track -->
+                        {timelineClips[track.id as keyof typeof timelineClips]?.map(clip => {
+                          const colorMap = {
+                            coral: 'bg-[var(--color-coral)]/80 border-[var(--color-coral)]',
+                            blue: 'bg-blue-600/70 border-blue-500',
+                            slate: 'bg-[var(--color-slate)] border-[var(--color-stone)]',
+                            emerald: 'bg-emerald-600/70 border-emerald-500',
+                            amber: 'bg-amber-500/70 border-amber-400',
+                          }
+                          return (
+                            <div
+                              class={`absolute top-1 bottom-1 rounded border transition-all duration-300 ${colorMap[clip.color as keyof typeof colorMap]}`}
+                              style={`left: ${clip.start}%; width: ${clip.width}%; opacity: 0;`}
+                              data-clip={clip.id}
+                              data-clip-start={clip.start}
+                            >
+                              {clip.label && (
+                                <div class="absolute inset-0 flex items-center px-2 overflow-hidden">
+                                  <span class="text-[10px] font-medium text-white/90 truncate">{clip.label}</span>
+                                </div>
+                              )}
+                              {/* Waveform for audio */}
+                              {track.type === 'audio' && (
+                                <div class="absolute inset-0 flex items-center overflow-hidden opacity-60 px-1">
+                                  <svg class="w-full h-5" viewBox="0 0 100 20" preserveAspectRatio="none">
+                                    <path
+                                      d="M0,10 L2,8 L4,12 L6,6 L8,14 L10,7 L12,13 L14,5 L16,15 L18,8 L20,12 L22,6 L24,14 L26,7 L28,13 L30,9 L32,11 L34,8 L36,12 L38,6 L40,14 L42,7 L44,13 L46,5 L48,15 L50,8 L52,12 L54,6 L56,14 L58,7 L60,13 L62,9 L64,11 L66,8 L68,12 L70,6 L72,14 L74,7 L76,13 L78,5 L80,15 L82,8 L84,12 L86,6 L88,14 L90,7 L92,13 L94,9 L96,11 L98,8 L100,10"
+                                      fill="none"
+                                      stroke="white"
+                                      stroke-width="1.5"
+                                    />
+                                  </svg>
+                                </div>
+                              )}
+                            </div>
+                          )
+                        })}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Current timecode -->
+              <div class="absolute bottom-2 right-4 font-mono text-sm text-[var(--color-coral)] bg-[var(--color-void)]/80 px-2 py-1 rounded" data-current-timecode>
+                00:00:00
               </div>
             </div>
 
-            <!-- Playhead -->
-            <div
-              class="absolute top-[52px] bottom-0 w-0.5 bg-[var(--color-coral)] z-20 pointer-events-none transition-opacity duration-300"
-              style="left: 52px;"
-              data-playhead
-            >
-              <div class="absolute -top-0 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-r-[6px] border-t-[8px] border-transparent border-t-[var(--color-coral)]"></div>
+            <!-- Timeline Detail Panel -->
+            <div class="mt-6 p-6 bg-[var(--color-charcoal)]/50 rounded-xl border border-[var(--color-graphite)] min-h-[140px]" data-timeline-detail>
+              <div data-detail-planning class="block">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-3 h-10 rounded bg-[var(--color-slate)]"></div>
+                  <div>
+                    <h3 class="text-lg font-bold text-[var(--color-cream)]">Pre-Production</h3>
+                    <p class="text-sm text-[var(--color-mist)]">Strategy & Planning</p>
+                  </div>
+                </div>
+                <ul class="grid grid-cols-2 gap-x-8 gap-y-2">
+                  <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
+                    <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    60-minute strategy session
+                  </li>
+                  <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
+                    <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    Define podcast format and style
+                  </li>
+                  <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
+                    <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    Map out your first 6 episode topics
+                  </li>
+                  <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
+                    <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    Guest strategy and outreach
+                  </li>
+                </ul>
+              </div>
+              <div data-detail-recording class="hidden">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-3 h-10 rounded bg-blue-600"></div>
+                  <div>
+                    <h3 class="text-lg font-bold text-[var(--color-cream)]">Recording Session</h3>
+                    <p class="text-sm text-[var(--color-mist)]">Multi-Camera Studio</p>
+                  </div>
+                </div>
+                <ul class="grid grid-cols-2 gap-x-8 gap-y-2">
+                  <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
+                    <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    Professional studio in Eagle, Idaho
+                  </li>
+                  <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
+                    <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    Multi-camera video setup
+                  </li>
+                  <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
+                    <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    Broadcast-quality audio
+                  </li>
+                  <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
+                    <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    On-camera coaching if needed
+                  </li>
+                </ul>
+              </div>
+              <div data-detail-post class="hidden">
+                <div class="flex items-center gap-4 mb-4">
+                  <div class="w-3 h-10 rounded bg-[var(--color-coral)]"></div>
+                  <div>
+                    <h3 class="text-lg font-bold text-[var(--color-cream)]">Post-Production</h3>
+                    <p class="text-sm text-[var(--color-mist)]">Edit & Polish</p>
+                  </div>
+                </div>
+                <ul class="grid grid-cols-2 gap-x-8 gap-y-2">
+                  <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
+                    <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    Full video and audio editing
+                  </li>
+                  <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
+                    <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    Color grading and graphics
+                  </li>
+                  <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
+                    <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    Intro/outro music and sound design
+                  </li>
+                  <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
+                    <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    Ready for distribution
+                  </li>
+                </ul>
+              </div>
             </div>
 
-            <!-- Tracks Container -->
-            <div class="flex">
-              <!-- Track Labels -->
-              <div class="w-12 flex-shrink-0 bg-[var(--color-slate)] border-r border-[var(--color-graphite)]">
-                {tracks.map((track) => (
-                  <div
-                    class={`h-10 flex items-center justify-center font-mono text-xs border-b border-[var(--color-graphite)]/50 ${
-                      track.type === 'video' ? 'text-[var(--color-mist)]' : 'text-emerald-400/70'
-                    }`}
-                  >
-                    {track.label}
+            <!-- Scroll hint -->
+            <div class="mt-4 text-center text-sm text-[var(--color-stone)] opacity-60" data-scroll-hint>
+              <span class="inline-flex items-center gap-2">
+                <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+                Scroll to advance timeline
+              </span>
+            </div>
+          </div>
+
+          <!-- ACT 2: Render Queue Container (hidden initially, same position) -->
+          <div data-act-render class="absolute inset-0 opacity-0 pointer-events-none transition-all duration-500" style="transform: translateX(100px);">
+            <div class="relative bg-[var(--color-charcoal)] rounded-xl border border-[var(--color-graphite)] overflow-hidden">
+
+              <!-- Queue Header -->
+              <div class="flex items-center justify-between px-6 py-4 border-b border-[var(--color-graphite)] bg-[var(--color-slate)]/30">
+                <div class="flex items-center gap-3">
+                  <div class="w-2 h-2 rounded-full bg-[var(--color-coral)] animate-pulse" data-queue-indicator></div>
+                  <span class="font-mono text-sm text-[var(--color-cream)]">EXPORT QUEUE</span>
+                </div>
+                <span class="text-xs text-[var(--color-stone)] font-mono" data-queue-status>Processing...</span>
+              </div>
+
+              <!-- Queue Items -->
+              <div class="p-6 space-y-6">
+                {renderJobs.map((job, index) => (
+                  <div class="relative" data-render-job={job.id}>
+                    <!-- Job Header -->
+                    <div class="flex items-center justify-between mb-2">
+                      <div class="flex items-center gap-3">
+                        <div class="w-6 h-6 rounded-full bg-[var(--color-void)] border border-[var(--color-graphite)] flex items-center justify-center" data-job-icon={job.id}>
+                          <svg class="w-3 h-3 text-[var(--color-stone)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            {job.icon === 'film' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />}
+                            {job.icon === 'image' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />}
+                            {job.icon === 'upload' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />}
+                          </svg>
+                        </div>
+                        <div>
+                          <span class="text-sm font-medium text-[var(--color-cream)]">{job.title}</span>
+                          <p class="text-xs text-[var(--color-stone)]">{job.description}</p>
+                        </div>
+                      </div>
+                      <span class="text-xs font-mono text-[var(--color-stone)]" data-job-status={job.id}>QUEUED</span>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="h-2 bg-[var(--color-void)] rounded-full overflow-hidden">
+                      <div
+                        class="h-full bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral)]/80 rounded-full transition-all duration-300"
+                        style="width: 0%;"
+                        data-job-progress={job.id}
+                      ></div>
+                    </div>
+
+                    <!-- Percentage -->
+                    <div class="absolute right-0 top-0 text-xs font-mono text-[var(--color-coral)]" data-job-percent={job.id}>0%</div>
                   </div>
                 ))}
               </div>
-
-              <!-- Tracks Content -->
-              <div class="flex-1 relative overflow-hidden">
-                <div class="relative" data-tracks-content>
-                  {tracks.map((track, trackIndex) => (
-                    <div
-                      class={`h-10 relative border-b border-[var(--color-graphite)]/30 ${
-                        trackIndex % 2 === 0 ? 'bg-[var(--color-void)]/50' : 'bg-[var(--color-slate)]/20'
-                      }`}
-                      data-track={track.id}
-                    >
-                      <!-- Grid lines -->
-                      <div class="absolute inset-0 flex pointer-events-none">
-                        {Array.from({ length: 20 }).map(() => (
-                          <div class="flex-1 border-r border-[var(--color-graphite)]/10"></div>
-                        ))}
-                      </div>
-
-                      <!-- Clips for this track -->
-                      {timelineClips[track.id as keyof typeof timelineClips]?.map(clip => {
-                        const colorMap = {
-                          coral: 'bg-[var(--color-coral)]/80 border-[var(--color-coral)]',
-                          blue: 'bg-blue-600/70 border-blue-500',
-                          slate: 'bg-[var(--color-slate)] border-[var(--color-stone)]',
-                          emerald: 'bg-emerald-600/70 border-emerald-500',
-                          amber: 'bg-amber-500/70 border-amber-400',
-                        }
-                        return (
-                          <div
-                            class={`absolute top-1 bottom-1 rounded border transition-all duration-300 ${colorMap[clip.color as keyof typeof colorMap]}`}
-                            style={`left: ${clip.start}%; width: ${clip.width}%; opacity: 0;`}
-                            data-clip={clip.id}
-                            data-clip-start={clip.start}
-                          >
-                            {clip.label && (
-                              <div class="absolute inset-0 flex items-center px-2 overflow-hidden">
-                                <span class="text-[10px] font-medium text-white/90 truncate">{clip.label}</span>
-                              </div>
-                            )}
-                            {/* Waveform for audio */}
-                            {track.type === 'audio' && (
-                              <div class="absolute inset-0 flex items-center overflow-hidden opacity-60 px-1">
-                                <svg class="w-full h-5" viewBox="0 0 100 20" preserveAspectRatio="none">
-                                  <path
-                                    d="M0,10 L2,8 L4,12 L6,6 L8,14 L10,7 L12,13 L14,5 L16,15 L18,8 L20,12 L22,6 L24,14 L26,7 L28,13 L30,9 L32,11 L34,8 L36,12 L38,6 L40,14 L42,7 L44,13 L46,5 L48,15 L50,8 L52,12 L54,6 L56,14 L58,7 L60,13 L62,9 L64,11 L66,8 L68,12 L70,6 L72,14 L74,7 L76,13 L78,5 L80,15 L82,8 L84,12 L86,6 L88,14 L90,7 L92,13 L94,9 L96,11 L98,8 L100,10"
-                                    fill="none"
-                                    stroke="white"
-                                    stroke-width="1.5"
-                                  />
-                                </svg>
-                              </div>
-                            )}
-                          </div>
-                        )
-                      })}
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
 
-            <!-- Current timecode -->
-            <div class="absolute bottom-2 right-4 font-mono text-sm text-[var(--color-coral)] bg-[var(--color-void)]/80 px-2 py-1 rounded" data-current-timecode>
-              00:00:00
-            </div>
-          </div>
-
-          <!-- Timeline Detail Panel -->
-          <div class="mt-6 p-6 bg-[var(--color-charcoal)]/50 rounded-xl border border-[var(--color-graphite)] min-h-[140px]" data-timeline-detail>
-            <div data-detail-planning class="block">
+            <!-- Render Detail Panel -->
+            <div class="mt-6 p-6 bg-[var(--color-charcoal)]/50 rounded-xl border border-[var(--color-graphite)] min-h-[140px]" data-render-detail>
               <div class="flex items-center gap-4 mb-4">
-                <div class="w-3 h-10 rounded bg-[var(--color-slate)]"></div>
-                <div>
-                  <h3 class="text-lg font-bold text-[var(--color-cream)]">Pre-Production</h3>
-                  <p class="text-sm text-[var(--color-mist)]">Strategy & Planning</p>
-                </div>
-              </div>
-              <ul class="grid grid-cols-2 gap-x-8 gap-y-2">
-                <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
-                  <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                  60-minute strategy session
-                </li>
-                <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
-                  <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                  Define podcast format and style
-                </li>
-                <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
-                  <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                  Map out your first 6 episode topics
-                </li>
-                <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
-                  <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                  Guest strategy and outreach
-                </li>
-              </ul>
-            </div>
-            <div data-detail-recording class="hidden">
-              <div class="flex items-center gap-4 mb-4">
-                <div class="w-3 h-10 rounded bg-blue-600"></div>
-                <div>
-                  <h3 class="text-lg font-bold text-[var(--color-cream)]">Recording Session</h3>
-                  <p class="text-sm text-[var(--color-mist)]">Multi-Camera Studio</p>
-                </div>
-              </div>
-              <ul class="grid grid-cols-2 gap-x-8 gap-y-2">
-                <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
-                  <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                  Professional studio in Eagle, Idaho
-                </li>
-                <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
-                  <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                  Multi-camera video setup
-                </li>
-                <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
-                  <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                  Broadcast-quality audio
-                </li>
-                <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
-                  <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                  On-camera coaching if needed
-                </li>
-              </ul>
-            </div>
-            <div data-detail-post class="hidden">
-              <div class="flex items-center gap-4 mb-4">
-                <div class="w-3 h-10 rounded bg-[var(--color-coral)]"></div>
-                <div>
-                  <h3 class="text-lg font-bold text-[var(--color-cream)]">Post-Production</h3>
-                  <p class="text-sm text-[var(--color-mist)]">Edit & Polish</p>
-                </div>
-              </div>
-              <ul class="grid grid-cols-2 gap-x-8 gap-y-2">
-                <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
-                  <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                  Full video and audio editing
-                </li>
-                <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
-                  <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                  Color grading and graphics
-                </li>
-                <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
-                  <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                  Intro/outro music and sound design
-                </li>
-                <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
-                  <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                  Ready for distribution
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Scroll hint -->
-          <div class="mt-4 text-center text-sm text-[var(--color-stone)] opacity-60" data-scroll-hint>
-            <span class="inline-flex items-center gap-2">
-              <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-              Scroll to advance timeline
-            </span>
-          </div>
-        </div>
-
-        <!-- ACT 2: Render Queue Container (hidden initially) -->
-        <div data-act-render class="absolute inset-x-6 opacity-0 pointer-events-none transition-all duration-500" style="transform: translateX(100px);">
-          <div class="relative bg-[var(--color-charcoal)] rounded-xl border border-[var(--color-graphite)] overflow-hidden">
-
-            <!-- Queue Header -->
-            <div class="flex items-center justify-between px-6 py-4 border-b border-[var(--color-graphite)] bg-[var(--color-slate)]/30">
-              <div class="flex items-center gap-3">
-                <div class="w-2 h-2 rounded-full bg-[var(--color-coral)] animate-pulse" data-queue-indicator></div>
-                <span class="font-mono text-sm text-[var(--color-cream)]">EXPORT QUEUE</span>
-              </div>
-              <span class="text-xs text-[var(--color-stone)] font-mono" data-queue-status>Processing...</span>
-            </div>
-
-            <!-- Queue Items -->
-            <div class="p-6 space-y-6">
-              {renderJobs.map((job, index) => (
-                <div class="relative" data-render-job={job.id}>
-                  <!-- Job Header -->
-                  <div class="flex items-center justify-between mb-2">
-                    <div class="flex items-center gap-3">
-                      <div class="w-6 h-6 rounded-full bg-[var(--color-void)] border border-[var(--color-graphite)] flex items-center justify-center" data-job-icon={job.id}>
-                        <svg class="w-3 h-3 text-[var(--color-stone)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          {job.icon === 'film' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />}
-                          {job.icon === 'image' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />}
-                          {job.icon === 'upload' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />}
-                        </svg>
-                      </div>
-                      <div>
-                        <span class="text-sm font-medium text-[var(--color-cream)]">{job.title}</span>
-                        <p class="text-xs text-[var(--color-stone)]">{job.description}</p>
-                      </div>
-                    </div>
-                    <span class="text-xs font-mono text-[var(--color-stone)]" data-job-status={job.id}>QUEUED</span>
-                  </div>
-
-                  <!-- Progress Bar -->
-                  <div class="h-2 bg-[var(--color-void)] rounded-full overflow-hidden">
-                    <div
-                      class="h-full bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral)]/80 rounded-full transition-all duration-300"
-                      style="width: 0%;"
-                      data-job-progress={job.id}
-                    ></div>
-                  </div>
-
-                  <!-- Percentage -->
-                  <div class="absolute right-0 top-0 text-xs font-mono text-[var(--color-coral)]" data-job-percent={job.id}>0%</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <!-- Render Detail Panel -->
-          <div class="mt-6 p-6 bg-[var(--color-charcoal)]/50 rounded-xl border border-[var(--color-graphite)] min-h-[140px]" data-render-detail>
-            <div class="flex items-center gap-4 mb-4">
-              <div class="w-10 h-10 rounded-lg bg-[var(--color-coral)]/20 flex items-center justify-center">
-                <svg class="w-5 h-5 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <div>
-                <h3 class="text-lg font-bold text-[var(--color-cream)]">Distribution Pipeline</h3>
-                <p class="text-sm text-[var(--color-mist)]">We handle all the technical details</p>
-              </div>
-            </div>
-            <ul class="grid grid-cols-2 gap-x-8 gap-y-2">
-              <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
-                <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                Custom thumbnails for each episode
-              </li>
-              <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
-                <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                SEO-optimized titles and descriptions
-              </li>
-              <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
-                <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                Published to all major platforms
-              </li>
-              <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
-                <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
-                Social media clips included
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- SUCCESS STATE: Episode Live (hidden initially) -->
-        <div data-act-success class="absolute inset-x-6 opacity-0 pointer-events-none transition-all duration-500 scale-95">
-          <div class="relative bg-gradient-to-b from-[var(--color-charcoal)] to-[var(--color-void)] rounded-xl border border-[var(--color-coral)]/30 overflow-hidden p-8">
-
-            <!-- Confetti particles -->
-            <div class="absolute inset-0 pointer-events-none overflow-hidden" data-confetti>
-              {Array.from({ length: 20 }).map((_, i) => (
-                <div
-                  class="absolute w-2 h-2 rounded-full opacity-0"
-                  style={`left: ${10 + (i * 4)}%; top: -10%; background: ${['var(--color-coral)', '#3B82F6', '#22C55E', '#F59E0B'][i % 4]};`}
-                  data-confetti-particle={i}
-                ></div>
-              ))}
-            </div>
-
-            <!-- Success Content -->
-            <div class="relative text-center">
-              <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-500 mb-6" data-success-icon>
-                <svg class="w-8 h-8 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-
-              <h3 class="text-2xl lg:text-3xl font-bold text-[var(--color-cream)] mb-2">
-                Your Episode is <span class="text-[var(--color-coral)]">Live</span>
-              </h3>
-              <p class="text-[var(--color-mist)] mb-8">Published and ready for your audience</p>
-
-              <!-- Episode Card -->
-              <div class="inline-block bg-[var(--color-void)] rounded-xl border border-[var(--color-graphite)] p-6 text-left max-w-md mx-auto">
-                <div class="flex items-center gap-4 mb-4">
-                  <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-[var(--color-coral)] to-[var(--color-coral)]/60 flex items-center justify-center">
-                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <p class="text-xs text-[var(--color-stone)] uppercase tracking-wider">Episode 001</p>
-                    <h4 class="text-lg font-bold text-[var(--color-cream)]">Your Story</h4>
-                    <p class="text-sm text-[var(--color-mist)]">"How I Built My Business"</p>
-                  </div>
-                </div>
-
-                <!-- Platform Status -->
-                <div class="space-y-2 pt-4 border-t border-[var(--color-graphite)]">
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                      </svg>
-                      <span class="text-sm text-[var(--color-mist)]">YouTube</span>
-                    </div>
-                    <span class="text-xs text-emerald-400 font-medium">Published</span>
-                  </div>
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-green-500" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-                      </svg>
-                      <span class="text-sm text-[var(--color-mist)]">Spotify</span>
-                    </div>
-                    <span class="text-xs text-emerald-400 font-medium">Published</span>
-                  </div>
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-purple-500" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M5.34 0A5.328 5.328 0 000 5.34v13.32A5.328 5.328 0 005.34 24h13.32A5.328 5.328 0 0024 18.66V5.34A5.328 5.328 0 0018.66 0H5.34zm6.525 3.56a8.206 8.206 0 014.635 1.415 8.212 8.212 0 013.094 3.836 8.206 8.206 0 01.462 4.871 8.212 8.212 0 01-2.468 4.248A8.206 8.206 0 0112 20.44a8.206 8.206 0 01-4.635-1.415 8.212 8.212 0 01-3.094-3.836 8.206 8.206 0 01-.462-4.871 8.212 8.212 0 012.468-4.248A8.206 8.206 0 0111.865 3.56zm.003 1.393a6.803 6.803 0 00-4.46 1.660 6.809 6.809 0 00-2.406 4.066 6.803 6.803 0 00.783 4.593 6.809 6.809 0 003.474 2.982 6.803 6.803 0 004.593-.022 6.809 6.809 0 003.315-3.18 6.803 6.803 0 00.518-4.613 6.809 6.809 0 00-2.594-3.93 6.803 6.803 0 00-3.223-1.556zm-.004 1.394a5.41 5.41 0 012.562.635 5.413 5.413 0 012.042 1.898 5.41 5.41 0 01.697 2.673 5.413 5.413 0 01-.807 2.634 5.41 5.41 0 01-2.037 1.895 5.413 5.413 0 01-2.671.606 5.41 5.41 0 01-2.562-.635 5.413 5.413 0 01-2.042-1.898 5.41 5.41 0 01-.697-2.673 5.413 5.413 0 01.807-2.634 5.41 5.41 0 012.037-1.895 5.413 5.413 0 012.671-.606zm-.001 3.478a1.987 1.987 0 00-1.406.582 1.988 1.988 0 00-.584 1.405c0 .527.21 1.033.584 1.406.374.373.88.583 1.406.583a1.987 1.987 0 001.406-.583c.373-.373.583-.879.583-1.406a1.988 1.988 0 00-.583-1.405 1.987 1.987 0 00-1.406-.582z"/>
-                      </svg>
-                      <span class="text-sm text-[var(--color-mist)]">Apple Podcasts</span>
-                    </div>
-                    <span class="text-xs text-emerald-400 font-medium">Published</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- CTA -->
-              <div class="mt-8">
-                <a
-                  href="#contact"
-                  class="inline-flex items-center gap-2 px-8 py-4 bg-[var(--color-coral)] text-white font-semibold rounded-xl hover:bg-[var(--color-coral)]/90 transition-colors"
-                  data-magnetic
-                >
-                  Start Your Podcast Journey
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                <div class="w-10 h-10 rounded-lg bg-[var(--color-coral)]/20 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
-                </a>
+                </div>
+                <div>
+                  <h3 class="text-lg font-bold text-[var(--color-cream)]">Distribution Pipeline</h3>
+                  <p class="text-sm text-[var(--color-mist)]">We handle all the technical details</p>
+                </div>
+              </div>
+              <ul class="grid grid-cols-2 gap-x-8 gap-y-2">
+                <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
+                  <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                  Custom thumbnails for each episode
+                </li>
+                <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
+                  <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                  SEO-optimized titles and descriptions
+                </li>
+                <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
+                  <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                  Published to all major platforms
+                </li>
+                <li class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
+                  <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                  Social media clips included
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- SUCCESS STATE: Episode Live (hidden initially) -->
+          <div data-act-success class="absolute inset-0 opacity-0 pointer-events-none transition-all duration-500 scale-95">
+            <div class="relative bg-gradient-to-b from-[var(--color-charcoal)] to-[var(--color-void)] rounded-xl border border-[var(--color-coral)]/30 overflow-hidden p-8">
+
+              <!-- Confetti particles -->
+              <div class="absolute inset-0 pointer-events-none overflow-hidden" data-confetti>
+                {Array.from({ length: 20 }).map((_, i) => (
+                  <div
+                    class="absolute w-2 h-2 rounded-full opacity-0"
+                    style={`left: ${10 + (i * 4)}%; top: -10%; background: ${['var(--color-coral)', '#3B82F6', '#22C55E', '#F59E0B'][i % 4]};`}
+                    data-confetti-particle={i}
+                  ></div>
+                ))}
+              </div>
+
+              <!-- Success Content -->
+              <div class="relative text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-500 mb-6" data-success-icon>
+                  <svg class="w-8 h-8 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+
+                <h3 class="text-2xl lg:text-3xl font-bold text-[var(--color-cream)] mb-2">
+                  Your Episode is <span class="text-[var(--color-coral)]">Live</span>
+                </h3>
+                <p class="text-[var(--color-mist)] mb-8">Published and ready for your audience</p>
+
+                <!-- Episode Card -->
+                <div class="inline-block bg-[var(--color-void)] rounded-xl border border-[var(--color-graphite)] p-6 text-left max-w-md mx-auto">
+                  <div class="flex items-center gap-4 mb-4">
+                    <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-[var(--color-coral)] to-[var(--color-coral)]/60 flex items-center justify-center">
+                      <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="text-xs text-[var(--color-stone)] uppercase tracking-wider">Episode 001</p>
+                      <h4 class="text-lg font-bold text-[var(--color-cream)]">Your Story</h4>
+                      <p class="text-sm text-[var(--color-mist)]">"How I Built My Business"</p>
+                    </div>
+                  </div>
+
+                  <!-- Platform Status -->
+                  <div class="space-y-2 pt-4 border-t border-[var(--color-graphite)]">
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                        <span class="text-sm text-[var(--color-mist)]">YouTube</span>
+                      </div>
+                      <span class="text-xs text-emerald-400 font-medium">Published</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-green-500" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                        </svg>
+                        <span class="text-sm text-[var(--color-mist)]">Spotify</span>
+                      </div>
+                      <span class="text-xs text-emerald-400 font-medium">Published</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-purple-500" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M5.34 0A5.328 5.328 0 000 5.34v13.32A5.328 5.328 0 005.34 24h13.32A5.328 5.328 0 0024 18.66V5.34A5.328 5.328 0 0018.66 0H5.34zm6.525 3.56a8.206 8.206 0 014.635 1.415 8.212 8.212 0 013.094 3.836 8.206 8.206 0 01.462 4.871 8.212 8.212 0 01-2.468 4.248A8.206 8.206 0 0112 20.44a8.206 8.206 0 01-4.635-1.415 8.212 8.212 0 01-3.094-3.836 8.206 8.206 0 01-.462-4.871 8.212 8.212 0 012.468-4.248A8.206 8.206 0 0111.865 3.56z"/>
+                        </svg>
+                        <span class="text-sm text-[var(--color-mist)]">Apple Podcasts</span>
+                      </div>
+                      <span class="text-xs text-emerald-400 font-medium">Published</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- CTA -->
+                <div class="mt-8">
+                  <a
+                    href="#contact"
+                    class="inline-flex items-center gap-2 px-8 py-4 bg-[var(--color-coral)] text-white font-semibold rounded-xl hover:bg-[var(--color-coral)]/90 transition-colors"
+                    data-magnetic
+                  >
+                    Start Your Podcast Journey
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Mobile: Vertical Journey Cards -->
-<section id="process-mobile" class="md:hidden py-20 bg-[var(--color-void)]">
-  <div class="max-w-md mx-auto px-6">
+<!-- Mobile: Premium Process Flow -->
+<section id="process-mobile" class="md:hidden py-16 bg-[var(--color-void)]">
+  <div class="px-6">
 
     <!-- Header -->
-    <div class="text-center mb-12">
+    <div class="text-center mb-10">
       <p class="text-sm uppercase tracking-widest text-[var(--color-coral)] mb-2" data-animate="fade-up">
         How It Works
       </p>
-      <h2 class="text-2xl font-bold text-[var(--color-cream)]" data-animate="fade-up">
-        Your Content.<br /><span class="text-[var(--color-coral)]">Delivered.</span>
+      <h2 class="text-3xl font-bold text-[var(--color-cream)]" data-animate="fade-up">
+        From Idea to<br /><span class="text-[var(--color-coral)]">Published</span>
       </h2>
     </div>
 
-    <!-- Vertical Cards -->
-    <div class="relative" data-animate-stagger>
+    <!-- Process Steps - Horizontal Scroll -->
+    <div class="relative -mx-6 px-6 overflow-x-auto pb-4 hide-scrollbar" data-animate="fade-up">
+      <div class="flex gap-4" style="width: max-content;">
 
-      <!-- Connecting line -->
-      <div class="absolute left-6 top-8 bottom-8 w-0.5 bg-gradient-to-b from-[var(--color-stone)] via-blue-500 via-[var(--color-coral)] to-emerald-500 opacity-30"></div>
-
-      {mobileCards.map((card, index) => {
-        const colorMap = {
-          slate: { bg: 'bg-[var(--color-slate)]', border: 'border-[var(--color-stone)]/30' },
-          blue: { bg: 'bg-blue-600', border: 'border-blue-500/30' },
-          coral: { bg: 'bg-[var(--color-coral)]', border: 'border-[var(--color-coral)]/30' },
-          emerald: { bg: 'bg-emerald-500', border: 'border-emerald-500/30' },
-        }
-        const colors = colorMap[card.color as keyof typeof colorMap]
-
-        return (
-          <div class="relative pl-14 pb-8 last:pb-0" data-animate-child>
-            <!-- Node circle -->
-            <div class={`absolute left-3 top-0 w-6 h-6 rounded-full ${colors.bg} flex items-center justify-center`}>
-              <span class="text-xs font-bold text-white">{card.step}</span>
+        <!-- Step 1: Strategy -->
+        <div class="w-72 flex-shrink-0 bg-gradient-to-br from-[var(--color-charcoal)] to-[var(--color-slate)]/50 rounded-2xl p-6 border border-[var(--color-graphite)]">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-[var(--color-coral)]/20 flex items-center justify-center">
+              <svg class="w-5 h-5 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+              </svg>
             </div>
-
-            <!-- Card -->
-            <div class={`p-5 rounded-xl bg-[var(--color-charcoal)] border ${colors.border}`}>
-              <div class={`h-1 w-12 ${colors.bg} rounded-full mb-3`}></div>
-              <h3 class="text-lg font-bold text-[var(--color-cream)] mb-1">{card.title}</h3>
-              <p class="text-sm text-[var(--color-mist)]">{card.description}</p>
-
-              {/* Mini progress bars for Editing card */}
-              {card.title === 'Editing' && (
-                <div class="mt-4 space-y-2">
-                  <div class="flex items-center gap-2">
-                    <span class="text-xs text-[var(--color-stone)] w-16">Video</span>
-                    <div class="flex-1 h-1.5 bg-[var(--color-void)] rounded-full overflow-hidden">
-                      <div class="h-full w-full bg-[var(--color-coral)] rounded-full"></div>
-                    </div>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <span class="text-xs text-[var(--color-stone)] w-16">Audio</span>
-                    <div class="flex-1 h-1.5 bg-[var(--color-void)] rounded-full overflow-hidden">
-                      <div class="h-full w-full bg-[var(--color-coral)] rounded-full"></div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Platform icons for Published card */}
-              {card.title === 'Published' && (
-                <div class="mt-4 flex items-center gap-3">
-                  <div class="w-8 h-8 rounded-lg bg-[var(--color-void)] flex items-center justify-center">
-                    <svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/>
-                    </svg>
-                  </div>
-                  <div class="w-8 h-8 rounded-lg bg-[var(--color-void)] flex items-center justify-center">
-                    <svg class="w-4 h-4 text-green-500" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0z"/>
-                    </svg>
-                  </div>
-                  <div class="w-8 h-8 rounded-lg bg-[var(--color-void)] flex items-center justify-center">
-                    <svg class="w-4 h-4 text-purple-500" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M5.34 0A5.328 5.328 0 000 5.34v13.32A5.328 5.328 0 005.34 24h13.32A5.328 5.328 0 0024 18.66V5.34A5.328 5.328 0 0018.66 0H5.34z"/>
-                    </svg>
-                  </div>
-                </div>
-              )}
+            <div>
+              <span class="text-xs text-[var(--color-coral)] font-mono">01</span>
+              <h3 class="text-lg font-bold text-[var(--color-cream)]">Strategy</h3>
             </div>
           </div>
-        )
-      })}
+          <p class="text-sm text-[var(--color-mist)] mb-4">We plan your podcast format, topics, and guest strategy.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 text-xs bg-[var(--color-void)] rounded-full text-[var(--color-stone)]">Format</span>
+            <span class="px-2 py-1 text-xs bg-[var(--color-void)] rounded-full text-[var(--color-stone)]">Topics</span>
+            <span class="px-2 py-1 text-xs bg-[var(--color-void)] rounded-full text-[var(--color-stone)]">Branding</span>
+          </div>
+        </div>
+
+        <!-- Step 2: Record -->
+        <div class="w-72 flex-shrink-0 bg-gradient-to-br from-blue-900/30 to-[var(--color-charcoal)] rounded-2xl p-6 border border-blue-500/30">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center">
+              <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div>
+              <span class="text-xs text-blue-400 font-mono">02</span>
+              <h3 class="text-lg font-bold text-[var(--color-cream)]">Record</h3>
+            </div>
+          </div>
+          <p class="text-sm text-[var(--color-mist)] mb-4">Multi-camera studio session. You talk, we handle the tech.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 text-xs bg-[var(--color-void)] rounded-full text-[var(--color-stone)]">3 Cameras</span>
+            <span class="px-2 py-1 text-xs bg-[var(--color-void)] rounded-full text-[var(--color-stone)]">Pro Audio</span>
+            <span class="px-2 py-1 text-xs bg-[var(--color-void)] rounded-full text-[var(--color-stone)]">Coaching</span>
+          </div>
+        </div>
+
+        <!-- Step 3: Edit -->
+        <div class="w-72 flex-shrink-0 bg-gradient-to-br from-[var(--color-coral)]/20 to-[var(--color-charcoal)] rounded-2xl p-6 border border-[var(--color-coral)]/30">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-[var(--color-coral)]/20 flex items-center justify-center">
+              <svg class="w-5 h-5 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4" />
+              </svg>
+            </div>
+            <div>
+              <span class="text-xs text-[var(--color-coral)] font-mono">03</span>
+              <h3 class="text-lg font-bold text-[var(--color-cream)]">Edit</h3>
+            </div>
+          </div>
+          <p class="text-sm text-[var(--color-mist)] mb-4">Full post-production: cuts, color, graphics, and sound design.</p>
+          <!-- Mini render bars -->
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] text-[var(--color-stone)] w-12">Video</span>
+              <div class="flex-1 h-1.5 bg-[var(--color-void)] rounded-full overflow-hidden">
+                <div class="h-full w-full bg-[var(--color-coral)] rounded-full"></div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] text-[var(--color-stone)] w-12">Audio</span>
+              <div class="flex-1 h-1.5 bg-[var(--color-void)] rounded-full overflow-hidden">
+                <div class="h-full w-full bg-[var(--color-coral)] rounded-full"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Publish -->
+        <div class="w-72 flex-shrink-0 bg-gradient-to-br from-emerald-900/30 to-[var(--color-charcoal)] rounded-2xl p-6 border border-emerald-500/30">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center">
+              <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <div>
+              <span class="text-xs text-emerald-400 font-mono">04</span>
+              <h3 class="text-lg font-bold text-[var(--color-cream)]">Publish</h3>
+            </div>
+          </div>
+          <p class="text-sm text-[var(--color-mist)] mb-4">Distributed everywhere with thumbnails and SEO.</p>
+          <!-- Platform icons -->
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-[var(--color-void)] flex items-center justify-center">
+              <svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/>
+              </svg>
+            </div>
+            <div class="w-8 h-8 rounded-lg bg-[var(--color-void)] flex items-center justify-center">
+              <svg class="w-4 h-4 text-green-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0z"/>
+              </svg>
+            </div>
+            <div class="w-8 h-8 rounded-lg bg-[var(--color-void)] flex items-center justify-center">
+              <svg class="w-4 h-4 text-purple-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M5.34 0A5.328 5.328 0 000 5.34v13.32A5.328 5.328 0 005.34 24h13.32A5.328 5.328 0 0024 18.66V5.34A5.328 5.328 0 0018.66 0H5.34z"/>
+              </svg>
+            </div>
+            <span class="text-xs text-emerald-400 ml-2">+ more</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Swipe hint -->
+    <div class="text-center mt-4 text-xs text-[var(--color-stone)]">
+      <span class="inline-flex items-center gap-1">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+        Swipe to explore
+      </span>
     </div>
 
   </div>
@@ -653,6 +678,15 @@ const mobileCards = [
   @keyframes queue-pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.4; }
+  }
+
+  /* Hide scrollbar but allow scroll */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 
   /* Reduced motion */
