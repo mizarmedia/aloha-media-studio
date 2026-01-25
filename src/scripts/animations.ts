@@ -267,17 +267,54 @@ export function initScrollProgress() {
   })
 }
 
+// Header fade on scroll - homepage only
+export function initHeaderFade() {
+  if (prefersReducedMotion) return
+
+  const header = document.getElementById('header')
+  if (!header) return
+
+  // Only on homepage
+  if (window.location.pathname !== '/') return
+
+  // Find the trigger section
+  const whoThisIsFor = document.getElementById('who-this-is-for')
+  if (!whoThisIsFor) return
+
+  let lastScrollY = 0
+  let headerVisible = true
+
+  const updateHeaderVisibility = () => {
+    const currentScrollY = window.scrollY
+    const triggerTop = whoThisIsFor.getBoundingClientRect().top + currentScrollY
+    const isScrollingUp = currentScrollY < lastScrollY
+
+    if (isScrollingUp && !headerVisible) {
+      // Scrolling up - show header
+      gsap.to(header, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' })
+      headerVisible = true
+    } else if (!isScrollingUp && currentScrollY > triggerTop && headerVisible) {
+      // Scrolling down past trigger - hide header
+      gsap.to(header, { opacity: 0, y: -20, duration: 0.3, ease: 'power2.out' })
+      headerVisible = false
+    }
+
+    lastScrollY = currentScrollY
+  }
+
+  window.addEventListener('scroll', updateHeaderVisibility, { passive: true })
+}
+
 // NLE Timeline scroll animation - Three-Act Story
-// Planning Paper (0-35%) → Timeline (35-60%) → Render Queue (65-95%) → Success (95-100%)
+// Planning (0-25%) → Timeline (25-55%) → Render Queue (60-90%) → Success (90-100%)
 export function initTimelineScroll() {
   const section = document.querySelector('[data-timeline-section]')
   if (!section) return
 
-  // Act 1: Planning Paper elements
+  // Act 1: Planning Outline elements
   const actPlanning = document.querySelector('[data-act-planning]') as HTMLElement
   const planningTitle = document.querySelector('[data-planning-title]') as HTMLElement
   const planningEpisodes = document.querySelectorAll('[data-planning-episode]') as NodeListOf<HTMLElement>
-  const episodeChecks = document.querySelectorAll('[data-episode-check]') as NodeListOf<HTMLElement>
   const scrollHint = document.querySelector('[data-scroll-hint]') as HTMLElement
   const actHeader = document.querySelector('[data-act-header]') as HTMLElement
 
@@ -310,12 +347,12 @@ export function initTimelineScroll() {
 
   if (!actPlanning) return
 
-  // Scroll zone boundaries
+  // Scroll zone boundaries (faster planning phase)
   const ZONES = {
-    PLANNING_END: 0.35,      // Planning paper phase ends
-    TIMELINE_END: 0.60,      // Timeline phase ends
-    TRANSITION_END: 0.65,    // Transition complete
-    RENDER_END: 0.95,        // Render queue ends
+    PLANNING_END: 0.25,      // Planning phase ends (was 0.35)
+    TIMELINE_END: 0.55,      // Timeline phase ends (was 0.60)
+    TRANSITION_END: 0.60,    // Transition complete (was 0.65)
+    RENDER_END: 0.90,        // Render queue ends (was 0.95)
     SUCCESS: 1.0             // Success state
   }
 
@@ -335,18 +372,12 @@ export function initTimelineScroll() {
       planningTitle.style.opacity = '1'
     }
 
-    // Reveal episodes sequentially (6 episodes over remaining progress)
-    const episodeCount = planningEpisodes.length
+    // Reveal episodes sequentially (6 episodes over 25% scroll = ~15% per episode)
     planningEpisodes.forEach((episode, index) => {
-      const episodeThreshold = 0.1 + (index * 0.14) // Start at 10%, each takes ~14%
+      const episodeThreshold = 0.08 + (index * 0.15) // Start at 8%, each takes ~15%
       if (planningProgress > episodeThreshold) {
         episode.style.opacity = '1'
         episode.style.transform = 'translateX(0)'
-
-        // Show checkmark shortly after episode appears
-        if (planningProgress > episodeThreshold + 0.08 && episodeChecks[index]) {
-          episodeChecks[index].style.opacity = '1'
-        }
       }
     })
   }
@@ -479,9 +510,6 @@ export function initTimelineScroll() {
     planningEpisodes.forEach(ep => {
       ep.style.opacity = '1'
       ep.style.transform = 'translateX(0)'
-    })
-    episodeChecks.forEach(check => {
-      check.style.opacity = '1'
     })
     clips.forEach(clip => {
       clip.style.opacity = '1'
@@ -818,4 +846,5 @@ export function initAllAnimations() {
   initTimelineScroll()
   initPriceCountdown()
   initViewsCounter()
+  initHeaderFade()
 }

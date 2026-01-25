@@ -5,44 +5,14 @@
 // Act 3 (65-95%): Render queue
 // Finale (95-100%): Success state
 
-// Episode planning data
+// Episode planning data - compact format
 const episodePlan = [
-  {
-    ep: '01',
-    title: 'Your Origin Story',
-    guest: 'You (Host)',
-    note: 'How you got started, lessons learned'
-  },
-  {
-    ep: '02',
-    title: 'Industry Trends 2024',
-    guest: 'Solo',
-    note: 'Key insights, predictions'
-  },
-  {
-    ep: '03',
-    title: 'Behind the Scenes',
-    guest: 'Guest: Partner',
-    note: 'Day in the life, processes'
-  },
-  {
-    ep: '04',
-    title: 'Client Success Story',
-    guest: 'Guest: Client',
-    note: 'Case study, transformation'
-  },
-  {
-    ep: '05',
-    title: 'Q&A Episode',
-    guest: 'You + Audience',
-    note: 'Answering top questions'
-  },
-  {
-    ep: '06',
-    title: 'Expert Interview',
-    guest: 'Guest: Expert',
-    note: 'Deep dive with industry leader'
-  },
+  { ep: '01', title: 'Your Origin Story', type: 'Host Solo', note: 'How you got started' },
+  { ep: '02', title: 'Industry Trends', type: 'Solo', note: 'Key insights' },
+  { ep: '03', title: 'Behind the Scenes', type: 'Guest', note: 'Day in the life' },
+  { ep: '04', title: 'Client Success', type: 'Guest', note: 'Case study' },
+  { ep: '05', title: 'Q&A Episode', type: 'Audience', note: 'Top questions' },
+  { ep: '06', title: 'Expert Interview', type: 'Guest', note: 'Deep dive' },
 ]
 
 // Timeline clips - recording and post only (no pre-prod)
@@ -130,66 +100,71 @@ const phases = [
         <!-- Content wrapper - relative container for all acts -->
         <div class="relative">
 
-          <!-- ACT 1: Planning Paper Container -->
+          <!-- ACT 1: Planning Outline Container -->
           <div data-act-planning class="transition-all duration-500">
-            <!-- Notebook Paper -->
-            <div class="relative bg-[#FFFEF5] rounded-lg shadow-2xl overflow-hidden border border-[#E5E0D0]" style="min-height: 420px;">
-              <!-- Red margin line -->
-              <div class="absolute left-16 top-0 bottom-0 w-px bg-red-300/60"></div>
+            <!-- Professional Script/Outline -->
+            <div class="relative bg-[var(--color-charcoal)] rounded-xl border border-[var(--color-graphite)] overflow-hidden">
 
-              <!-- Paper holes -->
-              <div class="absolute left-4 top-6 w-4 h-4 rounded-full bg-[var(--color-void)] border-2 border-[#D0D0D0]"></div>
-              <div class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[var(--color-void)] border-2 border-[#D0D0D0]"></div>
-              <div class="absolute left-4 bottom-6 w-4 h-4 rounded-full bg-[var(--color-void)] border-2 border-[#D0D0D0]"></div>
+              <!-- Document Header -->
+              <div class="px-6 py-4 border-b border-[var(--color-graphite)] bg-[var(--color-slate)]/30" data-planning-title style="opacity: 0;">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <h3 class="text-lg font-bold text-[var(--color-cream)] uppercase tracking-wide">
+                      Podcast Launch Outline
+                    </h3>
+                    <p class="text-xs text-[var(--color-stone)] mt-1">6 Episodes • Content Strategy</p>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 rounded-full bg-[var(--color-coral)]"></div>
+                    <span class="text-xs text-[var(--color-coral)] font-mono">IN PROGRESS</span>
+                  </div>
+                </div>
+              </div>
 
-              <!-- Lined paper background -->
-              <div class="absolute inset-0 left-16 pointer-events-none" style="background-image: repeating-linear-gradient(to bottom, transparent 0px, transparent 31px, #A0C4E8 31px, #A0C4E8 32px); background-size: 100% 32px;"></div>
-
-              <!-- Paper content -->
-              <div class="relative pl-20 pr-8 py-8">
-                <!-- Title -->
-                <div class="mb-6" data-planning-title style="opacity: 0;">
-                  <h3 class="text-2xl font-semibold text-[#2C3E50]" style="font-family: 'Caveat', cursive;">
-                    Episode Planning - 6 Episode Launch
-                  </h3>
-                  <div class="h-0.5 bg-[#2C3E50]/30 mt-1 w-64"></div>
+              <!-- Episode Grid -->
+              <div class="p-4">
+                <!-- Header Row -->
+                <div class="grid grid-cols-12 gap-4 px-3 py-2 text-xs text-[var(--color-stone)] uppercase tracking-wider border-b border-[var(--color-graphite)]/50 mb-2">
+                  <div class="col-span-1">#</div>
+                  <div class="col-span-5">Episode Title</div>
+                  <div class="col-span-2">Format</div>
+                  <div class="col-span-4">Focus</div>
                 </div>
 
-                <!-- Episode rows -->
-                <div class="space-y-4">
+                <!-- Episode Rows -->
+                <div class="space-y-1">
                   {episodePlan.map((episode, index) => (
                     <div
-                      class="flex items-start gap-4 py-2 transition-all duration-500"
+                      class="grid grid-cols-12 gap-4 px-3 py-3 rounded-lg hover:bg-[var(--color-slate)]/30 transition-all duration-300"
                       data-planning-episode={index}
                       style="opacity: 0; transform: translateX(-20px);"
                     >
                       <!-- Episode number -->
-                      <div class="flex-shrink-0 w-14 h-8 rounded bg-[var(--color-coral)]/20 flex items-center justify-center">
-                        <span class="text-sm font-bold text-[var(--color-coral)]" style="font-family: 'Caveat', cursive; font-size: 1.1rem;">
-                          EP {episode.ep}
+                      <div class="col-span-1 flex items-center">
+                        <span class="text-sm font-mono text-[var(--color-coral)] font-bold">
+                          {episode.ep}
                         </span>
                       </div>
 
-                      <!-- Episode content -->
-                      <div class="flex-1">
-                        <div class="flex items-center justify-between">
-                          <span class="text-lg text-[#2C3E50] font-medium" style="font-family: 'Caveat', cursive; font-size: 1.4rem;">
-                            "{episode.title}"
-                          </span>
-                          <span class="text-sm text-[#7F8C8D] px-3 py-1 bg-[#F5F5F0] rounded-full" style="font-family: 'Caveat', cursive; font-size: 1rem;">
-                            {episode.guest}
-                          </span>
-                        </div>
-                        <p class="text-sm text-[#95A5A6] mt-1" style="font-family: 'Caveat', cursive; font-size: 1.1rem;">
-                          └─ {episode.note}
-                        </p>
+                      <!-- Title -->
+                      <div class="col-span-5 flex items-center">
+                        <span class="text-sm text-[var(--color-cream)] font-medium">
+                          {episode.title}
+                        </span>
                       </div>
 
-                      <!-- Checkmark (appears after fade in) -->
-                      <div class="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center opacity-0 transition-opacity duration-300" data-episode-check={index}>
-                        <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
+                      <!-- Format/Type -->
+                      <div class="col-span-2 flex items-center">
+                        <span class="text-xs text-[var(--color-mist)] px-2 py-1 bg-[var(--color-void)] rounded">
+                          {episode.type}
+                        </span>
+                      </div>
+
+                      <!-- Note -->
+                      <div class="col-span-4 flex items-center">
+                        <span class="text-xs text-[var(--color-stone)]">
+                          {episode.note}
+                        </span>
                       </div>
                     </div>
                   ))}
@@ -198,7 +173,7 @@ const phases = [
             </div>
 
             <!-- Planning Detail Panel -->
-            <div class="mt-6 p-6 bg-[var(--color-charcoal)]/50 rounded-xl border border-[var(--color-graphite)] min-h-[100px]" data-planning-detail>
+            <div class="mt-6 p-6 bg-[var(--color-charcoal)]/50 rounded-xl border border-[var(--color-graphite)]" data-planning-detail>
               <div class="flex items-center gap-4 mb-4">
                 <div class="w-10 h-10 rounded-lg bg-[var(--color-coral)]/20 flex items-center justify-center">
                   <svg class="w-5 h-5 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
