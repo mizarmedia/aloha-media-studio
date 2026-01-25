@@ -61,11 +61,29 @@ const studioImages = [
   '/images/studio/studio-interior-3.jpg',
   '/images/studio/studio-exterior-1.jpg',
 ]
+
+// Page-specific schema for studio rental
+const studioSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Aloha Media Studio Rental",
+  "description": "Professional media production studio available for rent in Eagle, Idaho. Includes lighting, audio equipment, and multiple production spaces.",
+  "image": "https://alohamediastudio.com/images/studio/studio-interior-1.jpg",
+  "brand": { "@id": "https://alohamediastudio.com/#organization" },
+  "offers": pricingTiers.map(tier => ({
+    "@type": "Offer",
+    "name": tier.name,
+    "price": tier.price.replace('$', ''),
+    "priceCurrency": "USD",
+    "description": tier.description
+  }))
+}
 ---
 
-<Layout 
-  title="Book the Studio | Aloha Media Studio"
-  description="Book Eagle, Idaho's premier media production studio. Professional lighting, 4K cameras, multiple setups, and all the equipment you need."
+<Layout
+  title="Book the Studio | Media Production Space in Eagle, Idaho"
+  description="Rent Eagle, Idaho's premier media production studio. Professional lighting, multi-camera setups, podcast room, and all equipment included. From $100/hour."
+  schema={studioSchema}
 >
   <Header />
   

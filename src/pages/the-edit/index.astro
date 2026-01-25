@@ -2,11 +2,21 @@
 import Layout from '../../layouts/Layout.astro'
 import Header from '../../components/Header.astro'
 import Footer from '../../components/Footer.astro'
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://alohamediastudio.com/" },
+    { "@type": "ListItem", "position": 2, "name": "The Edit Podcast", "item": "https://alohamediastudio.com/the-edit/" }
+  ]
+}
 ---
 
 <Layout
-  title="The Edit | Aloha Media Studio"
-  description="Our podcast is coming soon. Season One of The Edit is currently in production."
+  title="The Edit Podcast | Coming Soon | Aloha Media Studio"
+  description="The Edit podcast is coming soon. Season One is currently in production. Subscribe to get notified when we launch."
+  schema={breadcrumbSchema}
 >
   <Header />
 

@@ -4,12 +4,27 @@ import '../styles/global.css'
 interface Props {
   title?: string
   description?: string
+  canonical?: string
+  ogImage?: string
+  ogType?: string
+  noindex?: boolean
+  schema?: object
 }
 
-const { 
-  title = "Aloha Media Studio | Premier Media Production in Eagle, Idaho",
-  description = "Your story. Our craft. Professional video production, photography, podcasting, and branding services in Eagle, Idaho. Part of the Aloha Publishing family."
+const {
+  title = "Aloha Media Studio | Podcast Production in Eagle, Idaho",
+  description = "Launch your professional podcast in 90 days. Full-service podcast production for business owners—we handle planning, recording, editing, and publishing. Eagle, Idaho.",
+  canonical,
+  ogImage = "https://alohamediastudio.com/images/studio/studio-interior-1.jpg",
+  ogType = "website",
+  noindex = false,
+  schema
 } = Astro.props
+
+// Build canonical URL
+const canonicalURL = canonical
+  ? new URL(canonical, Astro.site || 'https://alohamediastudio.com').href
+  : new URL(Astro.url.pathname, 'https://alohamediastudio.com').href
 ---
 
 <!DOCTYPE html>
@@ -18,56 +33,131 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/images/logo/aloha-media-logo.png" />
-    
+    <link rel="apple-touch-icon" href="/images/logo/aloha-media-logo.png" />
+
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://alohamediastudio.com" />
-    <meta property="og:image" content="https://alohamediastudio.com/images/logo/aloha-media-logo.png" />
-    
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Aloha Media Studio" />
+    <meta property="og:locale" content="en_US" />
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Additional SEO -->
+    <meta name="author" content="Aloha Media Studio" />
+    <meta name="geo.region" content="US-ID" />
+    <meta name="geo.placename" content="Eagle, Idaho" />
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    
+
     <title>{title}</title>
-    
-    <!-- Schema.org Local Business -->
-    <script type="application/ld+json">
-    {
+
+    <!-- Schema.org - Organization -->
+    <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
+      "@type": "Organization",
+      "@id": "https://alohamediastudio.com/#organization",
       "name": "Aloha Media Studio",
-      "description": "Professional video production, photography, podcasting, and branding services",
       "url": "https://alohamediastudio.com",
-      "logo": "https://alohamediastudio.com/images/logo/aloha-media-logo.png",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://alohamediastudio.com/images/logo/aloha-media-logo.png"
+      },
+      "description": "Professional podcast production and media services in Eagle, Idaho",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Eagle",
         "addressRegion": "ID",
         "addressCountry": "US"
       },
-      "openingHours": "Mo-Fr 10:00-17:00",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "url": "https://alohamediastudio.com/#contact"
+      },
       "sameAs": [
-        "https://instagram.com/alohamediastudio",
-        "https://youtube.com/@alohamediastudio"
+        "https://www.youtube.com/@AlohaMediaStudio"
       ],
       "parentOrganization": {
         "@type": "Organization",
         "name": "Aloha Publishing",
         "url": "https://alohapublishing.com"
       }
-    }
-    </script>
+    })} />
+
+    <!-- Schema.org - WebSite with SearchAction -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://alohamediastudio.com/#website",
+      "name": "Aloha Media Studio",
+      "url": "https://alohamediastudio.com",
+      "publisher": {
+        "@id": "https://alohamediastudio.com/#organization"
+      }
+    })} />
+
+    <!-- Schema.org - LocalBusiness -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "@id": "https://alohamediastudio.com/#localbusiness",
+      "name": "Aloha Media Studio",
+      "description": "Full-service podcast production for business owners. We handle planning, multi-camera recording, editing, and distribution.",
+      "url": "https://alohamediastudio.com",
+      "logo": "https://alohamediastudio.com/images/logo/aloha-media-logo.png",
+      "image": "https://alohamediastudio.com/images/studio/studio-interior-1.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Eagle",
+        "addressRegion": "ID",
+        "postalCode": "83616",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "43.6955",
+        "longitude": "-116.3539"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "10:00",
+        "closes": "17:00"
+      },
+      "priceRange": "$$",
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "43.6955",
+          "longitude": "-116.3539"
+        },
+        "geoRadius": "50 mi"
+      }
+    })} />
+
+    <!-- Page-specific schema -->
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
   </head>
   <body class="antialiased bg-[var(--color-void)] relative">
     <!-- Ambient gradient for visual continuity - STRONGER -->

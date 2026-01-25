@@ -44,11 +44,30 @@ const services = [
     featuredLink: '/'
   }
 ]
+
+// Page-specific schema for services
+const servicesSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Aloha Media Studio Services",
+  "description": "Full creative services including video, photography, branding, and audio production",
+  "itemListElement": services.map((service, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "Service",
+      "name": service.title,
+      "description": service.description,
+      "provider": { "@id": "https://alohamediastudio.com/#organization" }
+    }
+  }))
+}
 ---
 
 <Layout
-  title="The Full Studio | Aloha Media Studio"
-  description="Video production, photography, branding, web design, and audio services. Your full creative partner in Eagle, Idaho."
+  title="Creative Services | Video, Photo, Branding & Audio | Aloha Media Studio"
+  description="Video production, photography, branding, and audio services in Eagle, Idaho. One team handles everything—no handoffs. Book your project today."
+  schema={servicesSchema}
 >
   <Header />
 
