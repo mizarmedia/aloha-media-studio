@@ -267,29 +267,34 @@ export function initScrollProgress() {
   })
 }
 
-// NLE Timeline scroll animation - Hybrid Timeline + Render Queue
-// Two-act story: Timeline (0-55%) → Render Queue (60-95%) → Success (95-100%)
+// NLE Timeline scroll animation - Three-Act Story
+// Planning Paper (0-35%) → Timeline (35-60%) → Render Queue (65-95%) → Success (95-100%)
 export function initTimelineScroll() {
   const section = document.querySelector('[data-timeline-section]')
   if (!section) return
 
-  // Act 1: Timeline elements
+  // Act 1: Planning Paper elements
+  const actPlanning = document.querySelector('[data-act-planning]') as HTMLElement
+  const planningTitle = document.querySelector('[data-planning-title]') as HTMLElement
+  const planningEpisodes = document.querySelectorAll('[data-planning-episode]') as NodeListOf<HTMLElement>
+  const episodeChecks = document.querySelectorAll('[data-episode-check]') as NodeListOf<HTMLElement>
+  const scrollHint = document.querySelector('[data-scroll-hint]') as HTMLElement
+  const actHeader = document.querySelector('[data-act-header]') as HTMLElement
+
+  // Act 2: Timeline elements
   const actTimeline = document.querySelector('[data-act-timeline]') as HTMLElement
   const playhead = document.querySelector('[data-playhead]') as HTMLElement
   const timecodeDisplay = document.querySelector('[data-current-timecode]') as HTMLElement
-  const scrollHint = document.querySelector('[data-scroll-hint]') as HTMLElement
   const clips = document.querySelectorAll('[data-clip]') as NodeListOf<HTMLElement>
-  const detailPlanning = document.querySelector('[data-detail-planning]') as HTMLElement
   const detailRecording = document.querySelector('[data-detail-recording]') as HTMLElement
   const detailPost = document.querySelector('[data-detail-post]') as HTMLElement
-  const actHeader = document.querySelector('[data-act-header]') as HTMLElement
 
-  // Act 2: Render Queue elements
+  // Act 3: Render Queue elements
   const actRender = document.querySelector('[data-act-render]') as HTMLElement
   const queueStatus = document.querySelector('[data-queue-status]') as HTMLElement
   const queueIndicator = document.querySelector('[data-queue-indicator]') as HTMLElement
 
-  // Act 3: Success elements
+  // Act 4: Success elements
   const actSuccess = document.querySelector('[data-act-success]') as HTMLElement
   const confettiParticles = document.querySelectorAll('[data-confetti-particle]') as NodeListOf<HTMLElement>
 
@@ -303,12 +308,13 @@ export function initTimelineScroll() {
     icon: document.querySelector(`[data-job-icon="${id}"]`) as HTMLElement
   }))
 
-  if (!actTimeline || !playhead) return
+  if (!actPlanning) return
 
   // Scroll zone boundaries
   const ZONES = {
-    TIMELINE_END: 0.55,      // Timeline phase ends
-    TRANSITION_END: 0.60,    // Transition complete
+    PLANNING_END: 0.35,      // Planning paper phase ends
+    TIMELINE_END: 0.60,      // Timeline phase ends
+    TRANSITION_END: 0.65,    // Transition complete
     RENDER_END: 0.95,        // Render queue ends
     SUCCESS: 1.0             // Success state
   }
@@ -320,22 +326,42 @@ export function initTimelineScroll() {
     return `00:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`
   }
 
+  // Update planning paper - reveal episodes sequentially
+  function updatePlanningPaper(progress: number) {
+    const planningProgress = progress / ZONES.PLANNING_END // Normalize to 0-1 within planning phase
+
+    // Show title first (at 5%)
+    if (planningTitle && planningProgress > 0.05) {
+      planningTitle.style.opacity = '1'
+    }
+
+    // Reveal episodes sequentially (6 episodes over remaining progress)
+    const episodeCount = planningEpisodes.length
+    planningEpisodes.forEach((episode, index) => {
+      const episodeThreshold = 0.1 + (index * 0.14) // Start at 10%, each takes ~14%
+      if (planningProgress > episodeThreshold) {
+        episode.style.opacity = '1'
+        episode.style.transform = 'translateX(0)'
+
+        // Show checkmark shortly after episode appears
+        if (planningProgress > episodeThreshold + 0.08 && episodeChecks[index]) {
+          episodeChecks[index].style.opacity = '1'
+        }
+      }
+    })
+  }
+
   // Update timeline detail panel based on progress
   function updateTimelineDetail(progress: number) {
-    const timelineProgress = progress / ZONES.TIMELINE_END // Normalize to 0-1 within timeline phase
+    // Normalize progress within timeline phase (0.35 to 0.60)
+    const timelineProgress = (progress - ZONES.PLANNING_END) / (ZONES.TIMELINE_END - ZONES.PLANNING_END)
 
     // Hide all first
-    if (detailPlanning) detailPlanning.classList.add('hidden')
     if (detailRecording) detailRecording.classList.add('hidden')
     if (detailPost) detailPost.classList.add('hidden')
 
-    // Show appropriate detail
-    if (timelineProgress < 0.35) {
-      if (detailPlanning) {
-        detailPlanning.classList.remove('hidden')
-        detailPlanning.classList.add('block')
-      }
-    } else if (timelineProgress < 0.75) {
+    // Show appropriate detail (recording for first 70%, post for last 30%)
+    if (timelineProgress < 0.70) {
       if (detailRecording) {
         detailRecording.classList.remove('hidden')
         detailRecording.classList.add('block')
@@ -350,7 +376,9 @@ export function initTimelineScroll() {
 
   // Reveal clips as playhead passes them
   function updateClipVisibility(progress: number) {
-    const playheadPosition = (progress / ZONES.TIMELINE_END) * 100 // Convert to percentage
+    // Normalize progress within timeline phase
+    const timelineProgress = (progress - ZONES.PLANNING_END) / (ZONES.TIMELINE_END - ZONES.PLANNING_END)
+    const playheadPosition = timelineProgress * 100 // Convert to percentage
 
     clips.forEach(clip => {
       const clipStart = parseFloat(clip.dataset.clipStart || '0')
@@ -367,7 +395,7 @@ export function initTimelineScroll() {
 
   // Update render queue progress bars
   function updateRenderQueue(progress: number) {
-    // Normalize progress within render phase (0.60 to 0.95)
+    // Normalize progress within render phase (0.65 to 0.95)
     const renderProgress = (progress - ZONES.TRANSITION_END) / (ZONES.RENDER_END - ZONES.TRANSITION_END)
 
     // Each job takes 1/3 of the render phase
@@ -446,7 +474,15 @@ export function initTimelineScroll() {
   }
 
   if (prefersReducedMotion) {
-    // Show all clips immediately
+    // Show all elements immediately
+    if (planningTitle) planningTitle.style.opacity = '1'
+    planningEpisodes.forEach(ep => {
+      ep.style.opacity = '1'
+      ep.style.transform = 'translateX(0)'
+    })
+    episodeChecks.forEach(check => {
+      check.style.opacity = '1'
+    })
     clips.forEach(clip => {
       clip.style.opacity = '1'
     })
@@ -457,7 +493,7 @@ export function initTimelineScroll() {
   const trackLabelWidth = 48
 
   let confettiTriggered = false
-  let currentPhase = 'timeline'
+  let currentPhase = 'planning'
 
   // Create the scroll-triggered animation
   ScrollTrigger.create({
@@ -468,14 +504,77 @@ export function initTimelineScroll() {
     onUpdate: (self) => {
       const progress = self.progress
 
-      // === ACT 1: TIMELINE (0% - 55%) ===
-      if (progress < ZONES.TIMELINE_END) {
+      // === ACT 1: PLANNING PAPER (0% - 35%) ===
+      if (progress < ZONES.PLANNING_END) {
+        if (currentPhase !== 'planning') {
+          currentPhase = 'planning'
+          // Show planning, hide others
+          actPlanning.style.opacity = '1'
+          actPlanning.style.transform = 'translateX(0)'
+          actPlanning.style.pointerEvents = 'auto'
+          if (actTimeline) {
+            actTimeline.style.opacity = '0'
+            actTimeline.style.transform = 'translateX(100px)'
+            actTimeline.style.pointerEvents = 'none'
+          }
+          if (actRender) {
+            actRender.style.opacity = '0'
+            actRender.style.transform = 'translateX(100px)'
+            actRender.style.pointerEvents = 'none'
+          }
+          if (actSuccess) {
+            actSuccess.style.opacity = '0'
+            actSuccess.style.transform = 'scale(0.95)'
+            actSuccess.style.pointerEvents = 'none'
+          }
+          // Update header
+          if (actHeader) {
+            actHeader.innerHTML = 'Your Content. <span class="text-[var(--color-coral)]">Our Plan.</span>'
+          }
+        }
+
+        // Update planning paper
+        updatePlanningPaper(progress)
+
+        // Hide scroll hint after initial scroll
+        if (scrollHint) {
+          scrollHint.style.opacity = progress > 0.05 ? '0' : '0.6'
+        }
+      }
+
+      // === TRANSITION: Planning → Timeline (35% - 40%) ===
+      else if (progress < ZONES.PLANNING_END + 0.05) {
+        const transitionProgress = (progress - ZONES.PLANNING_END) / 0.05
+
+        // Cross-fade planning out, timeline in
+        actPlanning.style.opacity = String(1 - transitionProgress)
+        actPlanning.style.transform = `translateX(${-transitionProgress * 100}px)`
+
+        if (actTimeline) {
+          actTimeline.style.opacity = String(transitionProgress)
+          actTimeline.style.transform = `translateX(${(1 - transitionProgress) * 100}px)`
+        }
+
+        // Update header mid-transition
+        if (actHeader && transitionProgress > 0.5) {
+          actHeader.innerHTML = 'Your Content. <span class="text-[var(--color-coral)]">Our Timeline.</span>'
+        }
+
+        currentPhase = 'planning-to-timeline'
+      }
+
+      // === ACT 2: TIMELINE (40% - 60%) ===
+      else if (progress < ZONES.TIMELINE_END) {
         if (currentPhase !== 'timeline') {
           currentPhase = 'timeline'
           // Show timeline, hide others
-          actTimeline.style.opacity = '1'
-          actTimeline.style.transform = 'translateX(0)'
-          actTimeline.style.pointerEvents = 'auto'
+          actPlanning.style.opacity = '0'
+          actPlanning.style.pointerEvents = 'none'
+          if (actTimeline) {
+            actTimeline.style.opacity = '1'
+            actTimeline.style.transform = 'translateX(0)'
+            actTimeline.style.pointerEvents = 'auto'
+          }
           if (actRender) {
             actRender.style.opacity = '0'
             actRender.style.transform = 'translateX(100px)'
@@ -493,11 +592,13 @@ export function initTimelineScroll() {
         }
 
         // Update timeline progress
-        const timelineProgress = progress / ZONES.TIMELINE_END
+        const timelineProgress = (progress - ZONES.PLANNING_END) / (ZONES.TIMELINE_END - ZONES.PLANNING_END)
 
         // Move playhead
-        const playheadLeft = trackLabelWidth + 4 + (timelineProgress * (window.innerWidth - trackLabelWidth - 100))
-        playhead.style.left = `${Math.min(playheadLeft, window.innerWidth - 50)}px`
+        if (playhead) {
+          const playheadLeft = trackLabelWidth + 4 + (timelineProgress * (window.innerWidth - trackLabelWidth - 100))
+          playhead.style.left = `${Math.min(playheadLeft, window.innerWidth - 50)}px`
+        }
 
         // Update timecode (0 to 20 minutes = 1200 seconds)
         const currentTime = timelineProgress * 1200
@@ -510,20 +611,17 @@ export function initTimelineScroll() {
 
         // Update detail panel
         updateTimelineDetail(progress)
-
-        // Hide scroll hint
-        if (scrollHint) {
-          scrollHint.style.opacity = progress > 0.05 ? '0' : '0.6'
-        }
       }
 
-      // === TRANSITION (55% - 60%) ===
+      // === TRANSITION: Timeline → Render Queue (60% - 65%) ===
       else if (progress < ZONES.TRANSITION_END) {
         const transitionProgress = (progress - ZONES.TIMELINE_END) / (ZONES.TRANSITION_END - ZONES.TIMELINE_END)
 
         // Cross-fade timeline out, render queue in
-        actTimeline.style.opacity = String(1 - transitionProgress)
-        actTimeline.style.transform = `translateX(${-transitionProgress * 100}px)`
+        if (actTimeline) {
+          actTimeline.style.opacity = String(1 - transitionProgress)
+          actTimeline.style.transform = `translateX(${-transitionProgress * 100}px)`
+        }
 
         if (actRender) {
           actRender.style.opacity = String(transitionProgress)
@@ -535,16 +633,20 @@ export function initTimelineScroll() {
           actHeader.innerHTML = 'Your Content. <span class="text-[var(--color-coral)]">Delivered.</span>'
         }
 
-        currentPhase = 'transition'
+        currentPhase = 'timeline-to-render'
       }
 
-      // === ACT 2: RENDER QUEUE (60% - 95%) ===
+      // === ACT 3: RENDER QUEUE (65% - 95%) ===
       else if (progress < ZONES.RENDER_END) {
         if (currentPhase !== 'render') {
           currentPhase = 'render'
           // Show render queue, hide timeline
-          actTimeline.style.opacity = '0'
-          actTimeline.style.pointerEvents = 'none'
+          actPlanning.style.opacity = '0'
+          actPlanning.style.pointerEvents = 'none'
+          if (actTimeline) {
+            actTimeline.style.opacity = '0'
+            actTimeline.style.pointerEvents = 'none'
+          }
           if (actRender) {
             actRender.style.opacity = '1'
             actRender.style.transform = 'translateX(0)'
@@ -554,17 +656,27 @@ export function initTimelineScroll() {
             actSuccess.style.opacity = '0'
             actSuccess.style.pointerEvents = 'none'
           }
+          // Update header
+          if (actHeader) {
+            actHeader.innerHTML = 'Your Content. <span class="text-[var(--color-coral)]">Delivered.</span>'
+          }
         }
 
         // Update render queue progress
         updateRenderQueue(progress)
       }
 
-      // === ACT 3: SUCCESS (95% - 100%) ===
+      // === ACT 4: SUCCESS (95% - 100%) ===
       else {
         if (currentPhase !== 'success') {
           currentPhase = 'success'
           // Hide render queue, show success
+          actPlanning.style.opacity = '0'
+          actPlanning.style.pointerEvents = 'none'
+          if (actTimeline) {
+            actTimeline.style.opacity = '0'
+            actTimeline.style.pointerEvents = 'none'
+          }
           if (actRender) {
             actRender.style.opacity = '0'
             actRender.style.pointerEvents = 'none'
