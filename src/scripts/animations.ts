@@ -277,8 +277,9 @@ export function initHeaderFade() {
   // Only on homepage
   if (window.location.pathname !== '/') return
 
-  // Find the trigger section
+  // Find the trigger section and lock-out section
   const whoThisIsFor = document.getElementById('who-this-is-for')
+  const howItWorks = document.querySelector('[data-timeline-section]') as HTMLElement
   if (!whoThisIsFor) return
 
   let lastScrollY = 0
@@ -289,8 +290,21 @@ export function initHeaderFade() {
     const triggerTop = whoThisIsFor.getBoundingClientRect().top + currentScrollY
     const isScrollingUp = currentScrollY < lastScrollY
 
-    if (isScrollingUp && !headerVisible) {
-      // Scrolling up - show header
+    // Check if we're inside the How It Works section
+    let insideHowItWorks = false
+    if (howItWorks) {
+      const rect = howItWorks.getBoundingClientRect()
+      insideHowItWorks = rect.top < window.innerHeight && rect.bottom > 0
+    }
+
+    // If inside How It Works section, always keep header hidden
+    if (insideHowItWorks && currentScrollY > triggerTop) {
+      if (headerVisible) {
+        gsap.to(header, { opacity: 0, y: -20, duration: 0.3, ease: 'power2.out' })
+        headerVisible = false
+      }
+    } else if (isScrollingUp && !headerVisible && !insideHowItWorks) {
+      // Scrolling up outside How It Works - show header
       gsap.to(header, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' })
       headerVisible = true
     } else if (!isScrollingUp && currentScrollY > triggerTop && headerVisible) {
