@@ -575,7 +575,7 @@ const phases = [
   </div>
 </section>
 
-<!-- Mobile: Vertical Process Flow -->
+<!-- Mobile: Vertical Process Flow with Visual Cards -->
 <section id="process-mobile" class="md:hidden py-16 bg-[var(--color-void)]">
   <div class="px-6">
 
@@ -594,78 +594,255 @@ const phases = [
       <!-- Connecting line -->
       <div class="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-[var(--color-coral)] via-blue-500 via-[var(--color-coral)] to-emerald-500"></div>
 
-      <!-- Step 1: Plan -->
+      <!-- Step 1: PLAN - Mini Script Document -->
       <div class="relative pl-14 pb-10" data-animate="fade-up">
         <!-- Timeline dot -->
         <div class="absolute left-4 top-1 w-5 h-5 rounded-full bg-[var(--color-coral)] border-4 border-[var(--color-void)] shadow-lg shadow-[var(--color-coral)]/30"></div>
 
-        <div class="bg-gradient-to-br from-[var(--color-charcoal)] to-[var(--color-slate)]/30 rounded-xl p-5 border border-[var(--color-graphite)]">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-xs text-[var(--color-coral)] font-mono font-bold">01</span>
-            <h3 class="text-lg font-bold text-[var(--color-cream)]">Plan</h3>
+        <div class="bg-gradient-to-br from-[var(--color-charcoal)] to-[var(--color-slate)]/30 rounded-xl overflow-hidden border border-[var(--color-graphite)]">
+          <!-- Visual: Mini Document Header -->
+          <div class="px-4 py-2.5 border-b border-[var(--color-graphite)] bg-[var(--color-slate)]/40 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+              <span class="text-xs font-bold text-[var(--color-cream)] uppercase tracking-wide">Podcast Outline</span>
+            </div>
+            <span class="text-[10px] text-[var(--color-coral)] font-mono">6 EPISODES</span>
           </div>
-          <p class="text-sm text-[var(--color-mist)]">We map out your first 6 episodes, topics, and guest strategy together.</p>
+
+          <!-- Visual: Episode Rows -->
+          <div class="px-3 py-2 space-y-1">
+            <div class="flex items-center gap-2 px-2 py-1.5 rounded bg-[var(--color-void)]/40">
+              <span class="text-[10px] font-mono text-[var(--color-coral)] font-bold w-5">01</span>
+              <span class="text-xs text-[var(--color-cream)]">Your Origin Story</span>
+            </div>
+            <div class="flex items-center gap-2 px-2 py-1.5 rounded bg-[var(--color-void)]/20">
+              <span class="text-[10px] font-mono text-[var(--color-coral)] font-bold w-5">02</span>
+              <span class="text-xs text-[var(--color-mist)]">Industry Trends</span>
+            </div>
+            <div class="flex items-center gap-2 px-2 py-1.5 rounded bg-[var(--color-void)]/20">
+              <span class="text-[10px] font-mono text-[var(--color-coral)] font-bold w-5">03</span>
+              <span class="text-xs text-[var(--color-mist)]">Behind the Scenes</span>
+            </div>
+          </div>
+
+          <!-- Info -->
+          <div class="px-4 py-3 border-t border-[var(--color-graphite)]/50">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs text-[var(--color-coral)] font-mono font-bold">01</span>
+              <h3 class="text-base font-bold text-[var(--color-cream)]">Plan</h3>
+            </div>
+            <p class="text-sm text-[var(--color-mist)]">We map out your first 6 episodes, topics, and guest strategy together.</p>
+          </div>
         </div>
       </div>
 
-      <!-- Step 2: Record -->
+      <!-- Step 2: RECORD - Camera Setup Visual -->
       <div class="relative pl-14 pb-10" data-animate="fade-up">
         <!-- Timeline dot -->
         <div class="absolute left-4 top-1 w-5 h-5 rounded-full bg-blue-500 border-4 border-[var(--color-void)] shadow-lg shadow-blue-500/30"></div>
 
-        <div class="bg-gradient-to-br from-blue-900/20 to-[var(--color-charcoal)] rounded-xl p-5 border border-blue-500/20">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-xs text-blue-400 font-mono font-bold">02</span>
-            <h3 class="text-lg font-bold text-[var(--color-cream)]">Record</h3>
+        <div class="bg-gradient-to-br from-blue-900/20 to-[var(--color-charcoal)] rounded-xl overflow-hidden border border-blue-500/20">
+          <!-- Visual: Studio Diagram -->
+          <div class="px-4 py-5 relative">
+            <!-- Camera angles -->
+            <div class="flex justify-center items-end gap-8 mb-3">
+              <!-- Camera 1 -->
+              <div class="flex flex-col items-center">
+                <div class="w-8 h-6 rounded bg-blue-600/80 border border-blue-400 flex items-center justify-center relative">
+                  <div class="w-2 h-2 rounded-full bg-red-500 absolute -top-1 -right-1 animate-pulse"></div>
+                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div class="w-px h-4 bg-blue-500/40"></div>
+              </div>
+
+              <!-- Mic -->
+              <div class="flex flex-col items-center -mb-2">
+                <div class="w-6 h-8 rounded-full bg-[var(--color-slate)] border border-[var(--color-graphite)] flex items-center justify-center">
+                  <svg class="w-3 h-3 text-[var(--color-coral)]" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                    <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+                  </svg>
+                </div>
+                <div class="w-px h-2 bg-[var(--color-graphite)]"></div>
+              </div>
+
+              <!-- Camera 2 -->
+              <div class="flex flex-col items-center">
+                <div class="w-8 h-6 rounded bg-blue-600/80 border border-blue-400 flex items-center justify-center relative">
+                  <div class="w-2 h-2 rounded-full bg-red-500 absolute -top-1 -right-1 animate-pulse"></div>
+                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div class="w-px h-4 bg-blue-500/40"></div>
+              </div>
+            </div>
+
+            <!-- Host indicator -->
+            <div class="flex justify-center">
+              <div class="px-3 py-1.5 rounded-lg bg-[var(--color-void)] border border-[var(--color-graphite)] flex items-center gap-2">
+                <div class="w-5 h-5 rounded-full bg-[var(--color-coral)]/20 flex items-center justify-center">
+                  <svg class="w-3 h-3 text-[var(--color-coral)]" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                  </svg>
+                </div>
+                <span class="text-xs text-[var(--color-mist)]">You</span>
+              </div>
+            </div>
           </div>
-          <p class="text-sm text-[var(--color-mist)]">Multi-camera studio session in Eagle, Idaho. You talk, we handle the tech.</p>
+
+          <!-- Info -->
+          <div class="px-4 py-3 border-t border-blue-500/20">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs text-blue-400 font-mono font-bold">02</span>
+              <h3 class="text-base font-bold text-[var(--color-cream)]">Record</h3>
+            </div>
+            <p class="text-sm text-[var(--color-mist)]">Multi-camera studio session in Eagle, Idaho. You talk, we handle the tech.</p>
+          </div>
         </div>
       </div>
 
-      <!-- Step 3: Edit -->
+      <!-- Step 3: EDIT - Mini Timeline -->
       <div class="relative pl-14 pb-10" data-animate="fade-up">
         <!-- Timeline dot -->
         <div class="absolute left-4 top-1 w-5 h-5 rounded-full bg-[var(--color-coral)] border-4 border-[var(--color-void)] shadow-lg shadow-[var(--color-coral)]/30"></div>
 
-        <div class="bg-gradient-to-br from-[var(--color-coral)]/10 to-[var(--color-charcoal)] rounded-xl p-5 border border-[var(--color-coral)]/20">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-xs text-[var(--color-coral)] font-mono font-bold">03</span>
-            <h3 class="text-lg font-bold text-[var(--color-cream)]">Edit</h3>
+        <div class="bg-gradient-to-br from-[var(--color-coral)]/10 to-[var(--color-charcoal)] rounded-xl overflow-hidden border border-[var(--color-coral)]/20">
+          <!-- Visual: Mini Timeline -->
+          <div class="px-3 py-3">
+            <div class="bg-[var(--color-void)] rounded-lg border border-[var(--color-graphite)] overflow-hidden">
+              <!-- Timecode bar -->
+              <div class="h-4 bg-[var(--color-slate)]/50 border-b border-[var(--color-graphite)] flex items-center px-2">
+                <span class="text-[8px] font-mono text-[var(--color-stone)]">00:00</span>
+                <span class="text-[8px] font-mono text-[var(--color-stone)] ml-auto">25:00</span>
+              </div>
+
+              <!-- Tracks -->
+              <div class="p-2 space-y-1.5">
+                <!-- V1 Track -->
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[8px] font-mono text-[var(--color-mist)] w-4">V1</span>
+                  <div class="flex-1 h-4 rounded bg-[var(--color-slate)]/30 relative overflow-hidden">
+                    <div class="absolute left-0 top-0 bottom-0 w-[15%] bg-[var(--color-coral)]/80 rounded-sm"></div>
+                    <div class="absolute left-[18%] top-0 bottom-0 w-[55%] bg-[var(--color-coral)] rounded-sm"></div>
+                    <div class="absolute left-[78%] top-0 bottom-0 w-[20%] bg-[var(--color-coral)]/80 rounded-sm"></div>
+                  </div>
+                </div>
+                <!-- V2 Track -->
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[8px] font-mono text-[var(--color-mist)] w-4">V2</span>
+                  <div class="flex-1 h-4 rounded bg-[var(--color-slate)]/30 relative overflow-hidden">
+                    <div class="absolute left-[18%] top-0 bottom-0 w-[55%] bg-blue-500/70 rounded-sm"></div>
+                  </div>
+                </div>
+                <!-- A1 Track -->
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[8px] font-mono text-emerald-400/70 w-4">A1</span>
+                  <div class="flex-1 h-3 rounded bg-[var(--color-slate)]/30 relative overflow-hidden">
+                    <div class="absolute left-0 top-0 bottom-0 w-full bg-emerald-500/60 rounded-sm flex items-center overflow-hidden">
+                      <!-- Waveform -->
+                      <svg class="w-full h-2 opacity-60" viewBox="0 0 100 8" preserveAspectRatio="none">
+                        <path d="M0,4 L5,2 L10,6 L15,3 L20,5 L25,2 L30,6 L35,3 L40,5 L45,2 L50,6 L55,3 L60,5 L65,2 L70,6 L75,3 L80,5 L85,2 L90,6 L95,3 L100,4" fill="none" stroke="white" stroke-width="1"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Playhead -->
+              <div class="relative h-0">
+                <div class="absolute -top-[52px] left-[35%] w-0.5 h-[52px] bg-[var(--color-coral)]">
+                  <div class="absolute -top-1 left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[var(--color-coral)]"></div>
+                </div>
+              </div>
+            </div>
           </div>
-          <p class="text-sm text-[var(--color-mist)]">Full post-production: cuts, color grading, graphics, and sound design.</p>
+
+          <!-- Info -->
+          <div class="px-4 py-3 border-t border-[var(--color-coral)]/20">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs text-[var(--color-coral)] font-mono font-bold">03</span>
+              <h3 class="text-base font-bold text-[var(--color-cream)]">Edit</h3>
+            </div>
+            <p class="text-sm text-[var(--color-mist)]">Full post-production: cuts, color grading, graphics, and sound design.</p>
+          </div>
         </div>
       </div>
 
-      <!-- Step 4: Publish -->
+      <!-- Step 4: PUBLISH - Platform Grid with Success -->
       <div class="relative pl-14" data-animate="fade-up">
         <!-- Timeline dot -->
         <div class="absolute left-4 top-1 w-5 h-5 rounded-full bg-emerald-500 border-4 border-[var(--color-void)] shadow-lg shadow-emerald-500/30"></div>
 
-        <div class="bg-gradient-to-br from-emerald-900/20 to-[var(--color-charcoal)] rounded-xl p-5 border border-emerald-500/20">
-          <div class="flex items-center gap-3 mb-2">
-            <span class="text-xs text-emerald-400 font-mono font-bold">04</span>
-            <h3 class="text-lg font-bold text-[var(--color-cream)]">Publish</h3>
-          </div>
-          <p class="text-sm text-[var(--color-mist)]">Distributed to YouTube, Spotify, Apple Podcasts with custom thumbnails and SEO.</p>
+        <div class="bg-gradient-to-br from-emerald-900/20 to-[var(--color-charcoal)] rounded-xl overflow-hidden border border-emerald-500/20">
+          <!-- Visual: Platform Grid -->
+          <div class="px-4 py-4">
+            <div class="grid grid-cols-2 gap-2">
+              <!-- YouTube -->
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--color-void)] border border-[var(--color-graphite)]">
+                <svg class="w-4 h-4 text-red-500" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/>
+                </svg>
+                <span class="text-xs text-[var(--color-mist)] flex-1">YouTube</span>
+                <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
 
-          <!-- Platform icons -->
-          <div class="flex items-center gap-2 mt-3 pt-3 border-t border-[var(--color-graphite)]/50">
-            <div class="w-7 h-7 rounded-lg bg-[var(--color-void)] flex items-center justify-center">
-              <svg class="w-3.5 h-3.5 text-red-500" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/>
-              </svg>
+              <!-- Spotify -->
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--color-void)] border border-[var(--color-graphite)]">
+                <svg class="w-4 h-4 text-green-500" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02z"/>
+                </svg>
+                <span class="text-xs text-[var(--color-mist)] flex-1">Spotify</span>
+                <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+
+              <!-- Apple Podcasts -->
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--color-void)] border border-[var(--color-graphite)]">
+                <svg class="w-4 h-4 text-purple-500" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M5.34 0A5.328 5.328 0 000 5.34v13.32A5.328 5.328 0 005.34 24h13.32A5.328 5.328 0 0024 18.66V5.34A5.328 5.328 0 0018.66 0H5.34zm6.525 3.56a8.206 8.206 0 014.635 1.415 8.212 8.212 0 013.094 3.836 8.206 8.206 0 01.462 4.871 8.212 8.212 0 01-2.468 4.248A8.206 8.206 0 0112 20.44a8.206 8.206 0 01-4.635-1.415 8.212 8.212 0 01-3.094-3.836 8.206 8.206 0 01-.462-4.871 8.212 8.212 0 012.468-4.248A8.206 8.206 0 0111.865 3.56z"/>
+                </svg>
+                <span class="text-xs text-[var(--color-mist)] flex-1">Apple</span>
+                <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
+
+              <!-- RSS -->
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-[var(--color-void)] border border-[var(--color-graphite)]">
+                <svg class="w-4 h-4 text-orange-500" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20 5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/>
+                </svg>
+                <span class="text-xs text-[var(--color-mist)] flex-1">RSS</span>
+                <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                </svg>
+              </div>
             </div>
-            <div class="w-7 h-7 rounded-lg bg-[var(--color-void)] flex items-center justify-center">
-              <svg class="w-3.5 h-3.5 text-green-500" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02z"/>
+
+            <!-- Success banner -->
+            <div class="mt-3 px-3 py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center gap-2">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
               </svg>
+              <span class="text-xs text-emerald-400 font-medium">Live & distributed</span>
             </div>
-            <div class="w-7 h-7 rounded-lg bg-[var(--color-void)] flex items-center justify-center">
-              <svg class="w-3.5 h-3.5 text-purple-500" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M5.34 0A5.328 5.328 0 000 5.34v13.32A5.328 5.328 0 005.34 24h13.32A5.328 5.328 0 0024 18.66V5.34A5.328 5.328 0 0018.66 0H5.34z"/>
-              </svg>
+          </div>
+
+          <!-- Info -->
+          <div class="px-4 py-3 border-t border-emerald-500/20">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs text-emerald-400 font-mono font-bold">04</span>
+              <h3 class="text-base font-bold text-[var(--color-cream)]">Publish</h3>
             </div>
-            <span class="text-[10px] text-emerald-400 ml-1">+ RSS</span>
+            <p class="text-sm text-[var(--color-mist)]">Distributed to all major platforms with custom thumbnails and SEO optimization.</p>
           </div>
         </div>
       </div>
