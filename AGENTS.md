@@ -30,4 +30,8 @@ src/
 ```
 
 ## Deployment
-[TBD]
+```bash
+npm run build
+npx wrangler pages deploy dist --project-name=alohamediastudio
+```
+Hosted on Cloudflare Pages at alohamediastudio.com
