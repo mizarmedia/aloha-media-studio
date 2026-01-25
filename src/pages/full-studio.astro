@@ -234,23 +234,23 @@ const services = [
             <div class={`hidden lg:block lg:col-span-6 ${index % 2 === 1 ? 'lg:order-1' : 'lg:col-start-7'}`} data-animate="fade-up">
               <div class="service-visual" style={`--accent: ${service.accent};`}>
                 {service.id === 'video' && (
-                  <div class="visual-with-image">
+                  <a href="https://youtu.be/wg2JuFpV_74" target="_blank" rel="noopener" class="visual-with-image video-link">
                     <img
                       src="/images/projects/jay-clouse-thumb.jpg"
                       alt="Video production sample"
                       class="visual-bg-image"
                     />
-                    <div class="visual-overlay">
+                    <div class="play-button-overlay">
                       <div class="play-button-large">
-                        <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M8 5v14l11-7z"/>
                         </svg>
                       </div>
-                      <div class="timeline">
-                        <div class="timeline-progress"></div>
-                      </div>
                     </div>
-                  </div>
+                    <div class="specialty-badge">
+                      <span>Our Specialty</span>
+                    </div>
+                  </a>
                 )}
 
                 {service.id === 'photo' && (
@@ -260,7 +260,7 @@ const services = [
                       alt="Studio interior"
                       class="visual-bg-image"
                     />
-                    <div class="visual-overlay photo-overlay">
+                    <div class="viewfinder-overlay">
                       <div class="viewfinder">
                         <div class="vf-corner vf-tl"></div>
                         <div class="vf-corner vf-tr"></div>
@@ -279,7 +279,7 @@ const services = [
                       alt="Website design sample"
                       class="visual-bg-image"
                     />
-                    <div class="visual-overlay branding-overlay">
+                    <div class="branding-bar">
                       <div class="color-bar">
                         <div class="color-chip" style="background: #eab308;"></div>
                         <div class="color-chip" style="background: #ca8a04;"></div>
@@ -293,11 +293,11 @@ const services = [
                 {service.id === 'audio' && (
                   <div class="visual-with-image">
                     <img
-                      src="/images/projects/wbw-podcast.png"
-                      alt="Podcast artwork"
+                      src="/images/studio/studio-interior-3.jpg"
+                      alt="Podcast recording studio"
                       class="visual-bg-image"
                     />
-                    <div class="visual-overlay audio-overlay">
+                    <div class="audio-eq-overlay">
                       <div class="eq-bars">
                         {Array(12).fill(0).map((_, i) => (
                           <div class="eq-bar" style={`--bar-delay: ${i * 0.1}s; --bar-height: ${40 + Math.random() * 60}%;`}></div>
@@ -510,6 +510,11 @@ const services = [
     width: 100%;
     height: 100%;
     position: relative;
+    display: block;
+  }
+
+  .video-link {
+    cursor: pointer;
   }
 
   .visual-bg-image {
@@ -523,34 +528,32 @@ const services = [
     transform: scale(1.05);
   }
 
-  .visual-overlay {
+  /* Video - clean play button overlay */
+  .play-button-overlay {
     position: absolute;
     inset: 0;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 40%, transparent) 0%, color-mix(in srgb, var(--accent) 20%, transparent) 100%);
+    background: rgba(0, 0, 0, 0.3);
     transition: background 0.3s ease;
   }
 
-  .service-visual:hover .visual-overlay {
-    background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 50%, transparent) 0%, color-mix(in srgb, var(--accent) 30%, transparent) 100%);
+  .service-visual:hover .play-button-overlay {
+    background: rgba(0, 0, 0, 0.4);
   }
 
-  /* Video overlay */
   .play-button-large {
-    width: 80px;
-    height: 80px;
-    background: rgba(255, 255, 255, 0.9);
+    width: 72px;
+    height: 72px;
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #3b82f6;
+    color: var(--color-void);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-bottom: 2rem;
   }
 
   .play-button-large svg {
@@ -559,52 +562,37 @@ const services = [
 
   .service-visual:hover .play-button-large {
     transform: scale(1.1);
-    box-shadow: 0 12px 40px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
   }
 
-  .timeline {
-    width: 70%;
-    height: 6px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-
-  .timeline-progress {
-    height: 100%;
-    background: #3b82f6;
-    border-radius: 3px;
-    animation: progress 3s ease-in-out infinite;
-  }
-
-  @keyframes progress {
-    0% { width: 0%; }
-    50% { width: 100%; }
-    100% { width: 0%; }
-  }
-
-  /* Photo overlay - viewfinder */
-  .photo-overlay {
-    background: transparent;
-  }
-
-  .service-visual:hover .photo-overlay {
-    background: rgba(249, 115, 22, 0.1);
+  /* Photo - clean viewfinder overlay (no color tint) */
+  .viewfinder-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
   }
 
   .viewfinder {
-    width: 70%;
-    height: 70%;
+    width: 75%;
+    height: 75%;
     position: relative;
   }
 
   .vf-corner {
     position: absolute;
-    width: 30px;
-    height: 30px;
-    border-color: rgba(255, 255, 255, 0.8);
+    width: 40px;
+    height: 40px;
+    border-color: rgba(255, 255, 255, 0.9);
     border-style: solid;
     border-width: 0;
+    transition: all 0.3s ease;
+  }
+
+  .service-visual:hover .vf-corner {
+    border-color: rgba(255, 255, 255, 1);
   }
 
   .vf-tl {
@@ -640,9 +628,9 @@ const services = [
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 20px;
-    height: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.6);
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(255, 255, 255, 0.7);
     border-radius: 50%;
   }
 
@@ -650,36 +638,38 @@ const services = [
   .vf-center::after {
     content: '';
     position: absolute;
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.7);
   }
 
   .vf-center::before {
     width: 1px;
-    height: 30px;
+    height: 40px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
 
   .vf-center::after {
-    width: 30px;
+    width: 40px;
     height: 1px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
 
-  /* Branding overlay */
-  .branding-overlay {
-    justify-content: flex-end;
-    padding-bottom: 1.5rem;
+  /* Branding - color bar at bottom (no overlay) */
+  .branding-bar {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .color-bar {
     display: flex;
     gap: 0.5rem;
     padding: 0.75rem 1rem;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(8px);
     border-radius: 999px;
   }
@@ -695,27 +685,29 @@ const services = [
     transform: scale(1.15);
   }
 
-  /* Audio overlay */
-  .audio-overlay {
-    justify-content: flex-end;
-    padding-bottom: 2rem;
+  /* Audio - EQ bars at bottom (no overlay) */
+  .audio-eq-overlay {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .eq-bars {
     display: flex;
     align-items: flex-end;
     gap: 6px;
-    height: 60px;
-    padding: 1rem 1.5rem;
-    background: rgba(0, 0, 0, 0.5);
+    height: 50px;
+    padding: 0.75rem 1.25rem;
+    background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(8px);
     border-radius: 12px;
   }
 
   .eq-bar {
-    width: 8px;
+    width: 6px;
     background: linear-gradient(to top, #10b981 0%, #34d399 100%);
-    border-radius: 4px;
+    border-radius: 3px;
     height: var(--bar-height);
     animation: eq-dance 0.8s ease-in-out infinite alternate;
     animation-delay: var(--bar-delay);
@@ -726,6 +718,7 @@ const services = [
     100% { height: calc(var(--bar-height) * 0.4); }
   }
 
+  /* Specialty badge */
   .specialty-badge {
     position: absolute;
     top: 1rem;
