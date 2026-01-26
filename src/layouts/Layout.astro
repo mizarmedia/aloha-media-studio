@@ -71,8 +71,11 @@ const canonicalURL = canonical
     <link rel="dns-prefetch" href="https://formsubmit.co" />
     <link rel="dns-prefetch" href="https://www.youtube.com" />
 
-    <!-- Fonts -->
+    <!-- Fonts with display swap for performance -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/images/logo/aloha-media-logo.png" as="image" />
 
     <title>{title}</title>
 
