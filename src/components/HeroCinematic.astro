@@ -2,7 +2,24 @@
 // Cinematic Hero - Full screen YouTube video background with single CTA
 // Video: https://www.youtube.com/watch?v=yaAKbA2IpeU
 const videoId = 'yaAKbA2IpeU'
+
+// VideoObject schema for SEO
+const videoSchema = {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Aloha Media Studio - Professional Podcast Production",
+  "description": "See inside our Eagle, Idaho podcast production studio. Full-service podcast creation for business owners and thought leaders.",
+  "thumbnailUrl": "https://alohamediastudio.com/images/studio/studio-interior-1.jpg",
+  "uploadDate": "2026-01-01",
+  "embedUrl": `https://www.youtube.com/embed/${videoId}`,
+  "contentUrl": `https://www.youtube.com/watch?v=${videoId}`,
+  "publisher": {
+    "@id": "https://alohamediastudio.com/#organization"
+  }
+}
 ---
+
+<script type="application/ld+json" set:html={JSON.stringify(videoSchema)} />
 
 <section class="relative h-screen flex items-center justify-center overflow-hidden">
   <!-- YouTube Video Background -->

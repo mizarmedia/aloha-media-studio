@@ -1,0 +1,96 @@
+---
+// FAQ Section - Common questions about podcast production
+
+const faqs = [
+  {
+    question: "How much does podcast production cost?",
+    answer: "Professional podcast production typically costs $500-$2,500 per episode depending on complexity. Our full-service packages including studio recording, editing, and distribution to YouTube, Spotify, and Apple Podcasts average $1,500 per episode."
+  },
+  {
+    question: "How long does it take to launch a podcast?",
+    answer: "With our full-service production, most clients launch within 90 days. This includes content strategy and planning, recording your first 6 episodes in our Eagle studio, professional editing, and setting up distribution to all major platforms."
+  },
+  {
+    question: "Do I need my own equipment?",
+    answer: "No. Our Eagle, Idaho studio includes professional multi-camera setup, broadcast lighting, microphones, and all equipment needed for high-quality production. You just show up and talk—we handle the technical side."
+  },
+  {
+    question: "What's included in a full-service podcast package?",
+    answer: "Our packages include content strategy, episode planning, professional studio recording, video and audio editing, thumbnail creation, show notes, and distribution to YouTube, Spotify, Apple Podcasts, and RSS feeds. We become your complete podcast team."
+  },
+  {
+    question: "Can you help with an existing podcast?",
+    answer: "Yes. We work with both new and existing podcasts. Whether you need to upgrade your production quality, take over editing duties, or rebrand your show, we can help. Book a discovery call to discuss your specific needs."
+  }
+]
+
+// FAQPage schema for SEO
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+<section id="faq" class="py-16 md:py-24 bg-[var(--color-charcoal)]">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-center mb-12" data-animate="fade-up">
+      <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--color-cream)] mb-4">
+        Common Questions
+      </h2>
+      <p class="text-[var(--color-mist)]">
+        Everything you need to know about working with us
+      </p>
+    </div>
+
+    <div class="space-y-4" data-animate-stagger>
+      {faqs.map((faq, index) => (
+        <details
+          class="group bg-[var(--color-void)] border border-[var(--color-graphite)] rounded-xl overflow-hidden"
+          data-animate-child
+        >
+          <summary class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none hover:bg-[var(--color-slate)]/50 transition-colors">
+            <span class="text-[var(--color-cream)] font-medium text-left">
+              {faq.question}
+            </span>
+            <svg
+              class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0 transition-transform duration-300 group-open:rotate-180"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 text-[var(--color-mist)] leading-relaxed">
+            {faq.answer}
+          </div>
+        </details>
+      ))}
+    </div>
+
+    <div class="text-center mt-10" data-animate="fade-up">
+      <p class="text-[var(--color-stone)] text-sm mb-4">
+        Have a different question?
+      </p>
+      <a
+        href="#contact"
+        class="inline-flex items-center gap-2 text-[var(--color-coral)] hover:text-[var(--color-coral-light)] font-medium transition-colors"
+      >
+        Get in touch
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

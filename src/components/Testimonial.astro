@@ -1,6 +1,27 @@
 ---
 // Single featured testimonial - clean, focused design
+
+// Review schema for SEO
+const reviewSchema = {
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": "5",
+    "bestRating": "5"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Dr. Roger Hall"
+  },
+  "reviewBody": "It has been a pleasure to work with Nation Goetter and his team at Aloha Media for the last two years. It is great that Nation makes the process of video and podcasting easy, it is even better that he is an expert. The quality of the product is higher than many other well-funded media enterprises.",
+  "itemReviewed": {
+    "@id": "https://alohamediastudio.com/#organization"
+  }
+}
 ---
+
+<script type="application/ld+json" set:html={JSON.stringify(reviewSchema)} />
 
 <section class="py-24 bg-[var(--color-void)]">
   <div class="max-w-4xl mx-auto px-6">

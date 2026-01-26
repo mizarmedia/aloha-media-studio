@@ -24,6 +24,12 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
 User-agent: Applebot-Extended
 Allow: /
 
@@ -41,6 +47,15 @@ User-agent: CCBot
 Disallow: /
 
 User-agent: Meta-ExternalAgent
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+User-agent: meta-webindexer
 Disallow: /
 
 User-agent: Bytespider
