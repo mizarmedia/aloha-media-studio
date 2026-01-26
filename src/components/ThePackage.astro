@@ -1,0 +1,55 @@
+---
+// ThePackage.astro - Clear statement of the core offering
+const phases = [
+  {
+    number: '01',
+    title: 'Pre-Production',
+    description: 'Strategy, episode planning, and guest coordination'
+  },
+  {
+    number: '02',
+    title: 'Production',
+    description: 'Multi-camera recording in our Eagle studio'
+  },
+  {
+    number: '03',
+    title: 'Post-Production',
+    description: 'Editing, color grading, graphics, sound design'
+  },
+  {
+    number: '04',
+    title: 'Distribution',
+    description: 'YouTube, Spotify, Apple Podcasts, and more'
+  },
+]
+---
+
+<section class="py-20 md:py-28 bg-[var(--color-void)]">
+  <div class="max-w-5xl mx-auto px-6">
+    <!-- Header -->
+    <div class="text-center mb-12 md:mb-16">
+      <h2 class="text-3xl md:text-5xl font-bold text-[var(--color-cream)] mb-4">
+        Your Podcast. <span class="text-[var(--color-coral)]">Season One.</span>
+      </h2>
+      <p class="text-lg md:text-xl text-[var(--color-mist)] mb-2">
+        6 episodes. Full-service production. Launch in 90 days.
+      </p>
+      <p class="text-base text-[var(--color-stone)]">
+        We handle everything so you can focus on your expertise.
+      </p>
+    </div>
+
+    <!-- 4 Phases Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {phases.map((phase) => (
+        <div class="text-center p-6 rounded-xl border border-[var(--color-graphite)] bg-[var(--color-charcoal)]/30">
+          <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[var(--color-coral)]/10 border border-[var(--color-coral)]/30 mb-4">
+            <span class="text-sm font-mono font-bold text-[var(--color-coral)]">{phase.number}</span>
+          </div>
+          <h3 class="text-lg font-bold text-[var(--color-cream)] mb-2">{phase.title}</h3>
+          <p class="text-sm text-[var(--color-mist)]">{phase.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
