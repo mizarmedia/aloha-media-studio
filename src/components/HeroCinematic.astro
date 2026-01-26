@@ -37,32 +37,40 @@ const videoSchema = {
     <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-void)]/80 via-[var(--color-void)]/60 to-[var(--color-void)]/95"></div>
   </div>
 
-  <!-- Delayed YouTube iframe injection -->
+  <!-- Delayed YouTube iframe injection - waits for browser idle -->
   <script define:vars={{ videoId }}>
-    // Load YouTube video after page is ready to avoid blocking
+    // Load YouTube video only when browser is idle to avoid blocking main thread
     if (typeof window !== 'undefined') {
-      window.addEventListener('load', () => {
-        setTimeout(() => {
-          const container = document.getElementById('hero-video-container');
-          if (container) {
-            const iframe = document.createElement('iframe');
-            iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1`;
-            iframe.title = 'Aloha Media Studio Showreel';
-            iframe.className = 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vh] min-w-[177.77vh] min-h-[56.25vw]';
-            iframe.frameBorder = '0';
-            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-            iframe.allowFullscreen = true;
+      function loadYouTube() {
+        const container = document.getElementById('hero-video-container');
+        if (container && !container.querySelector('iframe')) {
+          const iframe = document.createElement('iframe');
+          iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1`;
+          iframe.title = 'Aloha Media Studio Showreel';
+          iframe.className = 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vh] min-w-[177.77vh] min-h-[56.25vw]';
+          iframe.frameBorder = '0';
+          iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          iframe.allowFullscreen = true;
 
-            // Fade out poster, add iframe
-            const poster = document.getElementById('hero-poster');
-            if (poster) {
-              poster.style.transition = 'opacity 0.5s';
-              poster.style.opacity = '0';
-              setTimeout(() => poster.remove(), 500);
-            }
-            container.appendChild(iframe);
+          // Fade out poster, add iframe
+          const poster = document.getElementById('hero-poster');
+          if (poster) {
+            poster.style.transition = 'opacity 0.5s';
+            poster.style.opacity = '0';
+            setTimeout(() => poster.remove(), 500);
           }
-        }, 1000); // 1 second delay after page load
+          container.appendChild(iframe);
+        }
+      }
+
+      // Use requestIdleCallback to load when browser is truly idle
+      // Falls back to 3 second delay if not supported
+      window.addEventListener('load', () => {
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadYouTube, { timeout: 3000 });
+        } else {
+          setTimeout(loadYouTube, 3000);
+        }
       });
     }
   </script>
