@@ -122,6 +122,20 @@ img {
   opacity: 0;
 }
 
+/* Reduced motion: show all content immediately */
+@media (prefers-reduced-motion: reduce) {
+  [data-animate="fade-up"],
+  [data-animate="fade-in"],
+  [data-animate="scale-up"],
+  [data-animate="slide-left"],
+  [data-animate="slide-right"],
+  [data-animate="text-reveal"],
+  [data-animate-child] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 /* Gradient text animation */
 @keyframes gradient-shift {
   0%, 100% {
