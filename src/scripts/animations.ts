@@ -761,7 +761,7 @@ export function initQuoteReveal() {
 
     // Wrap each word in a span
     el.innerHTML = words.map(word =>
-      `<span class="quote-word inline-block" style="opacity: 0.4;">${word}</span>`
+      `<span class="quote-word inline-block" style="opacity: 0.55;">${word}</span>`
     ).join(' ')
 
     const wordSpans = el.querySelectorAll('.quote-word')
