@@ -22,21 +22,50 @@ const videoSchema = {
 <script type="application/ld+json" set:html={JSON.stringify(videoSchema)} />
 
 <section class="relative h-screen flex items-center justify-center overflow-hidden">
-  <!-- YouTube Video Background -->
+  <!-- YouTube Video Background - Delayed Load for Performance -->
   <div class="absolute inset-0 z-0 pointer-events-none">
-    <div class="absolute inset-0 scale-150">
-      <iframe
-        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=${Astro.url.origin}`}
-        title="Aloha Media Studio Showreel"
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vh] min-w-[177.77vh] min-h-[56.25vw]"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      ></iframe>
+    <div id="hero-video-container" class="absolute inset-0 scale-150">
+      <!-- Poster image shown until video loads -->
+      <img
+        src="/images/hero-poster.webp"
+        alt=""
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vh] min-w-[177.77vh] min-h-[56.25vw] object-cover"
+        id="hero-poster"
+      />
     </div>
     <!-- Dark overlay for text readability -->
     <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-void)]/80 via-[var(--color-void)]/60 to-[var(--color-void)]/95"></div>
   </div>
+
+  <!-- Delayed YouTube iframe injection -->
+  <script define:vars={{ videoId }}>
+    // Load YouTube video after page is ready to avoid blocking
+    if (typeof window !== 'undefined') {
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const container = document.getElementById('hero-video-container');
+          if (container) {
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1`;
+            iframe.title = 'Aloha Media Studio Showreel';
+            iframe.className = 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vh] min-w-[177.77vh] min-h-[56.25vw]';
+            iframe.frameBorder = '0';
+            iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+            iframe.allowFullscreen = true;
+
+            // Fade out poster, add iframe
+            const poster = document.getElementById('hero-poster');
+            if (poster) {
+              poster.style.transition = 'opacity 0.5s';
+              poster.style.opacity = '0';
+              setTimeout(() => poster.remove(), 500);
+            }
+            container.appendChild(iframe);
+          }
+        }, 1000); // 1 second delay after page load
+      });
+    }
+  </script>
 
   <!-- Content - Centered, minimal -->
   <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
