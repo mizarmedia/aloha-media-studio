@@ -1,31 +1,25 @@
 ---
 // CredibilityStrip - Quick trust indicators (2-second scan)
 const stats = [
-  { value: '200+', label: 'Episodes Delivered', isCounter: false },
-  { value: '20,000+', label: 'Avg. Monthly Views Per Client', isCounter: true, counterTarget: 20000 },
+  { value: '200+', label: 'Episodes', isCounter: false },
+  { value: '20K+', label: 'Monthly Views', isCounter: false },
   { value: 'Eagle, ID', label: 'Local Studio', isCounter: false }
 ]
 ---
 
-<section id="credibility" class="py-8 md:py-10 bg-[var(--color-charcoal)] border-y border-[var(--color-graphite)]">
-  <div class="max-w-5xl mx-auto px-6">
-    <div class="flex flex-wrap justify-center gap-8 md:gap-16 lg:gap-24">
+<section id="credibility" class="py-6 md:py-10 bg-[var(--color-charcoal)] border-y border-[var(--color-graphite)]">
+  <div class="max-w-5xl mx-auto px-4 md:px-6">
+    <div class="grid grid-cols-3 gap-2 md:gap-16 lg:gap-24">
       {stats.map((stat, index) => (
         <div
           class="text-center"
           data-animate="fade-up"
           style={`--delay: ${index * 0.1}s`}
         >
-          {stat.isCounter ? (
-            <div class="text-3xl md:text-4xl font-bold text-[var(--color-coral)]">
-              <span data-views-counter data-counter-target={stat.counterTarget}>0</span>+
-            </div>
-          ) : (
-            <div class="text-3xl md:text-4xl font-bold text-[var(--color-coral)]">
-              {stat.value}
-            </div>
-          )}
-          <div class="text-xs md:text-sm text-[var(--color-stone)] mt-1 uppercase tracking-wider">
+          <div class="text-xl sm:text-2xl md:text-4xl font-bold text-[var(--color-coral)]">
+            {stat.value}
+          </div>
+          <div class="text-[10px] sm:text-xs md:text-sm text-[var(--color-stone)] mt-1 uppercase tracking-wider">
             {stat.label}
           </div>
         </div>
