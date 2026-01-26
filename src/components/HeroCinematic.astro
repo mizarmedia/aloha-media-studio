@@ -11,7 +11,7 @@ const videoSchema = {
   "description": "See inside our Eagle, Idaho podcast production studio. Full-service podcast creation for business owners and thought leaders.",
   "thumbnailUrl": "https://alohamediastudio.com/images/studio/studio-interior-1.jpg",
   "uploadDate": "2026-01-01",
-  "embedUrl": `https://www.youtube.com/embed/${videoId}`,
+  "embedUrl": `https://www.youtube-nocookie.com/embed/${videoId}`,
   "contentUrl": `https://www.youtube.com/watch?v=${videoId}`,
   "publisher": {
     "@id": "https://alohamediastudio.com/#organization"
@@ -46,7 +46,7 @@ const videoSchema = {
           const container = document.getElementById('hero-video-container');
           if (container) {
             const iframe = document.createElement('iframe');
-            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1`;
+            iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1`;
             iframe.title = 'Aloha Media Studio Showreel';
             iframe.className = 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vh] min-w-[177.77vh] min-h-[56.25vw]';
             iframe.frameBorder = '0';
