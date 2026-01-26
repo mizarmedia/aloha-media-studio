@@ -1,8 +1,35 @@
 ---
-// Single featured testimonial - clean, focused design
+// Testimonials - Two featured clients
 
-// Review schema for SEO
-const reviewSchema = {
+const testimonials = [
+  {
+    name: 'Dr. Roger Hall',
+    role: 'Host, Second Thoughts Podcast',
+    image: '/images/testimonials/roger-hall.webp',
+    quote: 'It has been a pleasure to work with Nation Goetter and his team at Aloha Media for the last two years. It is great that Nation makes the process of video and podcasting easy, it is even better that he is an expert. The quality of the product is higher than many other well-funded media enterprises.',
+    stats: [
+      { icon: 'video', label: '500+ videos' },
+      { icon: 'views', label: '260,000+ views' }
+    ],
+    link: 'https://www.youtube.com/@DoctorRogerHall',
+    linkText: 'See his channel'
+  },
+  {
+    name: 'Kent Delhousaye',
+    role: 'Founder, Love and Transformation',
+    image: '/images/testimonials/kent-delhousaye.webp',
+    quote: 'We asked Aloha Media to help us tell our story through video production, and our experience from recording to delivery of a long and short video was terrific. Nation expertly guided us through the production process, and his team delivered an exceptional product. We\'re thankful to have a producer like him and a studio like his right here in Eagle.',
+    stats: [
+      { icon: 'years', label: '3+ years' },
+      { icon: 'views', label: '3M+ views' }
+    ],
+    link: 'https://loveandtransformation.org/',
+    linkText: 'Visit their site'
+  }
+]
+
+// Schema for SEO - multiple reviews
+const reviewSchemas = testimonials.map(t => ({
   "@context": "https://schema.org",
   "@type": "Review",
   "reviewRating": {
@@ -12,76 +39,101 @@ const reviewSchema = {
   },
   "author": {
     "@type": "Person",
-    "name": "Dr. Roger Hall"
+    "name": t.name
   },
-  "reviewBody": "It has been a pleasure to work with Nation Goetter and his team at Aloha Media for the last two years. It is great that Nation makes the process of video and podcasting easy, it is even better that he is an expert. The quality of the product is higher than many other well-funded media enterprises.",
+  "reviewBody": t.quote,
   "itemReviewed": {
     "@id": "https://alohamediastudio.com/#organization"
   }
-}
+}))
 ---
 
-<script type="application/ld+json" set:html={JSON.stringify(reviewSchema)} />
+{reviewSchemas.map(schema => (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+))}
 
 <section class="py-24 bg-[var(--color-void)]">
-  <div class="max-w-4xl mx-auto px-6">
-    <div class="text-center">
-      <!-- Quote icon -->
-      <svg class="w-12 h-12 mx-auto mb-8 text-[var(--color-coral)]/30" fill="currentColor" viewBox="0 0 24 24" data-animate="fade-up">
-        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-      </svg>
+  <div class="max-w-6xl mx-auto px-6">
+    <!-- Section header -->
+    <div class="text-center mb-16">
+      <p class="text-sm uppercase tracking-widest text-[var(--color-coral)] mb-2">
+        Client Stories
+      </p>
+      <h2 class="text-3xl md:text-4xl font-bold text-[var(--color-cream)]">
+        What They Say
+      </h2>
+    </div>
 
-      <!-- Quote -->
-      <blockquote class="text-xl md:text-2xl lg:text-3xl text-[var(--color-cream)] font-medium leading-relaxed mb-10" data-quote-reveal>
-        "It has been a pleasure to work with Nation Goetter and his team at Aloha Media for the last two years. It is great that Nation makes the process of video and podcasting easy, it is even better that he is an expert. The quality of the product is higher than many other well-funded media enterprises."
-      </blockquote>
-
-      <!-- Author -->
-      <div class="flex flex-col items-center gap-4" data-animate="fade-up">
-        <div class="flex items-center gap-4">
-          <img
-            src="/images/testimonials/roger-hall.webp"
-            alt="Dr. Roger Hall"
-            class="w-16 h-16 rounded-full object-cover object-top border-2 border-[var(--color-coral)]/30"
-            width="64"
-            height="64"
-            loading="lazy"
-            decoding="async"
-          />
-          <div class="text-left">
-            <div class="font-semibold text-[var(--color-cream)]">Dr. Roger Hall</div>
-            <div class="text-sm text-[var(--color-stone)]">Host, Second Thoughts Podcast</div>
-          </div>
-        </div>
-        <!-- Stats badges -->
-        <div class="flex flex-wrap justify-center gap-3 mt-2">
-          <div class="inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-coral)]/10 rounded-full border border-[var(--color-coral)]/20">
-            <svg class="w-4 h-4 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-            </svg>
-            <span class="text-sm font-medium text-[var(--color-coral)]">500+ videos</span>
-          </div>
-          <div class="inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-coral)]/10 rounded-full border border-[var(--color-coral)]/20">
-            <svg class="w-4 h-4 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-            </svg>
-            <span class="text-sm font-medium text-[var(--color-coral)]">260,000+ views</span>
-          </div>
-        </div>
-        <!-- Link to podcast -->
-        <a
-          href="https://www.youtube.com/@DoctorRogerHall"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 mt-4 text-sm text-[var(--color-coral)] hover:text-[var(--color-coral-light)] transition-colors"
-        >
-          See his channel
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+    <!-- Testimonials grid -->
+    <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+      {testimonials.map((testimonial) => (
+        <div class="bg-[var(--color-charcoal)]/30 rounded-2xl border border-[var(--color-graphite)] p-8">
+          <!-- Quote icon -->
+          <svg class="w-10 h-10 mb-6 text-[var(--color-coral)]/30" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
           </svg>
-        </a>
-      </div>
+
+          <!-- Quote -->
+          <blockquote class="text-lg md:text-xl text-[var(--color-cream)] font-medium leading-relaxed mb-8">
+            "{testimonial.quote}"
+          </blockquote>
+
+          <!-- Author -->
+          <div class="flex items-center gap-4 mb-6">
+            <img
+              src={testimonial.image}
+              alt={testimonial.name}
+              class="w-14 h-14 rounded-full object-cover object-top border-2 border-[var(--color-coral)]/30"
+              width="56"
+              height="56"
+              loading="lazy"
+              decoding="async"
+            />
+            <div>
+              <div class="font-semibold text-[var(--color-cream)]">{testimonial.name}</div>
+              <div class="text-sm text-[var(--color-stone)]">{testimonial.role}</div>
+            </div>
+          </div>
+
+          <!-- Stats badges -->
+          <div class="flex flex-wrap gap-3 mb-4">
+            {testimonial.stats.map((stat) => (
+              <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-[var(--color-coral)]/10 rounded-full border border-[var(--color-coral)]/20">
+                {stat.icon === 'video' && (
+                  <svg class="w-4 h-4 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                )}
+                {stat.icon === 'views' && (
+                  <svg class="w-4 h-4 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                )}
+                {stat.icon === 'years' && (
+                  <svg class="w-4 h-4 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                )}
+                <span class="text-sm font-medium text-[var(--color-coral)]">{stat.label}</span>
+              </div>
+            ))}
+          </div>
+
+          <!-- Link -->
+          <a
+            href={testimonial.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-sm text-[var(--color-coral)] hover:text-[var(--color-coral-light)] transition-colors"
+          >
+            {testimonial.linkText}
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        </div>
+      ))}
     </div>
   </div>
 </section>
