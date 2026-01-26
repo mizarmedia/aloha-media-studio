@@ -11,8 +11,9 @@ const testimonials = [
       { icon: 'video', label: '500+ videos' },
       { icon: 'views', label: '260,000+ views' }
     ],
-    link: 'https://www.youtube.com/@DoctorRogerHall',
-    linkText: 'See his channel'
+    links: [
+      { url: 'https://www.youtube.com/@DoctorRogerHall', text: 'See his channel' }
+    ]
   },
   {
     name: 'Kent Delhousaye',
@@ -23,8 +24,10 @@ const testimonials = [
       { icon: 'years', label: '3+ years' },
       { icon: 'instagram', label: '1M+ Instagram views' }
     ],
-    link: 'https://youtu.be/dhJ8c_9-prg',
-    linkText: 'Watch the video'
+    links: [
+      { url: 'https://youtu.be/dhJ8c_9-prg', text: 'Watch full video' },
+      { url: 'https://youtube.com/shorts/C9q4g5bpTAM', text: 'Watch short' }
+    ]
   }
 ]
 
@@ -125,18 +128,22 @@ const reviewSchemas = testimonials.map(t => ({
             ))}
           </div>
 
-          <!-- Link -->
-          <a
-            href={testimonial.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 text-sm text-[var(--color-coral)] hover:text-[var(--color-coral-light)] transition-colors"
-          >
-            {testimonial.linkText}
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          </a>
+          <!-- Links -->
+          <div class="flex flex-wrap gap-4">
+            {testimonial.links.map((link) => (
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 text-sm text-[var(--color-coral)] hover:text-[var(--color-coral-light)] transition-colors"
+              >
+                {link.text}
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            ))}
+          </div>
         </div>
       ))}
     </div>
