@@ -365,62 +365,97 @@ const studioSchema = {
         <div class="flex justify-center gap-4 mb-8">
           <button
             id="tab-1hour"
-            class="booking-tab active px-6 py-3 rounded-full font-semibold transition-all duration-300 bg-[var(--color-coral)] text-[var(--color-void)]"
+            class="booking-tab px-6 py-3 rounded-full font-semibold transition-all duration-300"
             data-tab="1hour"
+            style="background-color: var(--color-coral); color: var(--color-void);"
           >
             1 Hour — $100
           </button>
           <button
             id="tab-4hour"
-            class="booking-tab px-6 py-3 rounded-full font-semibold transition-all duration-300 border-2 border-[var(--color-ash)] text-[var(--color-cream)] hover:border-[var(--color-coral)]"
+            class="booking-tab px-6 py-3 rounded-full font-semibold transition-all duration-300"
             data-tab="4hour"
+            style="background-color: transparent; color: var(--color-cream); border: 2px solid var(--color-ash);"
           >
             4 Hours — $350
           </button>
         </div>
 
-        <!-- Cal.com Direct Iframes -->
-        <div class="bg-[var(--color-void)] rounded-3xl border border-[var(--color-graphite)] overflow-hidden">
-          <!-- 1-Hour Calendar -->
-          <iframe
-            id="cal-1hour"
-            src="https://cal.com/nation-goetter-peowyk/1hour?embed=true&theme=dark&layout=month_view"
-            frameborder="0"
-            class="cal-embed"
-            style="width:100%; height:500px; border:none;"
-          ></iframe>
-
-          <!-- 4-Hour Calendar (hidden by default) -->
-          <iframe
-            id="cal-4hour"
-            src="https://cal.com/nation-goetter-peowyk/4hour?embed=true&theme=dark&layout=month_view"
-            frameborder="0"
-            class="cal-embed"
-            style="width:100%; height:500px; border:none; display:none;"
-          ></iframe>
+        <!-- Cal.com Embeds -->
+        <div class="rounded-3xl border border-[var(--color-graphite)] overflow-hidden">
+          <!-- 1-Hour Calendar Wrapper -->
+          <div id="cal-wrapper-1hour">
+            <div id="my-cal-inline-1hour" style="width:100%;"></div>
+          </div>
+          <!-- 4-Hour Calendar Wrapper (hidden) -->
+          <div id="cal-wrapper-4hour" style="display:none;">
+            <div id="my-cal-inline-4hour" style="width:100%;"></div>
+          </div>
         </div>
 
-        <!-- Simple Tab Switching -->
-        <script>
+        <!-- Cal.com Embed Scripts -->
+        <script type="text/javascript">
+          (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+
+          // 1-Hour Calendar
+          Cal("init", "1hour", {origin:"https://app.cal.com"});
+          Cal.ns["1hour"]("inline", {
+            elementOrSelector:"#my-cal-inline-1hour",
+            config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
+            calLink: "nation-goetter-peowyk/1hour",
+          });
+          Cal.ns["1hour"]("ui", {
+            "cssVarsPerTheme": {
+              "light": {"cal-brand": "#e07b5b"},
+              "dark": {"cal-brand": "#e07b5b"}
+            },
+            "hideEventTypeDetails": false,
+            "layout": "month_view"
+          });
+
+          // 4-Hour Calendar
+          Cal("init", "4hour", {origin:"https://app.cal.com"});
+          Cal.ns["4hour"]("inline", {
+            elementOrSelector:"#my-cal-inline-4hour",
+            config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
+            calLink: "nation-goetter-peowyk/4hour",
+          });
+          Cal.ns["4hour"]("ui", {
+            "cssVarsPerTheme": {
+              "light": {"cal-brand": "#e07b5b"},
+              "dark": {"cal-brand": "#e07b5b"}
+            },
+            "hideEventTypeDetails": false,
+            "layout": "month_view"
+          });
+
+          // Tab switching - using wrapper divs
           document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.booking-tab').forEach(tab => {
-              tab.addEventListener('click', () => {
-                const targetTab = tab.dataset.tab;
+            const tab1 = document.getElementById('tab-1hour');
+            const tab4 = document.getElementById('tab-4hour');
+            const wrapper1 = document.getElementById('cal-wrapper-1hour');
+            const wrapper4 = document.getElementById('cal-wrapper-4hour');
 
-                // Update tab styles
-                document.querySelectorAll('.booking-tab').forEach(t => {
-                  t.classList.remove('bg-[var(--color-coral)]', 'text-[var(--color-void)]');
-                  t.classList.add('border-2', 'border-[var(--color-ash)]', 'text-[var(--color-cream)]');
-                });
-                tab.classList.add('bg-[var(--color-coral)]', 'text-[var(--color-void)]');
-                tab.classList.remove('border-2', 'border-[var(--color-ash)]', 'text-[var(--color-cream)]');
+            tab1.addEventListener('click', function() {
+              wrapper1.style.display = 'block';
+              wrapper4.style.display = 'none';
+              tab1.style.backgroundColor = 'var(--color-coral)';
+              tab1.style.color = 'var(--color-void)';
+              tab1.style.border = 'none';
+              tab4.style.backgroundColor = 'transparent';
+              tab4.style.color = 'var(--color-cream)';
+              tab4.style.border = '2px solid var(--color-ash)';
+            });
 
-                // Show/hide iframes
-                document.querySelectorAll('.cal-embed').forEach(iframe => {
-                  iframe.style.display = 'none';
-                });
-                document.getElementById('cal-' + targetTab).style.display = 'block';
-              });
+            tab4.addEventListener('click', function() {
+              wrapper4.style.display = 'block';
+              wrapper1.style.display = 'none';
+              tab4.style.backgroundColor = 'var(--color-coral)';
+              tab4.style.color = 'var(--color-void)';
+              tab4.style.border = 'none';
+              tab1.style.backgroundColor = 'transparent';
+              tab1.style.color = 'var(--color-cream)';
+              tab1.style.border = '2px solid var(--color-ash)';
             });
           });
         </script>
