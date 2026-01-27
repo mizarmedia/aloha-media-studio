@@ -217,26 +217,16 @@ const canonicalURL = canonical
       }
     </script>
 
-    <!-- Cal.com Floating "Book the Studio" Button -->
-    <script type="text/javascript">
-      (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-
-      Cal("init", "floating", {origin:"https://app.cal.com"});
-      Cal.ns["floating"]("floatingButton", {
-        "calLink": "nation-goetter-peowyk/1hour",
-        "config": {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
-        "buttonText": "Book The Studio",
-        "buttonColor": "#e07b5b",
-        "buttonTextColor": "#1a1a1a"
-      });
-      Cal.ns["floating"]("ui", {
-        "cssVarsPerTheme": {
-          "light": {"cal-brand": "#e07b5b"},
-          "dark": {"cal-brand": "#e07b5b"}
-        },
-        "hideEventTypeDetails": false,
-        "layout": "month_view"
-      });
-    </script>
+    <!-- Custom Floating "Book the Studio" Button -->
+    <a
+      href="/studio#booking"
+      class="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-5 py-3 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+      style="box-shadow: 0 4px 14px rgba(224, 123, 91, 0.4);"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+      Book The Studio
+    </a>
   </body>
 </html>
