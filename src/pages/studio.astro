@@ -349,7 +349,7 @@ const studioSchema = {
     <!-- Booking Section -->
     <section id="booking" class="py-24 bg-[var(--color-charcoal)]">
       <div class="max-w-4xl mx-auto px-6">
-        <div class="text-center mb-12">
+        <div class="text-center mb-10">
           <p class="text-[var(--color-coral)] text-sm font-medium tracking-widest uppercase mb-4">
             Ready?
           </p>
@@ -357,29 +357,49 @@ const studioSchema = {
             Book your session
           </h2>
           <p class="text-[var(--color-mist)] text-lg">
-            Pick a time that works for you. Payment confirms your booking instantly.
+            Select your session length and pick a time that works.
           </p>
         </div>
 
-        <!-- Session Type Tabs -->
-        <div class="flex justify-center gap-4 mb-8">
+        <!-- Session Type Cards -->
+        <div class="grid sm:grid-cols-2 gap-4 mb-8 max-w-2xl mx-auto">
           <button
             id="tab-1hour"
-            class="booking-tab px-6 py-3 rounded-full font-semibold transition-all duration-300"
+            class="booking-tab group p-5 rounded-2xl text-left transition-all duration-300 border-2"
             data-tab="1hour"
-            style="background-color: var(--color-coral); color: var(--color-void);"
+            style="background-color: var(--color-coral); border-color: var(--color-coral);"
           >
-            1 Hour — $100
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-2xl font-bold" style="color: var(--color-void);">$100</span>
+              <span class="text-sm font-medium px-2 py-1 rounded-full" style="background-color: var(--color-void); color: var(--color-coral);">1 Hour</span>
+            </div>
+            <p class="text-sm" style="color: var(--color-void); opacity: 0.8;">
+              Podcast recordings, headshots, quick shoots
+            </p>
           </button>
           <button
             id="tab-4hour"
-            class="booking-tab px-6 py-3 rounded-full font-semibold transition-all duration-300"
+            class="booking-tab group p-5 rounded-2xl text-left transition-all duration-300 border-2"
             data-tab="4hour"
-            style="background-color: transparent; color: var(--color-cream); border: 2px solid var(--color-ash);"
+            style="background-color: transparent; border-color: var(--color-ash);"
           >
-            4 Hours — $350
+            <div class="flex items-center justify-between mb-2">
+              <div>
+                <span class="text-2xl font-bold text-[var(--color-cream)]">$350</span>
+                <span class="text-xs text-[var(--color-coral)] ml-2 font-medium">Save $50</span>
+              </div>
+              <span class="text-sm font-medium px-2 py-1 rounded-full bg-[var(--color-graphite)] text-[var(--color-cream)]">4 Hours</span>
+            </div>
+            <p class="text-sm text-[var(--color-mist)]">
+              Content batching, interviews, multi-setup shoots
+            </p>
           </button>
         </div>
+
+        <!-- Need help choosing -->
+        <p class="text-center text-sm text-[var(--color-stone)] mb-6">
+          Not sure which to choose? <a href="/#contact" class="text-[var(--color-coral)] hover:underline">Contact us</a> and we'll help you plan.
+        </p>
 
         <!-- Cal.com Embeds -->
         <div class="rounded-3xl border border-[var(--color-graphite)] overflow-hidden">
@@ -436,60 +456,82 @@ const studioSchema = {
             const wrapper1 = document.getElementById('cal-wrapper-1hour');
             const wrapper4 = document.getElementById('cal-wrapper-4hour');
 
+            function setActiveTab(activeTab, inactiveTab, activeWrapper, inactiveWrapper) {
+              // Show/hide calendars
+              activeWrapper.style.display = 'block';
+              inactiveWrapper.style.display = 'none';
+
+              // Active tab styling
+              activeTab.style.backgroundColor = 'var(--color-coral)';
+              activeTab.style.borderColor = 'var(--color-coral)';
+              activeTab.querySelectorAll('span, p').forEach(el => {
+                el.style.color = 'var(--color-void)';
+                el.style.opacity = el.tagName === 'P' ? '0.8' : '1';
+              });
+              // Reset the badge
+              const activeBadge = activeTab.querySelector('span:last-of-type');
+              if (activeBadge) {
+                activeBadge.style.backgroundColor = 'var(--color-void)';
+                activeBadge.style.color = 'var(--color-coral)';
+              }
+
+              // Inactive tab styling
+              inactiveTab.style.backgroundColor = 'transparent';
+              inactiveTab.style.borderColor = 'var(--color-ash)';
+              inactiveTab.querySelectorAll('span').forEach(el => {
+                el.style.color = 'var(--color-cream)';
+              });
+              inactiveTab.querySelectorAll('p').forEach(el => {
+                el.style.color = 'var(--color-mist)';
+                el.style.opacity = '1';
+              });
+              // Reset inactive badge
+              const inactiveBadge = inactiveTab.querySelector('span:last-of-type');
+              if (inactiveBadge) {
+                inactiveBadge.style.backgroundColor = 'var(--color-graphite)';
+                inactiveBadge.style.color = 'var(--color-cream)';
+              }
+              // Keep save text coral
+              const saveText = inactiveTab.querySelector('span.text-\\[var\\(--color-coral\\)\\]');
+              if (saveText) saveText.style.color = 'var(--color-coral)';
+            }
+
             tab1.addEventListener('click', function() {
-              wrapper1.style.display = 'block';
-              wrapper4.style.display = 'none';
-              tab1.style.backgroundColor = 'var(--color-coral)';
-              tab1.style.color = 'var(--color-void)';
-              tab1.style.border = 'none';
-              tab4.style.backgroundColor = 'transparent';
-              tab4.style.color = 'var(--color-cream)';
-              tab4.style.border = '2px solid var(--color-ash)';
+              setActiveTab(tab1, tab4, wrapper1, wrapper4);
             });
 
             tab4.addEventListener('click', function() {
-              wrapper4.style.display = 'block';
-              wrapper1.style.display = 'none';
-              tab4.style.backgroundColor = 'var(--color-coral)';
-              tab4.style.color = 'var(--color-void)';
-              tab4.style.border = 'none';
-              tab1.style.backgroundColor = 'transparent';
-              tab1.style.color = 'var(--color-cream)';
-              tab1.style.border = '2px solid var(--color-ash)';
+              setActiveTab(tab4, tab1, wrapper4, wrapper1);
             });
           });
         </script>
 
-        <!-- Terms Notice -->
-        <div class="mt-8 p-4 bg-[var(--color-void)]/50 rounded-2xl border border-[var(--color-graphite)] text-center">
-          <p class="text-sm text-[var(--color-mist)]">
-            By completing a booking, you agree to our
-            <a href="/studio-agreement" class="text-[var(--color-coral)] hover:underline">Studio Rental Agreement</a>.
-          </p>
+        <!-- Quick Info Bar -->
+        <div class="mt-8 flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm text-[var(--color-mist)]">
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Lighting & audio included
+          </span>
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Free cancellation 48hrs+
+          </span>
+          <span class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Instant confirmation
+          </span>
         </div>
 
-        <!-- Policies -->
-        <div class="mt-6 grid md:grid-cols-2 gap-6">
-          <div class="p-6 bg-[var(--color-void)] rounded-2xl border border-[var(--color-graphite)]">
-            <h4 class="font-semibold text-[var(--color-cream)] mb-3">Booking Policy</h4>
-            <ul class="text-sm text-[var(--color-mist)] space-y-2">
-              <li>• Full payment required to confirm booking</li>
-              <li>• 48-hour cancellation for full refund</li>
-              <li>• 24-48 hour cancellation: 50% refund</li>
-              <li>• Less than 24 hours: no refund</li>
-              <li>• Rescheduling available with 24-hour notice</li>
-            </ul>
-          </div>
-          <div class="p-6 bg-[var(--color-void)] rounded-2xl border border-[var(--color-graphite)]">
-            <h4 class="font-semibold text-[var(--color-cream)] mb-3">What's Included</h4>
-            <ul class="text-sm text-[var(--color-mist)] space-y-2">
-              <li>• Professional lighting equipment</li>
-              <li>• Audio equipment for podcast recording</li>
-              <li>• Camera equipment available upon request</li>
-              <li>• Full-day bookings require <a href="/#contact" class="text-[var(--color-coral)] hover:underline">advance contact</a></li>
-            </ul>
-          </div>
-        </div>
+        <!-- Terms Notice -->
+        <p class="mt-6 text-center text-xs text-[var(--color-stone)]">
+          By booking, you agree to our <a href="/studio-agreement" class="text-[var(--color-coral)] hover:underline">Studio Rental Agreement</a>
+        </p>
       </div>
     </section>
 
