@@ -390,42 +390,80 @@ const studioSchema = {
 
         <!-- Cal.com Embed Scripts -->
         <script type="text/javascript">
-          (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+          // Cal.com embed loader
+          (function (C, A, L) {
+            let p = function (a, ar) { a.q.push(ar); };
+            let d = C.document;
+            C.Cal = C.Cal || function () {
+              let cal = C.Cal;
+              let ar = arguments;
+              if (!cal.loaded) {
+                cal.ns = {};
+                cal.q = cal.q || [];
+                d.head.appendChild(d.createElement("script")).src = A;
+                cal.loaded = true;
+              }
+              if (ar[0] === L) {
+                const api = function () { p(api, arguments); };
+                const namespace = ar[1];
+                api.q = api.q || [];
+                if (typeof namespace === "string") {
+                  cal.ns[namespace] = cal.ns[namespace] || api;
+                  p(cal.ns[namespace], ar);
+                  p(cal, ["initNamespace", namespace]);
+                } else p(cal, ar);
+                return;
+              }
+              p(cal, ar);
+            };
+          })(window, "https://app.cal.com/embed/embed.js", "init");
 
-          // Initialize 1-hour calendar
-          Cal("init", "1hour", {origin:"https://app.cal.com"});
-          Cal.ns["1hour"]("inline", {
-            elementOrSelector:"#cal-1hour",
-            config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
-            calLink: "nation-goetter-peowyk/1hour",
-          });
-          Cal.ns["1hour"]("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#e07b5b"},"dark":{"cal-brand":"#e07b5b"}},"hideEventTypeDetails":false,"layout":"month_view"});
+          // Initialize calendars after DOM is ready
+          function initCalendars() {
+            // Initialize 1-hour calendar
+            Cal("init", "1hour", {origin:"https://app.cal.com"});
+            Cal.ns["1hour"]("inline", {
+              elementOrSelector:"#cal-1hour",
+              config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
+              calLink: "nation-goetter-peowyk/1hour",
+            });
+            Cal.ns["1hour"]("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#e07b5b"},"dark":{"cal-brand":"#e07b5b"}},"hideEventTypeDetails":false,"layout":"month_view"});
 
-          // Initialize 4-hour calendar
-          Cal("init", "4hour", {origin:"https://app.cal.com"});
-          Cal.ns["4hour"]("inline", {
-            elementOrSelector:"#cal-4hour",
-            config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
-            calLink: "nation-goetter-peowyk/4hour",
-          });
-          Cal.ns["4hour"]("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#e07b5b"},"dark":{"cal-brand":"#e07b5b"}},"hideEventTypeDetails":false,"layout":"month_view"});
+            // Initialize 4-hour calendar
+            Cal("init", "4hour", {origin:"https://app.cal.com"});
+            Cal.ns["4hour"]("inline", {
+              elementOrSelector:"#cal-4hour",
+              config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
+              calLink: "nation-goetter-peowyk/4hour",
+            });
+            Cal.ns["4hour"]("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#e07b5b"},"dark":{"cal-brand":"#e07b5b"}},"hideEventTypeDetails":false,"layout":"month_view"});
+          }
+
+          // Run when DOM is ready
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCalendars);
+          } else {
+            initCalendars();
+          }
 
           // Tab switching logic
-          document.querySelectorAll('.booking-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-              const targetTab = tab.dataset.tab;
+          document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.booking-tab').forEach(tab => {
+              tab.addEventListener('click', () => {
+                const targetTab = tab.dataset.tab;
 
-              // Update tab styles
-              document.querySelectorAll('.booking-tab').forEach(t => {
-                t.classList.remove('bg-[var(--color-coral)]', 'text-[var(--color-void)]');
-                t.classList.add('border-2', 'border-[var(--color-ash)]', 'text-[var(--color-cream)]');
+                // Update tab styles
+                document.querySelectorAll('.booking-tab').forEach(t => {
+                  t.classList.remove('bg-[var(--color-coral)]', 'text-[var(--color-void)]');
+                  t.classList.add('border-2', 'border-[var(--color-ash)]', 'text-[var(--color-cream)]');
+                });
+                tab.classList.add('bg-[var(--color-coral)]', 'text-[var(--color-void)]');
+                tab.classList.remove('border-2', 'border-[var(--color-ash)]', 'text-[var(--color-cream)]');
+
+                // Show/hide calendars
+                document.querySelectorAll('.cal-embed').forEach(cal => cal.classList.add('hidden'));
+                document.getElementById('cal-' + targetTab).classList.remove('hidden');
               });
-              tab.classList.add('bg-[var(--color-coral)]', 'text-[var(--color-void)]');
-              tab.classList.remove('border-2', 'border-[var(--color-ash)]', 'text-[var(--color-cream)]');
-
-              // Show/hide calendars
-              document.querySelectorAll('.cal-embed').forEach(cal => cal.classList.add('hidden'));
-              document.getElementById('cal-' + targetTab).classList.remove('hidden');
             });
           });
         </script>

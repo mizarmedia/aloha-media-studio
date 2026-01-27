@@ -267,50 +267,74 @@ export function initScrollProgress() {
   })
 }
 
-// Header fade on scroll - homepage only
+// Header fade on scroll - all pages
 export function initHeaderFade() {
   if (prefersReducedMotion) return
 
   const header = document.getElementById('header')
   if (!header) return
 
-  // Only on homepage
-  if (window.location.pathname !== '/') return
+  const isHomepage = window.location.pathname === '/'
 
-  // Find the trigger section and lock-out section
+  // Homepage-specific elements
   const whoThisIsFor = document.getElementById('who-this-is-for')
   const howItWorks = document.querySelector('[data-timeline-section]') as HTMLElement
-  if (!whoThisIsFor) return
 
   let lastScrollY = 0
   let headerVisible = true
+  const scrollThreshold = 100 // Pixels to scroll before header hides
 
   const updateHeaderVisibility = () => {
     const currentScrollY = window.scrollY
-    const triggerTop = whoThisIsFor.getBoundingClientRect().top + currentScrollY
     const isScrollingUp = currentScrollY < lastScrollY
+    const scrollDelta = Math.abs(currentScrollY - lastScrollY)
 
-    // Check if we're inside the How It Works section
-    let insideHowItWorks = false
-    if (howItWorks) {
-      const rect = howItWorks.getBoundingClientRect()
-      insideHowItWorks = rect.top < window.innerHeight && rect.bottom > 0
-    }
+    // Need minimum scroll delta to trigger change (prevents jitter)
+    if (scrollDelta < 5) return
 
-    // If inside How It Works section, always keep header hidden
-    if (insideHowItWorks && currentScrollY > triggerTop) {
-      if (headerVisible) {
+    if (isHomepage && whoThisIsFor) {
+      // Homepage behavior - uses section triggers
+      const triggerTop = whoThisIsFor.getBoundingClientRect().top + currentScrollY
+
+      // Check if we're inside the How It Works section
+      let insideHowItWorks = false
+      if (howItWorks) {
+        const rect = howItWorks.getBoundingClientRect()
+        insideHowItWorks = rect.top < window.innerHeight && rect.bottom > 0
+      }
+
+      // If inside How It Works section, always keep header hidden
+      if (insideHowItWorks && currentScrollY > triggerTop) {
+        if (headerVisible) {
+          gsap.to(header, { opacity: 0, y: -20, duration: 0.3, ease: 'power2.out' })
+          headerVisible = false
+        }
+      } else if (isScrollingUp && !headerVisible && !insideHowItWorks) {
+        // Scrolling up outside How It Works - show header
+        gsap.to(header, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' })
+        headerVisible = true
+      } else if (!isScrollingUp && currentScrollY > triggerTop && headerVisible) {
+        // Scrolling down past trigger - hide header
         gsap.to(header, { opacity: 0, y: -20, duration: 0.3, ease: 'power2.out' })
         headerVisible = false
       }
-    } else if (isScrollingUp && !headerVisible && !insideHowItWorks) {
-      // Scrolling up outside How It Works - show header
-      gsap.to(header, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' })
-      headerVisible = true
-    } else if (!isScrollingUp && currentScrollY > triggerTop && headerVisible) {
-      // Scrolling down past trigger - hide header
-      gsap.to(header, { opacity: 0, y: -20, duration: 0.3, ease: 'power2.out' })
-      headerVisible = false
+    } else {
+      // Other pages - simple scroll up/down behavior
+      if (currentScrollY < scrollThreshold) {
+        // Near top - always show
+        if (!headerVisible) {
+          gsap.to(header, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' })
+          headerVisible = true
+        }
+      } else if (isScrollingUp && !headerVisible) {
+        // Scrolling up - show header
+        gsap.to(header, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' })
+        headerVisible = true
+      } else if (!isScrollingUp && headerVisible && currentScrollY > scrollThreshold) {
+        // Scrolling down past threshold - hide header
+        gsap.to(header, { opacity: 0, y: -20, duration: 0.3, ease: 'power2.out' })
+        headerVisible = false
+      }
     }
 
     lastScrollY = currentScrollY
