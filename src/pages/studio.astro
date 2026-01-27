@@ -56,10 +56,23 @@ const pricingTiers = [
 ]
 
 const studioImages = [
-  '/images/studio/studio-interior-1.jpg',
-  '/images/studio/studio-interior-2.jpg',
-  '/images/studio/studio-interior-3.jpg',
-  '/images/studio/studio-exterior-1.jpg',
+  // Podcast room (two-person setup)
+  { src: '/images/studio/podcast-setup-1.webp', alt: 'Two-person podcast recording room', featured: true },
+  { src: '/images/studio/podcast-setup-2.webp', alt: 'Podcast studio with professional lighting' },
+  { src: '/images/studio/podcast-setup-3.webp', alt: 'Multi-camera podcast setup' },
+  // Solo recording setup
+  { src: '/images/studio/solo-setup-1.webp', alt: 'Solo recording booth' },
+  { src: '/images/studio/solo-setup-2.webp', alt: 'Solo podcast setup' },
+  { src: '/images/studio/solo-setup-3.webp', alt: 'Professional microphone and lighting' },
+  { src: '/images/studio/solo-setup-4.webp', alt: 'Solo recording equipment' },
+  { src: '/images/studio/solo-setup-5.webp', alt: 'Recording studio detail' },
+  { src: '/images/studio/solo-setup-7.webp', alt: 'Studio equipment setup' },
+  // Studio lounge/waiting area
+  { src: '/images/studio/studio-space-1.webp', alt: 'Studio lounge area' },
+  { src: '/images/studio/studio-space-2.webp', alt: 'Client waiting area' },
+  { src: '/images/studio/studio-space-3.webp', alt: 'Studio common space' },
+  // Microphone detail
+  { src: '/images/studio/microphone.webp', alt: 'Professional studio microphone' },
 ]
 
 // Page-specific schema for studio rental
@@ -91,9 +104,9 @@ const studioSchema = {
     <!-- Cinematic Hero with Background Image -->
     <section class="relative h-[70vh] min-h-[500px] flex items-center justify-center overflow-hidden">
       <div class="absolute inset-0">
-        <img 
-          src="/images/studio/studio-interior-1.jpg" 
-          alt="Aloha Media Studio"
+        <img
+          src="/images/studio/podcast-setup-1.webp"
+          alt="Aloha Media Studio podcast room"
           class="w-full h-full object-cover"
         />
         <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-void)]/80 via-[var(--color-void)]/60 to-[var(--color-void)]"></div>
@@ -150,25 +163,26 @@ const studioSchema = {
             Where creativity comes to life
           </h2>
         </div>
-        
-        <!-- Large Featured Image -->
-        <div class="mb-6 rounded-3xl overflow-hidden">
-          <img 
-            src="/images/studio/studio-interior-1.jpg" 
-            alt="Main studio space"
-            class="w-full h-[50vh] object-cover hover:scale-105 transition-transform duration-700"
-          />
-        </div>
-        
-        <!-- Grid of smaller images -->
-        <div class="grid grid-cols-3 gap-6">
-          {studioImages.slice(1).map((src, index) => (
-            <div class="rounded-2xl overflow-hidden aspect-[4/3]">
-              <img 
-                src={src} 
-                alt={`Studio view ${index + 2}`}
-                class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
-                loading="lazy"
+
+        <!-- Masonry-style Gallery -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {studioImages.map((image, index) => (
+            <div
+              class:list={[
+                "rounded-2xl overflow-hidden group",
+                image.featured ? "col-span-2 row-span-2" : "",
+                index === 3 || index === 7 ? "md:col-span-2" : ""
+              ]}
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                class:list={[
+                  "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105",
+                  image.featured ? "aspect-square" : "aspect-[4/3]"
+                ]}
+                loading={index < 4 ? "eager" : "lazy"}
+                decoding="async"
               />
             </div>
           ))}
