@@ -361,19 +361,15 @@ const studioSchema = {
           </p>
         </div>
 
-        <!-- Cal.com Official Embed -->
-        <div
-          id="cal-inline"
-          class="bg-[var(--color-void)] rounded-3xl border border-[var(--color-graphite)] overflow-hidden min-h-[700px]"
-          style="width: 100%; overflow: scroll;"
-        >
-          <!-- Loading state while Cal.com loads -->
-          <div id="cal-loading" class="flex items-center justify-center h-[700px]">
-            <div class="flex flex-col items-center gap-4">
-              <div class="w-8 h-8 border-2 border-[var(--color-coral)] border-t-transparent rounded-full animate-spin"></div>
-              <p class="text-[var(--color-mist)]">Loading calendar...</p>
-            </div>
-          </div>
+        <!-- Cal.com Embed -->
+        <div class="bg-[var(--color-void)] rounded-3xl border border-[var(--color-graphite)] overflow-hidden">
+          <iframe
+            src="https://cal.com/nation-goetter-peowyk?theme=dark"
+            frameborder="0"
+            allowfullscreen
+            style="width: 100%; height: 700px; border: none;"
+            loading="lazy"
+          ></iframe>
         </div>
 
         <!-- Policies -->
@@ -400,55 +396,6 @@ const studioSchema = {
       </div>
     </section>
 
-    <!-- Cal.com Official Embed Script -->
-    <script>
-      (function (C, A, L) {
-        let p = function (a, ar) { a.q.push(ar); };
-        let d = C.document;
-        C.Cal = C.Cal || function () {
-          let cal = C.Cal;
-          let ar = arguments;
-          if (!cal.loaded) {
-            cal.ns = {};
-            cal.q = cal.q || [];
-            d.head.appendChild(d.createElement("script")).src = A;
-            cal.loaded = true;
-          }
-          if (ar[0] === L) {
-            const api = function () { p(api, arguments); };
-            const namespace = ar[1];
-            api.q = api.q || [];
-            if (typeof namespace === "string") {
-              cal.ns[namespace] = cal.ns[namespace] || api;
-              p(cal.ns[namespace], ar);
-              p(cal, ["initNamespace", namespace]);
-            } else p(cal, ar);
-            return;
-          }
-          p(cal, ar);
-        };
-      })(window, "https://app.cal.com/embed/embed.js", "init");
-
-      Cal("init", { origin: "https://cal.com" });
-
-      Cal("inline", {
-        elementOrSelector: "#cal-inline",
-        calLink: "nation-goetter-peowyk",
-        layout: "month_view",
-        config: {
-          theme: "dark"
-        }
-      });
-
-      // Hide loading state when Cal.com is ready
-      Cal("on", {
-        action: "linkReady",
-        callback: () => {
-          const loading = document.getElementById('cal-loading');
-          if (loading) loading.style.display = 'none';
-        }
-      });
-    </script>
   </main>
   
   <Footer />
