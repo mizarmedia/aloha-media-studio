@@ -1,0 +1,287 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+---
+
+<Layout
+  title="Studio Rental Agreement | Aloha Media Studio"
+  description="Terms and conditions for renting the Aloha Media Studio production space in Eagle, Idaho."
+>
+  <Header />
+
+  <main class="py-24">
+    <div class="max-w-3xl mx-auto px-6">
+      <!-- Header -->
+      <div class="mb-12">
+        <a
+          href="/studio"
+          class="inline-flex items-center gap-2 text-[var(--color-coral)] hover:text-[var(--color-coral-light)] transition-colors mb-6"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to Studio
+        </a>
+
+        <h1 class="text-4xl md:text-5xl font-bold text-[var(--color-cream)] mb-4">
+          Studio Rental Agreement
+        </h1>
+        <p class="text-[var(--color-mist)] text-lg">
+          Please review these terms before booking your session.
+        </p>
+      </div>
+
+      <!-- Agreement Content -->
+      <div class="prose prose-invert max-w-none space-y-10">
+
+        <!-- Section 1: Booking & Payment -->
+        <section class="p-6 bg-[var(--color-charcoal)] rounded-2xl border border-[var(--color-graphite)]">
+          <h2 class="text-2xl font-bold text-[var(--color-cream)] mb-4 flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[var(--color-coral)]/20 flex items-center justify-center text-[var(--color-coral)] text-sm font-bold">1</span>
+            Booking & Payment
+          </h2>
+          <ul class="text-[var(--color-mist)] space-y-3">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Full payment is required at time of booking to secure your session</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Payment is processed securely via Stripe</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>You will receive a confirmation email with session details</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Section 2: Cancellation & Refunds -->
+        <section class="p-6 bg-[var(--color-charcoal)] rounded-2xl border border-[var(--color-graphite)]">
+          <h2 class="text-2xl font-bold text-[var(--color-cream)] mb-4 flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[var(--color-coral)]/20 flex items-center justify-center text-[var(--color-coral)] text-sm font-bold">2</span>
+            Cancellation & Refunds
+          </h2>
+          <div class="space-y-4">
+            <div class="grid gap-3">
+              <div class="flex items-center justify-between p-3 bg-[var(--color-void)] rounded-lg">
+                <span class="text-[var(--color-mist)]">Cancel 48+ hours before</span>
+                <span class="text-[var(--color-cream)] font-semibold">Full refund</span>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-[var(--color-void)] rounded-lg">
+                <span class="text-[var(--color-mist)]">Cancel 24-48 hours before</span>
+                <span class="text-[var(--color-cream)] font-semibold">50% refund</span>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-[var(--color-void)] rounded-lg">
+                <span class="text-[var(--color-mist)]">Cancel less than 24 hours</span>
+                <span class="text-[var(--color-stone)] font-semibold">No refund</span>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-[var(--color-void)] rounded-lg">
+                <span class="text-[var(--color-mist)]">No-show</span>
+                <span class="text-[var(--color-stone)] font-semibold">Forfeit full payment</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: Rescheduling -->
+        <section class="p-6 bg-[var(--color-charcoal)] rounded-2xl border border-[var(--color-graphite)]">
+          <h2 class="text-2xl font-bold text-[var(--color-cream)] mb-4 flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[var(--color-coral)]/20 flex items-center justify-center text-[var(--color-coral)] text-sm font-bold">3</span>
+            Rescheduling
+          </h2>
+          <ul class="text-[var(--color-mist)] space-y-3">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Reschedule with 24+ hours notice at no charge</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span><a href="/#contact" class="text-[var(--color-coral)] hover:underline">Contact us directly</a> to reschedule your session</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Section 4: Studio Access -->
+        <section class="p-6 bg-[var(--color-charcoal)] rounded-2xl border border-[var(--color-graphite)]">
+          <h2 class="text-2xl font-bold text-[var(--color-cream)] mb-4 flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[var(--color-coral)]/20 flex items-center justify-center text-[var(--color-coral)] text-sm font-bold">4</span>
+            Studio Access
+          </h2>
+          <ul class="text-[var(--color-mist)] space-y-3">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Arrive on time; late arrivals do not extend session time</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Session ends at scheduled time regardless of start</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span>Only booked individuals may access the studio during your session</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Section 5: Equipment -->
+        <section class="p-6 bg-[var(--color-charcoal)] rounded-2xl border border-[var(--color-graphite)]">
+          <h2 class="text-2xl font-bold text-[var(--color-cream)] mb-4 flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[var(--color-coral)]/20 flex items-center justify-center text-[var(--color-coral)] text-sm font-bold">5</span>
+            Equipment
+          </h2>
+          <ul class="text-[var(--color-mist)] space-y-3">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Basic lighting included with all rentals</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Camera equipment available by request (additional fee)</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Camera operator available by request (additional fee)</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <span><strong class="text-[var(--color-cream)]">You are responsible for any damage to studio equipment</strong></span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Section 6: Liability -->
+        <section class="p-6 bg-[var(--color-charcoal)] rounded-2xl border border-[var(--color-graphite)]">
+          <h2 class="text-2xl font-bold text-[var(--color-cream)] mb-4 flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[var(--color-coral)]/20 flex items-center justify-center text-[var(--color-coral)] text-sm font-bold">6</span>
+            Liability
+          </h2>
+          <ul class="text-[var(--color-mist)] space-y-3">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[var(--color-mist)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Aloha Media Studio is not liable for personal injury during your session</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[var(--color-mist)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>You are responsible for your personal belongings</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[var(--color-mist)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>You agree to follow all studio safety guidelines</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Section 7: Conduct -->
+        <section class="p-6 bg-[var(--color-charcoal)] rounded-2xl border border-[var(--color-graphite)]">
+          <h2 class="text-2xl font-bold text-[var(--color-cream)] mb-4 flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[var(--color-coral)]/20 flex items-center justify-center text-[var(--color-coral)] text-sm font-bold">7</span>
+            Studio Conduct
+          </h2>
+          <ul class="text-[var(--color-mist)] space-y-3">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              <span>No illegal activities</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+              <span>No food or drinks near equipment</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Leave studio in same condition as found</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Respect neighboring businesses (keep noise levels appropriate)</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Section 8: Recording Rights -->
+        <section class="p-6 bg-[var(--color-charcoal)] rounded-2xl border border-[var(--color-graphite)]">
+          <h2 class="text-2xl font-bold text-[var(--color-cream)] mb-4 flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full bg-[var(--color-coral)]/20 flex items-center justify-center text-[var(--color-coral)] text-sm font-bold">8</span>
+            Recording Rights
+          </h2>
+          <ul class="text-[var(--color-mist)] space-y-3">
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>You retain all rights to content you create in our studio</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-[var(--color-mist)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>We may request permission to use photos of your session for marketing purposes</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Agreement Statement -->
+        <div class="p-6 bg-[var(--color-coral)]/10 rounded-2xl border border-[var(--color-coral)]/30 text-center">
+          <p class="text-[var(--color-cream)] text-lg font-medium">
+            By completing a booking, you acknowledge that you have read, understood, and agree to these terms.
+          </p>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center pt-8">
+          <a
+            href="/studio#booking"
+            class="inline-flex items-center gap-2 px-8 py-4 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold text-lg rounded-full hover:bg-[var(--color-coral-light)] transition-all duration-300 hover:scale-105"
+          >
+            <span>Book Your Session</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
