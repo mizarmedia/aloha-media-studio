@@ -361,26 +361,93 @@ const studioSchema = {
           </p>
         </div>
 
-        <!-- Cal.com Embed -->
+        <!-- Session Type Tabs -->
+        <div class="flex justify-center gap-4 mb-8">
+          <button
+            id="tab-1hour"
+            class="booking-tab active px-6 py-3 rounded-full font-semibold transition-all duration-300 bg-[var(--color-coral)] text-[var(--color-void)]"
+            data-tab="1hour"
+          >
+            1 Hour — $100
+          </button>
+          <button
+            id="tab-4hour"
+            class="booking-tab px-6 py-3 rounded-full font-semibold transition-all duration-300 border-2 border-[var(--color-ash)] text-[var(--color-cream)] hover:border-[var(--color-coral)]"
+            data-tab="4hour"
+          >
+            4 Hours — $350
+          </button>
+        </div>
+
+        <!-- Cal.com Embeds -->
         <div class="bg-[var(--color-void)] rounded-3xl border border-[var(--color-graphite)] overflow-hidden">
-          <iframe
-            src="https://cal.com/nation-goetter-peowyk?theme=dark"
-            frameborder="0"
-            allowfullscreen
-            style="width: 100%; height: 700px; border: none;"
-            loading="lazy"
-          ></iframe>
+          <!-- 1-Hour Calendar -->
+          <div id="cal-1hour" class="cal-embed" style="width:100%;height:700px;overflow:scroll"></div>
+
+          <!-- 4-Hour Calendar (hidden by default) -->
+          <div id="cal-4hour" class="cal-embed hidden" style="width:100%;height:700px;overflow:scroll"></div>
+        </div>
+
+        <!-- Cal.com Embed Scripts -->
+        <script type="text/javascript">
+          (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+
+          // Initialize 1-hour calendar
+          Cal("init", "1hour", {origin:"https://app.cal.com"});
+          Cal.ns["1hour"]("inline", {
+            elementOrSelector:"#cal-1hour",
+            config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
+            calLink: "nation-goetter-peowyk/1hour",
+          });
+          Cal.ns["1hour"]("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#e07b5b"},"dark":{"cal-brand":"#e07b5b"}},"hideEventTypeDetails":false,"layout":"month_view"});
+
+          // Initialize 4-hour calendar
+          Cal("init", "4hour", {origin:"https://app.cal.com"});
+          Cal.ns["4hour"]("inline", {
+            elementOrSelector:"#cal-4hour",
+            config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
+            calLink: "nation-goetter-peowyk/4hour",
+          });
+          Cal.ns["4hour"]("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#e07b5b"},"dark":{"cal-brand":"#e07b5b"}},"hideEventTypeDetails":false,"layout":"month_view"});
+
+          // Tab switching logic
+          document.querySelectorAll('.booking-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+              const targetTab = tab.dataset.tab;
+
+              // Update tab styles
+              document.querySelectorAll('.booking-tab').forEach(t => {
+                t.classList.remove('bg-[var(--color-coral)]', 'text-[var(--color-void)]');
+                t.classList.add('border-2', 'border-[var(--color-ash)]', 'text-[var(--color-cream)]');
+              });
+              tab.classList.add('bg-[var(--color-coral)]', 'text-[var(--color-void)]');
+              tab.classList.remove('border-2', 'border-[var(--color-ash)]', 'text-[var(--color-cream)]');
+
+              // Show/hide calendars
+              document.querySelectorAll('.cal-embed').forEach(cal => cal.classList.add('hidden'));
+              document.getElementById('cal-' + targetTab).classList.remove('hidden');
+            });
+          });
+        </script>
+
+        <!-- Terms Notice -->
+        <div class="mt-8 p-4 bg-[var(--color-void)]/50 rounded-2xl border border-[var(--color-graphite)] text-center">
+          <p class="text-sm text-[var(--color-mist)]">
+            By completing a booking, you agree to our
+            <a href="/studio-agreement" class="text-[var(--color-coral)] hover:underline">Studio Rental Agreement</a>.
+          </p>
         </div>
 
         <!-- Policies -->
-        <div class="mt-12 grid md:grid-cols-2 gap-6">
+        <div class="mt-6 grid md:grid-cols-2 gap-6">
           <div class="p-6 bg-[var(--color-void)] rounded-2xl border border-[var(--color-graphite)]">
             <h4 class="font-semibold text-[var(--color-cream)] mb-3">Booking Policy</h4>
             <ul class="text-sm text-[var(--color-mist)] space-y-2">
               <li>• Full payment required to confirm booking</li>
               <li>• 48-hour cancellation for full refund</li>
+              <li>• 24-48 hour cancellation: 50% refund</li>
+              <li>• Less than 24 hours: no refund</li>
               <li>• Rescheduling available with 24-hour notice</li>
-              <li>• By booking, you agree to our <a href="/studio-agreement" class="text-[var(--color-coral)] hover:underline">Studio Rental Agreement</a></li>
             </ul>
           </div>
           <div class="p-6 bg-[var(--color-void)] rounded-2xl border border-[var(--color-graphite)]">
