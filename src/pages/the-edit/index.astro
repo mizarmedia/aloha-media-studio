@@ -87,8 +87,17 @@ const combinedSchema = [breadcrumbSchema, podcastSchema]
   <main>
     <!-- Hero -->
     <section class="min-h-[80vh] flex items-center justify-center bg-[var(--color-void)] relative overflow-hidden pt-24 pb-16">
-      <!-- Background glow -->
-      <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] md:w-[700px] h-[400px] md:h-[500px] rounded-full blur-[140px]" style="background: color-mix(in srgb, var(--color-gold) 8%, transparent);"></div>
+      <!-- Background photo -->
+      <div class="absolute inset-0 z-0">
+        <img
+          src="/images/gallery/solo-setup-smile.webp"
+          alt=""
+          class="w-full h-full object-cover object-top"
+          loading="eager"
+          aria-hidden="true"
+        />
+        <div class="absolute inset-0 bg-[var(--color-void)]/80"></div>
+      </div>
 
       <div class="max-w-3xl mx-auto px-6 text-center relative z-10">
         <!-- Season badge -->
