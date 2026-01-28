@@ -5,8 +5,8 @@ const currentPath = Astro.url.pathname
 const navLinks = [
   { label: 'The Podcast', href: '/', color: 'coral' },
   { label: 'The Studio', href: '/studio', color: 'blue' },
+  { label: 'The Edit', href: '/the-edit', color: 'gold' },
   { label: 'All Services', href: '/full-studio', color: 'coral' },
-  { label: 'The Edit', href: '/the-edit', color: 'coral' },
 ]
 
 // Highlight active page - homepage needs exact match, others use startsWith
@@ -46,21 +46,11 @@ const isActive = (href: string) => {
           {link.label}
           <span class:list={[
             "absolute -bottom-1 left-0 h-px transition-all duration-300",
-            link.color === 'blue' ? "bg-[var(--color-studio-blue)]" : "bg-[var(--color-coral)]",
+            link.color === 'blue' ? "bg-[var(--color-studio-blue)]" : link.color === 'gold' ? "bg-[var(--color-gold)]" : "bg-[var(--color-coral)]",
             isActive(link.href) ? "w-full" : "w-0 group-hover:w-full"
           ]}></span>
         </a>
       ))}
-      
-      <!-- Start Your Podcast CTA - Hidden initially, appears on scroll -->
-      <a
-        href="/#contact"
-        data-magnetic
-        class="header-cta opacity-0 pointer-events-none relative px-6 py-2.5 bg-[var(--color-coral)] text-[var(--color-void)] text-sm font-semibold rounded-lg overflow-hidden group transition-all duration-300 hover:shadow-lg hover:shadow-[var(--color-coral)]/25"
-      >
-        <span class="relative z-10">Start Your Podcast</span>
-        <div class="absolute inset-0 bg-[var(--color-coral-light)] translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-      </a>
     </div>
     
     <!-- Mobile Menu Button -->
@@ -91,38 +81,20 @@ const isActive = (href: string) => {
           </a>
         ))}
       </div>
-      <div class="mt-6 pt-6 border-t border-[var(--color-graphite)]">
-        <a
-          href="/#contact"
-          class="block w-full px-6 py-4 bg-[var(--color-coral)] text-[var(--color-void)] text-center font-semibold rounded-lg"
-        >
-          Start Your Podcast
-        </a>
-      </div>
     </div>
   </div>
 </header>
 
 <script>
-  // Header scroll effect - background at 50px, CTA at 80% viewport
+  // Header scroll effect - background at 50px
   const header = document.getElementById('header')
-  const headerCTA = document.querySelector('.header-cta')
-  let headerState = { bg: false, cta: false }
+  let headerHasBg = false
 
   const updateHeader = () => {
-    const scrollY = window.scrollY
-    const shouldShowBg = scrollY > 50
-    const shouldShowCta = scrollY > window.innerHeight * 0.8
-
-    // Only update if state changed
-    if (shouldShowBg !== headerState.bg) {
-      headerState.bg = shouldShowBg
+    const shouldShowBg = window.scrollY > 50
+    if (shouldShowBg !== headerHasBg) {
+      headerHasBg = shouldShowBg
       header?.classList.toggle('header-scrolled', shouldShowBg)
-    }
-
-    if (shouldShowCta !== headerState.cta) {
-      headerState.cta = shouldShowCta
-      headerCTA?.classList.toggle('header-cta-visible', shouldShowCta)
     }
   }
 
@@ -185,16 +157,5 @@ const isActive = (href: string) => {
   #header.header-scrolled nav {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
-  }
-
-  .header-cta {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-  }
-
-  .header-cta.header-cta-visible {
-    opacity: 1;
-    pointer-events: auto;
   }
 </style>
