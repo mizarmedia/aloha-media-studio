@@ -26,8 +26,8 @@ const canonicalURL = canonical
   ? new URL(canonical, Astro.site || 'https://alohamediastudio.com').href
   : new URL(Astro.url.pathname, 'https://alohamediastudio.com').href
 
-// Hide floating CTA on homepage (it has its own CTAs)
-const isHomePage = Astro.url.pathname === '/'
+// Check if we're on the studio page (hide floating CTA there since booking is main focus)
+const isStudioPage = Astro.url.pathname.startsWith('/studio')
 ---
 
 <!DOCTYPE html>
@@ -208,8 +208,8 @@ const isHomePage = Astro.url.pathname === '/'
       }
     </script>
 
-    <!-- Floating "Rent Studio Space" Button - Hidden on homepage -->
-    {!isHomePage && (
+    <!-- Floating "Rent Studio Space" Button - Hidden on studio page -->
+    {!isStudioPage && (
       <a
         id="floating-cta"
         href="/studio#booking"

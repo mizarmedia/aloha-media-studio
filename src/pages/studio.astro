@@ -661,10 +661,10 @@ const studioSchema = {
 
       <div class="max-w-5xl mx-auto px-6 relative z-10">
 
-        <!-- Header with Location & Trust Elements -->
+        <!-- Header with Location -->
         <div class="text-center mb-12">
           <p class="text-[var(--color-studio-blue)] text-sm font-medium tracking-widest uppercase mb-3">
-            DIY Studio Rental
+            Studio Rental
           </p>
           <h2 class="text-4xl md:text-5xl font-bold text-[var(--color-cream)] mb-3">
             Rent the Space
@@ -673,50 +673,22 @@ const studioSchema = {
             Eagle's only professional media production space
           </p>
 
-          <!-- Location & Trust Combined Card -->
-          <div class="max-w-2xl mx-auto p-6 rounded-2xl bg-[var(--color-charcoal)]/80 border border-[var(--color-graphite)] backdrop-blur-sm">
-            <!-- Location -->
-            <a
-              href="https://maps.apple.com/?address=839+E+Winding+Creek+Dr,+Suite+202,+Eagle,+ID+83616"
-              class="inline-flex items-center gap-3 hover:opacity-80 transition-opacity group"
-            >
-              <div class="w-10 h-10 rounded-full bg-[var(--color-studio-blue)]/20 flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-[var(--color-studio-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <div class="text-left">
-                <p class="text-sm text-[var(--color-cream)] font-medium">839 E Winding Creek Dr, Suite 202</p>
-                <p class="text-xs text-[var(--color-stone)] group-hover:text-[var(--color-studio-blue)] transition-colors">Eagle, ID 83616 · <span class="underline">Get Directions</span></p>
-              </div>
-            </a>
-
-            <!-- Divider -->
-            <div class="my-4 border-t border-[var(--color-graphite)]"></div>
-
-            <!-- Trust Elements -->
-            <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-[var(--color-mist)]">
-              <span class="flex items-center gap-1.5">
-                <svg class="w-4 h-4 text-[var(--color-studio-blue)]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                Free cancellation 48hrs
-              </span>
-              <span class="flex items-center gap-1.5">
-                <svg class="w-4 h-4 text-[var(--color-studio-blue)]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                Pro equipment included
-              </span>
-              <span class="flex items-center gap-1.5">
-                <svg class="w-4 h-4 text-[var(--color-studio-blue)]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                Free parking
-              </span>
+          <!-- Location Card -->
+          <a
+            href="https://maps.apple.com/?address=839+E+Winding+Creek+Dr,+Suite+202,+Eagle,+ID+83616"
+            class="inline-flex items-center gap-3 px-5 py-4 rounded-xl bg-[var(--color-charcoal)]/80 border border-[var(--color-graphite)] hover:border-[var(--color-studio-blue)] transition-all group"
+          >
+            <div class="w-10 h-10 rounded-full bg-[var(--color-studio-blue)]/20 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-[var(--color-studio-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
             </div>
-
-            <!-- Testimonial -->
-            <p class="mt-4 text-sm text-[var(--color-stone)] italic">
-              "Nation makes the process of video and podcasting easy..."
-              <span class="text-[var(--color-mist)] not-italic">— Dr. Roger Hall, 500+ videos</span>
-            </p>
-          </div>
+            <div class="text-left">
+              <p class="text-sm text-[var(--color-cream)] font-medium">839 E Winding Creek Dr, Suite 202</p>
+              <p class="text-xs text-[var(--color-stone)] group-hover:text-[var(--color-studio-blue)] transition-colors">Eagle, ID 83616 · <span class="underline">Get Directions</span></p>
+            </div>
+          </a>
         </div>
 
         <!-- Pricing Cards -->
@@ -835,7 +807,29 @@ const studioSchema = {
           </div>
         </div>
 
-        <!-- Space Rental Notice (less prominent, below pricing) -->
+        <!-- Trust Strip -->
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6 text-sm text-[var(--color-mist)]">
+          <span class="flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-[var(--color-studio-blue)]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Free cancellation 48hrs
+          </span>
+          <span class="flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-[var(--color-studio-blue)]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Pro equipment included
+          </span>
+          <span class="flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-[var(--color-studio-blue)]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Free parking
+          </span>
+        </div>
+
+        <!-- Mini Testimonial -->
+        <p class="text-center text-sm text-[var(--color-stone)] mb-8">
+          "Nation makes the process of video and podcasting easy..."
+          <span class="text-[var(--color-mist)]">— Dr. Roger Hall, 500+ videos</span>
+        </p>
+
+        <!-- Space Rental Notice -->
         <div class="max-w-xl mx-auto p-4 rounded-xl bg-[var(--color-charcoal)]/60 border border-[var(--color-graphite)]">
           <p class="text-sm text-[var(--color-stone)] text-center">
             <strong class="text-[var(--color-mist)]">This is space rental only.</strong>
