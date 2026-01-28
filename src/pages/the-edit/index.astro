@@ -4,12 +4,36 @@ import Header from '../../components/Header.astro'
 import Footer from '../../components/Footer.astro'
 
 const episodes = [
-  { number: 1, topic: 'YouTube & Long-Form Video' },
-  { number: 2, topic: 'Brand Photography' },
-  { number: 3, topic: 'Podcast Launch' },
-  { number: 4, topic: 'Social Media Video' },
-  { number: 5, topic: 'Email & Newsletter Launch' },
-  { number: 6, topic: 'Online Courses & Digital Products' },
+  {
+    number: 1,
+    title: 'Launching YouTube',
+    description: 'What does 500+ videos actually do for a business? We talk with a consultant who committed to long-form video content for years and built a library that generates leads while he sleeps. The real numbers, the long game, and what he\'d do differently.'
+  },
+  {
+    number: 2,
+    title: 'Launching Brand Photography',
+    description: 'Your audience sees you before they hear you. We sit down with a business owner who invested in professional brand photography and watched how people\'s perception of their business changed overnight.'
+  },
+  {
+    number: 3,
+    title: 'Launching a Podcast',
+    description: 'Audio builds trust differently than any other medium. We talk with someone who launched a podcast and discovered it became their most powerful tool for connecting with clients and establishing authority.'
+  },
+  {
+    number: 4,
+    title: 'Launching Social Media Video',
+    description: 'Short-form, consistent, daily. We talk with a videographer about what actually moves the needle on social — and what\'s just noise.'
+  },
+  {
+    number: 5,
+    title: 'Launching an Email Newsletter',
+    description: 'You don\'t own your social media followers. We talk with someone who built an email list and finally owned their audience. The strategy, the growth, and why it\'s still the highest ROI channel.'
+  },
+  {
+    number: 6,
+    title: 'Launching an Online Course',
+    description: 'Packaging your expertise into a product. We talk with a creator who launched a digital course and built a new revenue stream that scales without trading more hours.'
+  },
 ]
 
 const breadcrumbSchema = {
@@ -23,8 +47,8 @@ const breadcrumbSchema = {
 ---
 
 <Layout
-  title="Aloha Media Podcast | Season 1: The Launch | Aloha Media Studio"
-  description="Aloha Media Podcast is coming soon. Season 1 'The Launch' covers YouTube, brand photography, podcasting, social media video, email marketing, and digital products. From Aloha Media Studio in Eagle, Idaho."
+  title="Aloha Media Podcast | Own Your Niche | Aloha Media Studio"
+  description="The Aloha Media Podcast explores how media transforms businesses. Season 1: The Launch — six episodes, six media types, real stories from people who took the leap. Hosted by Nation Goetter from Eagle, Idaho."
   schema={breadcrumbSchema}
 >
   <Header />
@@ -51,55 +75,66 @@ const breadcrumbSchema = {
           </div>
         </div>
 
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-[var(--color-cream)] mb-4" data-animate="fade-up">
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-[var(--color-cream)] mb-3" data-animate="fade-up">
           Aloha Media Podcast
         </h1>
 
-        <p class="text-lg md:text-xl text-[var(--color-gold)] font-medium mb-4" data-animate="fade-up">
-          Season 1: The Launch
+        <p class="text-lg md:text-xl text-[var(--color-gold)] font-medium mb-6" data-animate="fade-up">
+          Own Your Niche
         </p>
 
-        <p class="text-base md:text-lg text-[var(--color-stone)] mb-6 max-w-xl mx-auto" data-animate="fade-up">
-          We're building Season 1 right now. Six episodes covering everything you need to launch your brand online — from video to podcasts to digital products.
+        <p class="text-base md:text-lg text-[var(--color-mist)] mb-6 max-w-2xl mx-auto leading-relaxed" data-animate="fade-up">
+          The Aloha Media Podcast explores how media transforms businesses. Each season dives into a specific theme, featuring real conversations with business owners, creators, and industry professionals who share what actually worked — the strategy, the mistakes, and the results.
         </p>
 
-        <p class="text-sm text-[var(--color-stone)]/70" data-animate="fade-up">
-          Coming soon from Aloha Media Studio, Eagle, Idaho.
+        <p class="text-sm text-[var(--color-stone)]" data-animate="fade-up">
+          Hosted by Nation Goetter of Aloha Media Studio in Eagle, Idaho.
         </p>
       </div>
     </section>
 
-    <!-- Episode Teasers -->
+    <!-- Season 1 -->
     <section class="py-20 md:py-28 bg-[var(--color-charcoal)] relative">
       <div class="max-w-4xl mx-auto px-6">
-        <div class="text-center mb-14" data-animate="fade-up">
-          <p class="text-sm text-[var(--color-gold)] uppercase tracking-widest font-medium mb-3">Episodes</p>
-          <h2 class="text-2xl md:text-4xl font-bold text-[var(--color-cream)]">
-            What We're Covering
+        <!-- Season Header -->
+        <div class="text-center mb-8" data-animate="fade-up">
+          <p class="text-sm text-[var(--color-gold)] uppercase tracking-widest font-medium mb-3">Season 1</p>
+          <h2 class="text-3xl md:text-5xl font-bold text-[var(--color-cream)] mb-6">
+            The Launch
           </h2>
         </div>
 
+        <p class="text-center text-[var(--color-mist)] max-w-2xl mx-auto mb-14 leading-relaxed" data-animate="fade-up">
+          What happens when you finally hit publish? Season 1 explores how launching different types of media changed real businesses. Six episodes. Six media types. Real stories from people who took the leap.
+        </p>
+
+        <!-- Episodes -->
         <div class="space-y-4" data-animate-stagger>
           {episodes.map((ep) => (
             <div
-              class="flex items-center gap-5 p-5 md:p-6 rounded-xl bg-[var(--color-void)] border border-[var(--color-graphite)] transition-all duration-300 hover:border-[var(--color-gold)]/30"
+              class="group p-5 md:p-6 rounded-xl bg-[var(--color-void)] border border-[var(--color-graphite)] transition-all duration-300 hover:border-[var(--color-gold)]/30"
               data-animate-child
             >
-              <!-- Episode number -->
-              <div class="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center text-sm md:text-base font-bold text-[var(--color-gold)]" style="background: color-mix(in srgb, var(--color-gold) 10%, transparent); border: 1px solid color-mix(in srgb, var(--color-gold) 15%, transparent);">
-                {String(ep.number).padStart(2, '0')}
-              </div>
+              <div class="flex items-start gap-5">
+                <!-- Episode number -->
+                <div class="flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center text-sm md:text-base font-bold text-[var(--color-gold)]" style="background: color-mix(in srgb, var(--color-gold) 10%, transparent); border: 1px solid color-mix(in srgb, var(--color-gold) 15%, transparent);">
+                  {String(ep.number).padStart(2, '0')}
+                </div>
 
-              <!-- Topic -->
-              <div class="flex-1 min-w-0">
-                <p class="text-base md:text-lg font-medium text-[var(--color-cream)]">
-                  {ep.topic}
-                </p>
-              </div>
-
-              <!-- Coming soon indicator -->
-              <div class="flex-shrink-0 hidden sm:block">
-                <span class="text-xs text-[var(--color-stone)] uppercase tracking-wider">Coming Soon</span>
+                <!-- Content -->
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between gap-4 mb-2">
+                    <h3 class="text-base md:text-lg font-semibold text-[var(--color-cream)]">
+                      {ep.title}
+                    </h3>
+                    <span class="flex-shrink-0 hidden sm:block text-xs text-[var(--color-stone)] uppercase tracking-wider">
+                      Coming Soon
+                    </span>
+                  </div>
+                  <p class="text-sm md:text-base text-[var(--color-stone)] leading-relaxed">
+                    {ep.description}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
@@ -116,7 +151,7 @@ const breadcrumbSchema = {
           Want to be on the show?
         </h2>
         <p class="text-[var(--color-mist)] mb-8" data-animate="fade-up">
-          We're booking guests for Season 1. If you have a story about launching your brand, we'd love to hear from you.
+          We're booking guests for Season 1. If you have a story about launching your brand through media, we'd love to hear from you.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center" data-animate="fade-up">
           <a
