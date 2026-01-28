@@ -14,6 +14,10 @@
   --color-sunset: #d4956a;
   --color-gold: #c9a962;
   --color-retro-blue: #4a7c9b;
+
+  /* Studio Blue - Used for studio rental pages */
+  --color-studio-blue: #4a7c9b;
+  --color-studio-blue-light: #5a8cad;
   
   /* Neutrals */
   --color-cream: #f5f0e8;
@@ -258,6 +262,10 @@ img {
 /* Glow effect */
 .glow-coral {
   box-shadow: 0 0 40px rgba(224, 123, 91, 0.3);
+}
+
+.glow-blue {
+  box-shadow: 0 0 40px rgba(74, 124, 155, 0.3);
 }
 
 /* Text gradient */

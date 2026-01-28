@@ -1,7 +1,5 @@
 ---
-// Cinematic Hero - Full screen YouTube video background with single CTA
-// Video: https://www.youtube.com/watch?v=yaAKbA2IpeU
-const videoId = 'yaAKbA2IpeU'
+// Cinematic Hero - Full screen self-hosted video background with single CTA
 
 // VideoObject schema for SEO
 const videoSchema = {
@@ -9,10 +7,9 @@ const videoSchema = {
   "@type": "VideoObject",
   "name": "Aloha Media Studio - Professional Podcast Production",
   "description": "See inside our Eagle, Idaho podcast production studio. Full-service podcast creation for business owners and thought leaders.",
-  "thumbnailUrl": "https://alohamediastudio.com/images/studio/studio-interior-1.jpg",
-  "uploadDate": "2026-01-01",
-  "embedUrl": `https://www.youtube-nocookie.com/embed/${videoId}`,
-  "contentUrl": `https://www.youtube.com/watch?v=${videoId}`,
+  "thumbnailUrl": "https://alohamediastudio.com/images/hero-poster.webp",
+  "uploadDate": "2024-01-01",
+  "contentUrl": "https://alohamediastudio.com/videos/hero-showreel.mp4",
   "publisher": {
     "@id": "https://alohamediastudio.com/#organization"
   }
@@ -22,64 +19,28 @@ const videoSchema = {
 <script type="application/ld+json" set:html={JSON.stringify(videoSchema)} />
 
 <section class="relative h-screen flex items-center justify-center overflow-hidden">
-  <!-- YouTube Video Background - Delayed Load for Performance -->
-  <div class="absolute inset-0 z-0 pointer-events-none">
-    <div id="hero-video-container" class="absolute inset-0 scale-150">
-      <!-- Poster image shown until video loads -->
-      <img
-        src="/images/hero-poster.webp"
-        alt=""
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vh] min-w-[177.77vh] min-h-[56.25vw] object-cover"
-        id="hero-poster"
-      />
-    </div>
+  <!-- Self-hosted Video Background -->
+  <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      poster="/images/hero-poster.webp"
+      class="hero-video"
+    >
+      <source src="/videos/hero-showreel.mp4" type="video/mp4" />
+    </video>
     <!-- Dark overlay for text readability -->
     <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-void)]/80 via-[var(--color-void)]/60 to-[var(--color-void)]/95"></div>
   </div>
 
-  <!-- Delayed YouTube iframe injection - waits for browser idle -->
-  <script define:vars={{ videoId }}>
-    // Load YouTube video only when browser is idle to avoid blocking main thread
-    if (typeof window !== 'undefined') {
-      function loadYouTube() {
-        const container = document.getElementById('hero-video-container');
-        if (container && !container.querySelector('iframe')) {
-          const iframe = document.createElement('iframe');
-          iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1`;
-          iframe.title = 'Aloha Media Studio Showreel';
-          iframe.className = 'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[100vw] h-[100vh] min-w-[177.77vh] min-h-[56.25vw]';
-          iframe.frameBorder = '0';
-          iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-          iframe.allowFullscreen = true;
-
-          // Fade out poster, add iframe
-          const poster = document.getElementById('hero-poster');
-          if (poster) {
-            poster.style.transition = 'opacity 0.5s';
-            poster.style.opacity = '0';
-            setTimeout(() => poster.remove(), 500);
-          }
-          container.appendChild(iframe);
-        }
-      }
-
-      // Use requestIdleCallback to load when browser is truly idle
-      // Falls back to 3 second delay if not supported
-      window.addEventListener('load', () => {
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(loadYouTube, { timeout: 3000 });
-        } else {
-          setTimeout(loadYouTube, 3000);
-        }
-      });
-    }
-  </script>
-
   <!-- Content - Centered, minimal -->
   <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
     <!-- Main headline -->
-    <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-[1.05] tracking-tight" data-animate="fade-up">
-      <span class="block text-gradient">Own Your Niche</span>
+    <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-[1.05] tracking-tight" data-animate="fade-up">
+      <span class="hero-headline">Own Your Niche</span>
     </h1>
 
     <!-- Brief tagline -->
@@ -113,17 +74,24 @@ const videoSchema = {
 </section>
 
 <style>
-  .text-gradient {
-    background: linear-gradient(135deg, var(--color-coral) 0%, var(--color-sunset) 50%, var(--color-gold) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    background-size: 200% 200%;
-    animation: gradient-shift 5s ease infinite;
+  .hero-headline {
+    color: var(--color-coral);
+    text-shadow: 0 0 30px rgba(224, 123, 91, 0.4);
   }
 
-  @keyframes gradient-shift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
+  .hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.35);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (min-width: 768px) {
+    .hero-video {
+      transform: translate(-50%, -50%) scale(1.15);
+    }
   }
 </style>

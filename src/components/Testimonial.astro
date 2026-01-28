@@ -1,15 +1,15 @@
 ---
-// Testimonials - Two featured clients
+// Testimonials - Manual carousel with mobile-optimized layout
 
 const testimonials = [
   {
     name: 'Dr. Roger Hall',
-    role: 'Host, Second Thoughts Podcast',
-    image: '/images/testimonials/roger-hall.webp',
+    role: 'Second Thoughts Podcast',
+    images: ['/images/testimonials/roger-hall.webp'],
     quote: 'It has been a pleasure to work with Nation Goetter and his team at Aloha Media for the last two years. It is great that Nation makes the process of video and podcasting easy, it is even better that he is an expert. The quality of the product is higher than many other well-funded media enterprises.',
     stats: [
       { icon: 'video', label: '500+ videos' },
-      { icon: 'views', label: '260,000+ views' }
+      { icon: 'views', label: '260K+ views' }
     ],
     links: [
       { url: 'https://www.youtube.com/@DoctorRogerHall', text: 'See his channel' }
@@ -17,37 +17,42 @@ const testimonials = [
   },
   {
     name: 'Kent Delhousaye',
-    role: 'Founder, Love and Transformation',
-    image: '/images/testimonials/kent-delhousaye.webp',
+    role: 'Love and Transformation',
+    images: ['/images/testimonials/kent-delhousaye.webp'],
     quote: 'We asked Aloha Media to help us tell our story through video production, and our experience from recording to delivery of a long and short video was terrific. Nation expertly guided us through the production process, and his team delivered an exceptional product. We\'re thankful to have a producer like him and a studio like his right here in Eagle.',
     stats: [
       { icon: 'years', label: '3+ years' },
-      { icon: 'instagram', label: '1M+ Instagram views' }
+      { icon: 'instagram', label: '1M+ views' }
     ],
     links: [
-      { url: 'https://youtu.be/dhJ8c_9-prg', text: 'Watch full video' },
-      { url: 'https://youtube.com/shorts/C9q4g5bpTAM', text: 'Watch short' }
+      { url: 'https://youtu.be/dhJ8c_9-prg', text: 'Full video' },
+      { url: 'https://youtube.com/shorts/C9q4g5bpTAM', text: 'Short' }
+    ]
+  },
+  {
+    name: 'Kenna & Madi Cunningham',
+    role: 'The Cunningham Sisters',
+    images: ['/images/testimonials/kenna-cunningham.webp', '/images/testimonials/madi-cunningham.webp'],
+    quote: 'Nation has been such a joy to work with in bringing visuals to our brand and mission. He works so fast, turning around notes literally within minutes and is so collaborative and eager to help us see our vision come to life! He was able to craft such a thoughtful, striking and powerful website for our mission in less than a week.',
+    stats: [
+      { icon: 'clock', label: '1 week' },
+      { icon: 'globe', label: 'Website' },
+      { icon: 'brand', label: 'Branding' }
+    ],
+    links: [
+      { url: 'https://www.cunninghamsistersproductions.com/', text: 'See their site' }
     ]
   }
 ]
 
-// Schema for SEO - multiple reviews
+// Schema for SEO
 const reviewSchemas = testimonials.map(t => ({
   "@context": "https://schema.org",
   "@type": "Review",
-  "reviewRating": {
-    "@type": "Rating",
-    "ratingValue": "5",
-    "bestRating": "5"
-  },
-  "author": {
-    "@type": "Person",
-    "name": t.name
-  },
+  "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+  "author": { "@type": "Person", "name": t.name },
   "reviewBody": t.quote,
-  "itemReviewed": {
-    "@id": "https://alohamediastudio.com/#organization"
-  }
+  "itemReviewed": { "@id": "https://alohamediastudio.com/#organization" }
 }))
 ---
 
@@ -55,97 +60,380 @@ const reviewSchemas = testimonials.map(t => ({
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 ))}
 
-<section class="py-24 bg-[var(--color-void)]">
-  <div class="max-w-6xl mx-auto px-6">
+<section class="py-16 md:py-24 bg-[var(--color-void)]">
+  <div class="max-w-4xl mx-auto px-4 md:px-6">
     <!-- Section header -->
-    <div class="text-center mb-16">
-      <p class="text-sm uppercase tracking-widest text-[var(--color-coral)] mb-2">
+    <div class="text-center mb-8 md:mb-12">
+      <p class="text-xs md:text-sm uppercase tracking-widest text-[var(--color-coral)] mb-2">
         Client Stories
       </p>
-      <h2 class="text-3xl md:text-4xl font-bold text-[var(--color-cream)]">
+      <h2 class="text-2xl md:text-4xl font-bold text-[var(--color-cream)]">
         What They Say
       </h2>
     </div>
 
-    <!-- Testimonials grid -->
-    <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
-      {testimonials.map((testimonial) => (
-        <div class="bg-[var(--color-charcoal)]/30 rounded-2xl border border-[var(--color-graphite)] p-8">
-          <!-- Quote icon -->
-          <svg class="w-10 h-10 mb-6 text-[var(--color-coral)]/30" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-          </svg>
+    <!-- Testimonial Carousel -->
+    <div class="relative" id="testimonial-carousel">
+      <!-- Slides container -->
+      <div class="testimonial-track relative">
+        {testimonials.map((testimonial, index) => (
+          <div
+            class="testimonial-slide absolute inset-0 w-full opacity-0 pointer-events-none transition-opacity duration-500"
+            data-index={index}
+          >
+            <div class="bg-[var(--color-charcoal)]/50 rounded-xl md:rounded-2xl border border-[var(--color-graphite)] p-5 md:p-8 h-full">
+              <!-- Mobile: Author at top -->
+              <div class="flex items-center gap-3 mb-4 md:hidden">
+                {testimonial.images.length === 1 ? (
+                  <img
+                    src={testimonial.images[0]}
+                    alt={testimonial.name}
+                    class="w-10 h-10 rounded-full object-cover object-top border-2 border-[var(--color-coral)]/30"
+                    width="40"
+                    height="40"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div class="flex -space-x-2">
+                    {testimonial.images.map((img, i) => (
+                      <img
+                        src={img}
+                        alt={testimonial.name}
+                        class="w-9 h-9 rounded-full object-cover object-top border-2 border-[var(--color-charcoal)] ring-1 ring-[var(--color-coral)]/30"
+                        width="36"
+                        height="36"
+                        loading="lazy"
+                        style={`z-index: ${10 - i}`}
+                      />
+                    ))}
+                  </div>
+                )}
+                <div>
+                  <div class="font-semibold text-sm text-[var(--color-cream)]">{testimonial.name}</div>
+                  <div class="text-xs text-[var(--color-stone)]">{testimonial.role}</div>
+                </div>
+              </div>
 
-          <!-- Quote -->
-          <blockquote class="text-lg md:text-xl text-[var(--color-cream)] font-medium leading-relaxed mb-8">
-            "{testimonial.quote}"
-          </blockquote>
+              <!-- Quote icon - smaller on mobile -->
+              <svg class="w-6 h-6 md:w-10 md:h-10 mb-3 md:mb-6 text-[var(--color-coral)]/30" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+              </svg>
 
-          <!-- Author -->
-          <div class="flex items-center gap-4 mb-6">
-            <img
-              src={testimonial.image}
-              alt={testimonial.name}
-              class="w-14 h-14 rounded-full object-cover object-top border-2 border-[var(--color-coral)]/30"
-              width="56"
-              height="56"
-              loading="lazy"
-              decoding="async"
-            />
-            <div>
-              <div class="font-semibold text-[var(--color-cream)]">{testimonial.name}</div>
-              <div class="text-sm text-[var(--color-stone)]">{testimonial.role}</div>
+              <!-- Quote - smaller text on mobile -->
+              <blockquote class="text-sm md:text-lg text-[var(--color-cream)] font-medium leading-relaxed mb-4 md:mb-6">
+                "{testimonial.quote}"
+              </blockquote>
+
+              <!-- Desktop: Author row -->
+              <div class="hidden md:flex items-center gap-4 mb-6">
+                {testimonial.images.length === 1 ? (
+                  <img
+                    src={testimonial.images[0]}
+                    alt={testimonial.name}
+                    class="w-14 h-14 rounded-full object-cover object-top border-2 border-[var(--color-coral)]/30"
+                    width="56"
+                    height="56"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div class="flex -space-x-3">
+                    {testimonial.images.map((img, i) => (
+                      <img
+                        src={img}
+                        alt={testimonial.name}
+                        class="w-12 h-12 rounded-full object-cover object-top border-2 border-[var(--color-charcoal)] ring-2 ring-[var(--color-coral)]/30"
+                        width="48"
+                        height="48"
+                        loading="lazy"
+                        style={`z-index: ${10 - i}`}
+                      />
+                    ))}
+                  </div>
+                )}
+                <div>
+                  <div class="font-semibold text-[var(--color-cream)]">{testimonial.name}</div>
+                  <div class="text-sm text-[var(--color-stone)]">{testimonial.role}</div>
+                </div>
+              </div>
+
+              <!-- Stats + Links - Mobile: stacked columns, Desktop: inline row -->
+              <div class="pt-4 border-t border-[var(--color-graphite)]">
+                <!-- Mobile: Two column layout -->
+                <div class="flex md:hidden justify-between items-start gap-4">
+                  <!-- Stats column - left aligned, stacked -->
+                  <div class="flex flex-col gap-1.5">
+                    {testimonial.stats.map((stat) => (
+                      <span class="inline-flex items-center gap-1.5 px-2 py-1 bg-[var(--color-coral)]/10 rounded-full border border-[var(--color-coral)]/20 text-xs font-medium text-[var(--color-coral)]">
+                        {stat.icon === 'video' && (
+                          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                          </svg>
+                        )}
+                        {stat.icon === 'views' && (
+                          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                          </svg>
+                        )}
+                        {stat.icon === 'years' && (
+                          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        )}
+                        {stat.icon === 'instagram' && (
+                          <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                          </svg>
+                        )}
+                        {stat.icon === 'clock' && (
+                          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        )}
+                        {stat.icon === 'globe' && (
+                          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                          </svg>
+                        )}
+                        {stat.icon === 'brand' && (
+                          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                          </svg>
+                        )}
+                        {stat.label}
+                      </span>
+                    ))}
+                  </div>
+                  <!-- Links column - right aligned, stacked -->
+                  <div class="flex flex-col gap-1.5 items-end">
+                    {testimonial.links.map((link) => (
+                      <a
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-1 text-xs text-[var(--color-coral)] hover:text-[var(--color-coral-light)] transition-colors"
+                      >
+                        {link.text}
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                <!-- Desktop: Inline row -->
+                <div class="hidden md:flex flex-wrap items-center gap-2">
+                  {testimonial.stats.map((stat) => (
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--color-coral)]/10 rounded-full border border-[var(--color-coral)]/20 text-sm font-medium text-[var(--color-coral)]">
+                      {stat.icon === 'video' && (
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                      )}
+                      {stat.icon === 'views' && (
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                      )}
+                      {stat.icon === 'years' && (
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      )}
+                      {stat.icon === 'instagram' && (
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                      )}
+                      {stat.icon === 'clock' && (
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      )}
+                      {stat.icon === 'globe' && (
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                        </svg>
+                      )}
+                      {stat.icon === 'brand' && (
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                        </svg>
+                      )}
+                      {stat.label}
+                    </span>
+                  ))}
+                  <span class="flex-grow"></span>
+                  {testimonial.links.map((link) => (
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex items-center gap-1 text-sm text-[var(--color-coral)] hover:text-[var(--color-coral-light)] transition-colors"
+                    >
+                      {link.text}
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
+        ))}
+      </div>
 
-          <!-- Stats badges -->
-          <div class="flex flex-wrap gap-3 mb-4">
-            {testimonial.stats.map((stat) => (
-              <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-[var(--color-coral)]/10 rounded-full border border-[var(--color-coral)]/20">
-                {stat.icon === 'video' && (
-                  <svg class="w-4 h-4 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
-                )}
-                {stat.icon === 'views' && (
-                  <svg class="w-4 h-4 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                )}
-                {stat.icon === 'years' && (
-                  <svg class="w-4 h-4 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                )}
-                {stat.icon === 'instagram' && (
-                  <svg class="w-4 h-4 text-[var(--color-coral)]" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                  </svg>
-                )}
-                <span class="text-sm font-medium text-[var(--color-coral)]">{stat.label}</span>
-              </div>
-            ))}
-          </div>
+      <!-- Navigation: Arrows + Dots in one row -->
+      <div class="flex items-center justify-center gap-4 mt-6">
+        <button
+          class="testimonial-prev w-10 h-10 rounded-full bg-[var(--color-charcoal)] border border-[var(--color-graphite)] text-[var(--color-mist)] hover:text-[var(--color-cream)] hover:border-[var(--color-coral)]/50 transition-all flex items-center justify-center"
+          aria-label="Previous"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
 
-          <!-- Links -->
-          <div class="flex flex-wrap gap-4">
-            {testimonial.links.map((link) => (
-              <a
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 text-sm text-[var(--color-coral)] hover:text-[var(--color-coral-light)] transition-colors"
-              >
-                {link.text}
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </a>
-            ))}
-          </div>
+        <div class="flex items-center gap-2">
+          {testimonials.map((_, index) => (
+            <button
+              class="testimonial-dot w-2.5 h-2.5 rounded-full bg-[var(--color-graphite)] transition-all duration-300"
+              data-index={index}
+              aria-label={`Testimonial ${index + 1}`}
+            />
+          ))}
         </div>
-      ))}
+
+        <button
+          class="testimonial-next w-10 h-10 rounded-full bg-[var(--color-charcoal)] border border-[var(--color-graphite)] text-[var(--color-mist)] hover:text-[var(--color-cream)] hover:border-[var(--color-coral)]/50 transition-all flex items-center justify-center"
+          aria-label="Next"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  const carousel = document.getElementById('testimonial-carousel')
+  if (carousel) {
+    const track = carousel.querySelector('.testimonial-track') as HTMLElement
+    const slides = carousel.querySelectorAll('.testimonial-slide') as NodeListOf<HTMLElement>
+    const dots = carousel.querySelectorAll('.testimonial-dot')
+    const prevBtn = carousel.querySelector('.testimonial-prev')
+    const nextBtn = carousel.querySelector('.testimonial-next')
+
+    let current = 0
+    const totalSlides = slides.length
+
+    function setFixedHeight() {
+      // Reset for measurement - make all slides visible and in flow
+      track.style.height = 'auto'
+      slides.forEach(slide => {
+        slide.style.position = 'relative'
+        slide.style.display = 'block'
+        slide.style.visibility = 'hidden'
+        slide.style.opacity = '1'
+        slide.style.height = 'auto'
+      })
+
+      // Force reflow
+      void track.offsetHeight
+
+      // Find tallest
+      let maxHeight = 0
+      slides.forEach(slide => {
+        const h = slide.getBoundingClientRect().height
+        if (h > maxHeight) maxHeight = h
+      })
+
+      // Add small buffer for safety
+      maxHeight = Math.ceil(maxHeight) + 2
+
+      // Lock height and reset slides
+      track.style.height = maxHeight + 'px'
+      slides.forEach((slide, i) => {
+        slide.style.position = 'absolute'
+        slide.style.display = 'block'
+        slide.style.visibility = 'visible'
+        slide.style.height = '100%'
+        slide.style.opacity = i === current ? '1' : '0'
+        slide.style.pointerEvents = i === current ? 'auto' : 'none'
+        slide.style.zIndex = i === current ? '10' : '0'
+      })
+    }
+
+    function goToSlide(index: number) {
+      const newIndex = ((index % totalSlides) + totalSlides) % totalSlides
+      if (newIndex === current) return
+
+      // Hide current slide
+      slides[current].style.opacity = '0'
+      slides[current].style.pointerEvents = 'none'
+      slides[current].style.zIndex = '0'
+
+      // Show new slide
+      slides[newIndex].style.opacity = '1'
+      slides[newIndex].style.pointerEvents = 'auto'
+      slides[newIndex].style.zIndex = '10'
+
+      current = newIndex
+
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('bg-[var(--color-coral)]', i === current)
+        dot.classList.toggle('bg-[var(--color-graphite)]', i !== current)
+        dot.classList.toggle('scale-125', i === current)
+      })
+    }
+
+    // Initialize - run after fonts/images loaded
+    function init() {
+      setFixedHeight()
+      dots[0]?.classList.add('bg-[var(--color-coral)]', 'scale-125')
+      dots[0]?.classList.remove('bg-[var(--color-graphite)]')
+    }
+
+    // Run immediately and again after load to catch font/image changes
+    init()
+    if (document.readyState === 'complete') {
+      setTimeout(init, 100)
+    } else {
+      window.addEventListener('load', () => setTimeout(init, 100))
+    }
+
+    // Debounced resize
+    let resizeTimer: number
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer)
+      resizeTimer = setTimeout(setFixedHeight, 150) as unknown as number
+    })
+
+    // Events
+    prevBtn?.addEventListener('click', () => goToSlide(current - 1))
+    nextBtn?.addEventListener('click', () => goToSlide(current + 1))
+    dots.forEach((dot, i) => dot.addEventListener('click', () => goToSlide(i)))
+
+    // Swipe
+    let startX = 0
+    carousel.addEventListener('touchstart', (e) => {
+      startX = (e as TouchEvent).changedTouches[0].screenX
+    }, { passive: true })
+    carousel.addEventListener('touchend', (e) => {
+      const diff = startX - (e as TouchEvent).changedTouches[0].screenX
+      if (Math.abs(diff) > 50) goToSlide(current + (diff > 0 ? 1 : -1))
+    }, { passive: true })
+  }
+</script>
+
+<style>
+  .testimonial-slide {
+    top: 0;
+    left: 0;
+  }
+</style>

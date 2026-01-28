@@ -75,7 +75,7 @@ const servicesSchema = {
     <!-- ==========================================
          HERO - Compact, impactful
          ========================================== -->
-    <section class="h-[100svh] flex items-center justify-center bg-[var(--color-void)] relative overflow-hidden">
+    <section class="min-h-[70svh] md:h-[100svh] flex items-center justify-center bg-[var(--color-void)] relative overflow-hidden py-20 md:py-0">
       <!-- Animated gradient orbs -->
       <div class="absolute top-1/4 -left-20 w-40 md:w-96 h-40 md:h-96 bg-[var(--color-coral)]/20 rounded-full blur-[80px] md:blur-[100px] animate-float"></div>
       <div class="absolute bottom-1/4 -right-20 w-40 md:w-96 h-40 md:h-96 bg-[var(--color-retro-blue)]/20 rounded-full blur-[80px] md:blur-[100px] animate-float-delayed"></div>
@@ -102,8 +102,8 @@ const servicesSchema = {
           Video, photo, branding, audio. One team. No handoffs.
         </p>
 
-        <!-- Service pills - desktop only -->
-        <div class="hidden md:flex flex-wrap justify-center gap-3 mb-10" data-animate="fade-up">
+        <!-- Service pills -->
+        <div class="flex flex-wrap justify-center gap-2 md:gap-3 mb-6 md:mb-10" data-animate="fade-up">
           <a href="#video" class="service-pill" style="--pill-color: #3b82f6;">
             <span class="pill-dot"></span>
             Video
@@ -149,11 +149,11 @@ const servicesSchema = {
     {services.map((service, index) => (
       <section
         id={service.id}
-        class={`service-section min-h-[100svh] md:min-h-0 py-8 md:py-24 lg:py-32 relative overflow-hidden flex items-center ${index % 2 === 0 ? 'bg-[var(--color-charcoal)]' : 'bg-[var(--color-void)]'}`}
+        class={`service-section py-10 md:py-24 lg:py-32 relative overflow-hidden ${index % 2 === 0 ? 'bg-[var(--color-charcoal)]' : 'bg-[var(--color-void)]'}`}
       >
-        <!-- Large background number -->
+        <!-- Large background number - hidden on mobile for cleaner look -->
         <div
-          class="absolute top-1/2 -translate-y-1/2 font-bold text-[8rem] md:text-[20rem] lg:text-[30rem] leading-none opacity-[0.03] pointer-events-none select-none"
+          class="absolute top-1/2 -translate-y-1/2 font-bold text-[20rem] lg:text-[30rem] leading-none opacity-[0.03] pointer-events-none select-none hidden md:block"
           style={`color: ${service.accent}; ${index % 2 === 0 ? 'right: -5%;' : 'left: -5%;'}`}
         >
           {service.number}

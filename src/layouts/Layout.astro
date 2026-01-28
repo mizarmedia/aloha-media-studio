@@ -25,6 +25,9 @@ const {
 const canonicalURL = canonical
   ? new URL(canonical, Astro.site || 'https://alohamediastudio.com').href
   : new URL(Astro.url.pathname, 'https://alohamediastudio.com').href
+
+// Hide floating CTA on homepage (it has its own CTAs)
+const isHomePage = Astro.url.pathname === '/'
 ---
 
 <!DOCTYPE html>
@@ -205,49 +208,53 @@ const canonicalURL = canonical
       }
     </script>
 
-    <!-- Custom Floating "Book the Studio" Button - Hidden at hero -->
-    <a
-      id="floating-cta"
-      href="/studio#booking"
-      class="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 md:px-5 md:py-3 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold text-sm md:text-base rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 opacity-0 pointer-events-none"
-      style="box-shadow: 0 4px 14px rgba(224, 123, 91, 0.4);"
-    >
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-      </svg>
-      Book The Studio
-    </a>
-    <script>
-      // Show floating CTA after scrolling past hero, hide when footer visible
-      const floatingCta = document.getElementById('floating-cta');
-      const footer = document.querySelector('footer');
+    <!-- Floating "Rent Studio Space" Button - Hidden on homepage and at hero -->
+    {!isHomePage && (
+      <a
+        id="floating-cta"
+        href="/studio#booking"
+        class="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 md:px-5 md:py-3 bg-[var(--color-studio-blue)] text-white font-semibold text-sm md:text-base rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 opacity-0 pointer-events-none"
+        style="box-shadow: 0 4px 14px rgba(74, 124, 155, 0.4);"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        Rent Studio Space
+      </a>
+    )}
+    {!isHomePage && (
+      <script>
+        // Show floating CTA after scrolling past hero, hide when footer visible
+        const floatingCta = document.getElementById('floating-cta');
+        const footer = document.querySelector('footer');
 
-      if (floatingCta) {
-        let footerVisible = false;
+        if (floatingCta) {
+          let footerVisible = false;
 
-        // Footer observer
-        if (footer) {
-          const footerObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              footerVisible = entry.isIntersecting;
-              updateFloatingCta();
-            });
-          }, { threshold: 0.1 });
-          footerObserver.observe(footer);
+          // Footer observer
+          if (footer) {
+            const footerObserver = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                footerVisible = entry.isIntersecting;
+                updateFloatingCta();
+              });
+            }, { threshold: 0.1 });
+            footerObserver.observe(footer);
+          }
+
+          // Scroll handler - show after scrolling past hero (~100vh)
+          function updateFloatingCta() {
+            const scrolledPastHero = window.scrollY > window.innerHeight * 0.8;
+            const shouldShow = scrolledPastHero && !footerVisible;
+
+            floatingCta.style.opacity = shouldShow ? '1' : '0';
+            floatingCta.style.pointerEvents = shouldShow ? 'auto' : 'none';
+          }
+
+          window.addEventListener('scroll', updateFloatingCta, { passive: true });
+          updateFloatingCta();
         }
-
-        // Scroll handler - show after scrolling past hero (~100vh)
-        function updateFloatingCta() {
-          const scrolledPastHero = window.scrollY > window.innerHeight * 0.8;
-          const shouldShow = scrolledPastHero && !footerVisible;
-
-          floatingCta.style.opacity = shouldShow ? '1' : '0';
-          floatingCta.style.pointerEvents = shouldShow ? 'auto' : 'none';
-        }
-
-        window.addEventListener('scroll', updateFloatingCta, { passive: true });
-        updateFloatingCta();
-      }
-    </script>
+      </script>
+    )}
   </body>
 </html>

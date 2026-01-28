@@ -591,8 +591,8 @@ const phases = [
 
     <!-- Vertical Timeline -->
     <div class="relative">
-      <!-- Connecting line -->
-      <div class="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-[var(--color-coral)] via-blue-500 via-[var(--color-coral)] to-emerald-500"></div>
+      <!-- Connecting line - gradient: coral → blue → yellow → green -->
+      <div class="absolute left-6 top-0 bottom-0 w-px" style="background: linear-gradient(to bottom, var(--color-coral) 0%, #3b82f6 33%, #fbbf24 66%, #22c55e 100%);"></div>
 
       <!-- Step 1: PLAN - Mini Script Document -->
       <div class="relative pl-14 pb-10" data-animate="fade-up">
@@ -709,9 +709,9 @@ const phases = [
       <!-- Step 3: EDIT - Mini Timeline -->
       <div class="relative pl-14 pb-10" data-animate="fade-up">
         <!-- Timeline dot -->
-        <div class="absolute left-4 top-1 w-5 h-5 rounded-full bg-[var(--color-coral)] border-4 border-[var(--color-void)] shadow-lg shadow-[var(--color-coral)]/30"></div>
+        <div class="absolute left-4 top-1 w-5 h-5 rounded-full bg-amber-400 border-4 border-[var(--color-void)] shadow-lg shadow-amber-400/30"></div>
 
-        <div class="bg-gradient-to-br from-[var(--color-coral)]/10 to-[var(--color-charcoal)] rounded-xl overflow-hidden border border-[var(--color-coral)]/20">
+        <div class="bg-gradient-to-br from-amber-900/20 to-[var(--color-charcoal)] rounded-xl overflow-hidden border border-amber-400/20">
           <!-- Visual: Mini Timeline -->
           <div class="px-3 py-3">
             <div class="bg-[var(--color-void)] rounded-lg border border-[var(--color-graphite)] overflow-hidden">
@@ -763,9 +763,9 @@ const phases = [
           </div>
 
           <!-- Info -->
-          <div class="px-4 py-3 border-t border-[var(--color-coral)]/20">
+          <div class="px-4 py-3 border-t border-amber-400/20">
             <div class="flex items-center gap-2 mb-1">
-              <span class="text-xs text-[var(--color-coral)] font-mono font-bold">03</span>
+              <span class="text-xs text-amber-400 font-mono font-bold">03</span>
               <h3 class="text-base font-bold text-[var(--color-cream)]">Edit</h3>
             </div>
             <p class="text-sm text-[var(--color-mist)]">Full post-production: cuts, color grading, graphics, and sound design.</p>
