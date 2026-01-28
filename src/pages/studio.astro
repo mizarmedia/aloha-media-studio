@@ -193,48 +193,63 @@ const studioSchema = {
       </div>
 
       <!-- Gallery Container -->
-      <div id="gallery-wrapper" class="relative h-[400px] md:h-[450px]">
-        <!-- Left Arrow -->
-        <button id="gallery-prev" class="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[var(--color-void)]/80 border border-[var(--color-graphite)] flex items-center justify-center text-[var(--color-cream)] hover:bg-[var(--color-charcoal)] hover:border-[var(--color-coral)] transition-all cursor-pointer opacity-0 pointer-events-none" aria-label="Previous image">
+      <div id="gallery-wrapper" class="relative h-[280px] md:h-[450px]">
+        <!-- Desktop Arrows (hidden on mobile) - z-30 to stay above hovered images -->
+        <button id="gallery-prev" class="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-[var(--color-void)]/80 border border-[var(--color-graphite)] items-center justify-center text-[var(--color-cream)] hover:bg-[var(--color-charcoal)] hover:border-[var(--color-coral)] transition-all cursor-pointer opacity-0 pointer-events-none" aria-label="Previous image">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
           </svg>
         </button>
 
-        <!-- Right Arrow -->
-        <button id="gallery-next" class="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[var(--color-void)]/80 border border-[var(--color-graphite)] flex items-center justify-center text-[var(--color-cream)] hover:bg-[var(--color-charcoal)] hover:border-[var(--color-coral)] transition-all cursor-pointer" aria-label="Next image">
+        <button id="gallery-next" class="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-[var(--color-void)]/80 border border-[var(--color-graphite)] items-center justify-center text-[var(--color-cream)] hover:bg-[var(--color-charcoal)] hover:border-[var(--color-coral)] transition-all cursor-pointer" aria-label="Next image">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
           </svg>
         </button>
 
         <!-- Horizontal Scroll Track -->
-        <div id="gallery-scroll" class="absolute inset-0 flex items-center gap-5 px-6 overflow-x-auto cursor-grab active:cursor-grabbing snap-x snap-mandatory">
+        <div id="gallery-scroll" class="absolute inset-0 flex items-center gap-3 md:gap-5 px-4 md:px-6 overflow-x-auto cursor-grab active:cursor-grabbing snap-x snap-mandatory">
           {galleryImages.map((image, index) => (
             <div
-              class="gallery-item flex-shrink-0 h-[320px] md:h-[380px] rounded-2xl overflow-hidden cursor-pointer snap-center transition-all duration-500 ease-out opacity-60 scale-95"
+              class="gallery-item flex-shrink-0 h-[220px] md:h-[380px] rounded-xl md:rounded-2xl overflow-hidden cursor-pointer snap-center transition-all duration-500 ease-out opacity-60 scale-95"
               data-index={index}
             >
               <img
                 src={image.src}
                 alt={image.alt}
-                class="h-full w-auto max-w-[500px] object-cover transition-all duration-300"
+                class="h-full w-auto max-w-[280px] md:max-w-[500px] object-cover transition-all duration-300"
                 loading={index < 6 ? "eager" : "lazy"}
                 decoding="async"
               />
             </div>
           ))}
-          <div class="flex-shrink-0 w-12 snap-end"></div>
+          <div class="flex-shrink-0 w-8 md:w-12 snap-end"></div>
         </div>
       </div>
 
-      <!-- Progress Bar -->
-      <div class="max-w-7xl mx-auto px-6 py-6">
-        <div class="flex items-center gap-4">
-          <div class="flex-1 h-1 bg-[var(--color-graphite)] rounded-full overflow-hidden">
-            <div id="gallery-progress" class="h-full bg-[var(--color-coral)] rounded-full transition-all duration-100" style="width: 5%"></div>
+      <!-- Progress Bar + Mobile Navigation -->
+      <div class="max-w-7xl mx-auto px-6 py-4 md:py-6">
+        <div class="flex items-center gap-3 md:gap-4">
+          <!-- Mobile Prev Button -->
+          <button id="gallery-prev-mobile" class="md:hidden w-10 h-10 rounded-full bg-[var(--color-charcoal)] border border-[var(--color-graphite)] flex items-center justify-center text-[var(--color-cream)] hover:border-[var(--color-coral)] transition-all cursor-pointer flex-shrink-0" aria-label="Previous image">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </button>
+
+          <div class="flex-1 flex items-center gap-3 md:gap-4">
+            <div class="flex-1 h-1 bg-[var(--color-graphite)] rounded-full overflow-hidden">
+              <div id="gallery-progress" class="h-full bg-[var(--color-coral)] rounded-full transition-all duration-100" style="width: 5%"></div>
+            </div>
+            <span id="gallery-counter" class="text-sm text-[var(--color-mist)] tabular-nums">1 / {galleryImages.length}</span>
           </div>
-          <span id="gallery-counter" class="text-sm text-[var(--color-mist)] tabular-nums">1 / {galleryImages.length}</span>
+
+          <!-- Mobile Next Button -->
+          <button id="gallery-next-mobile" class="md:hidden w-10 h-10 rounded-full bg-[var(--color-charcoal)] border border-[var(--color-graphite)] flex items-center justify-center text-[var(--color-cream)] hover:border-[var(--color-coral)] transition-all cursor-pointer flex-shrink-0" aria-label="Next image">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </button>
         </div>
       </div>
     </section>
@@ -305,8 +320,14 @@ const studioSchema = {
         const counter = document.getElementById('gallery-counter');
         const items = document.querySelectorAll('.gallery-item');
         const totalItems = items.length;
+
+        // Desktop arrows
         const prevBtn = document.getElementById('gallery-prev');
         const nextBtn = document.getElementById('gallery-next');
+
+        // Mobile arrows
+        const prevBtnMobile = document.getElementById('gallery-prev-mobile');
+        const nextBtnMobile = document.getElementById('gallery-next-mobile');
 
         // Lightbox elements
         const lightbox = document.getElementById('lightbox');
@@ -373,23 +394,31 @@ const studioSchema = {
 
           counter.textContent = (currentIndex + 1) + ' / ' + totalItems;
 
-          // Update arrow visibility
+          // Update desktop arrow visibility
           if (prevBtn) prevBtn.style.opacity = currentIndex > 0 ? '1' : '0';
           if (prevBtn) prevBtn.style.pointerEvents = currentIndex > 0 ? 'auto' : 'none';
           if (nextBtn) nextBtn.style.opacity = currentIndex < totalItems - 1 ? '1' : '0';
           if (nextBtn) nextBtn.style.pointerEvents = currentIndex < totalItems - 1 ? 'auto' : 'none';
+
+          // Update mobile arrow visibility
+          if (prevBtnMobile) prevBtnMobile.style.opacity = currentIndex > 0 ? '1' : '0.3';
+          if (prevBtnMobile) prevBtnMobile.style.pointerEvents = currentIndex > 0 ? 'auto' : 'none';
+          if (nextBtnMobile) nextBtnMobile.style.opacity = currentIndex < totalItems - 1 ? '1' : '0.3';
+          if (nextBtnMobile) nextBtnMobile.style.pointerEvents = currentIndex < totalItems - 1 ? 'auto' : 'none';
         }
 
-        // Scroll to specific image
+        // Scroll to specific image (center it in viewport)
         function scrollToImage(index) {
           const item = items[index];
           if (item) {
-            const targetScroll = item.offsetLeft - 24; // 24px padding
-            scroll.scrollTo({ left: targetScroll, behavior: 'smooth' });
+            const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+            const scrollCenter = scroll.clientWidth / 2;
+            const targetScroll = itemCenter - scrollCenter;
+            scroll.scrollTo({ left: Math.max(0, targetScroll), behavior: 'smooth' });
           }
         }
 
-        // Arrow navigation
+        // Arrow navigation - Desktop
         if (prevBtn) {
           prevBtn.addEventListener('click', () => {
             const currentIndex = getCurrentImageIndex();
@@ -401,6 +430,25 @@ const studioSchema = {
 
         if (nextBtn) {
           nextBtn.addEventListener('click', () => {
+            const currentIndex = getCurrentImageIndex();
+            if (currentIndex < totalItems - 1) {
+              scrollToImage(currentIndex + 1);
+            }
+          });
+        }
+
+        // Arrow navigation - Mobile
+        if (prevBtnMobile) {
+          prevBtnMobile.addEventListener('click', () => {
+            const currentIndex = getCurrentImageIndex();
+            if (currentIndex > 0) {
+              scrollToImage(currentIndex - 1);
+            }
+          });
+        }
+
+        if (nextBtnMobile) {
+          nextBtnMobile.addEventListener('click', () => {
             const currentIndex = getCurrentImageIndex();
             if (currentIndex < totalItems - 1) {
               scrollToImage(currentIndex + 1);
