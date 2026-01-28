@@ -219,8 +219,9 @@ const canonicalURL = canonical
 
     <!-- Custom Floating "Book the Studio" Button -->
     <a
+      id="floating-cta"
       href="/studio#booking"
-      class="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-5 py-3 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+      class="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-5 py-3 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 opacity-100"
       style="box-shadow: 0 4px 14px rgba(224, 123, 91, 0.4);"
     >
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -228,5 +229,19 @@ const canonicalURL = canonical
       </svg>
       Book The Studio
     </a>
+    <script>
+      // Hide floating CTA when footer is visible
+      const floatingCta = document.getElementById('floating-cta');
+      const footer = document.querySelector('footer');
+      if (floatingCta && footer) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            floatingCta.style.opacity = entry.isIntersecting ? '0' : '1';
+            floatingCta.style.pointerEvents = entry.isIntersecting ? 'none' : 'auto';
+          });
+        }, { threshold: 0.1 });
+        observer.observe(footer);
+      }
+    </script>
   </body>
 </html>

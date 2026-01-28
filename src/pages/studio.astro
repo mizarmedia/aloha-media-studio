@@ -55,24 +55,45 @@ const pricingTiers = [
   },
 ]
 
-const studioImages = [
-  // Podcast room (two-person setup)
-  { src: '/images/studio/podcast-setup-1.webp', alt: 'Two-person podcast recording room', featured: true },
-  { src: '/images/studio/podcast-setup-2.webp', alt: 'Podcast studio with professional lighting' },
-  { src: '/images/studio/podcast-setup-3.webp', alt: 'Multi-camera podcast setup' },
-  // Solo recording setup
-  { src: '/images/studio/solo-setup-1.webp', alt: 'Solo recording booth' },
-  { src: '/images/studio/solo-setup-2.webp', alt: 'Solo podcast setup' },
-  { src: '/images/studio/solo-setup-3.webp', alt: 'Professional microphone and lighting' },
-  { src: '/images/studio/solo-setup-4.webp', alt: 'Solo recording equipment' },
-  { src: '/images/studio/solo-setup-5.webp', alt: 'Recording studio detail' },
-  { src: '/images/studio/solo-setup-7.webp', alt: 'Studio equipment setup' },
-  // Studio lounge/waiting area
-  { src: '/images/studio/studio-space-1.webp', alt: 'Studio lounge area' },
-  { src: '/images/studio/studio-space-2.webp', alt: 'Client waiting area' },
-  { src: '/images/studio/studio-space-3.webp', alt: 'Studio common space' },
-  // Microphone detail
-  { src: '/images/studio/microphone.webp', alt: 'Professional studio microphone' },
+const galleryImages = [
+  // SEO-optimized alt texts with location keywords
+  { src: '/images/gallery/podcast-setup-1.webp', alt: 'Two-person podcast recording room at Aloha Media Studio in Eagle Idaho' },
+  { src: '/images/gallery/solo-setup-smile.webp', alt: 'Happy client recording podcast at Eagle Idaho studio' },
+  { src: '/images/gallery/studio-space-1.webp', alt: 'Aloha Media Studio interior - professional media production space' },
+  { src: '/images/gallery/client-recording-1.webp', alt: 'Business owner recording video content at Eagle studio' },
+  { src: '/images/gallery/lounge-1.webp', alt: 'Comfortable lounge area at Aloha Media Studio' },
+  { src: '/images/gallery/solo-setup-1.webp', alt: 'Professional solo podcast recording setup with lighting' },
+  { src: '/images/gallery/client-smile-1.webp', alt: 'Smiling podcast guest at microphone in Eagle Idaho' },
+  { src: '/images/gallery/podcast-setup-3.webp', alt: 'Interview-style video recording setup at Aloha Media' },
+  { src: '/images/gallery/solo-smile-2.webp', alt: 'Content creator enjoying recording session in studio' },
+  { src: '/images/gallery/waiting-room.webp', alt: 'Client waiting area at Aloha Media Studio Eagle' },
+  { src: '/images/gallery/client-recording-2.webp', alt: 'Professional presenting on camera at media studio' },
+  { src: '/images/gallery/solo-setup-2.webp', alt: 'Solo podcast equipment setup with professional microphone' },
+  { src: '/images/gallery/lounge-2.webp', alt: 'Modern relaxation area in Eagle Idaho production studio' },
+  { src: '/images/gallery/client-recording-3.webp', alt: 'Guest recording podcast episode at Aloha Media' },
+  { src: '/images/gallery/podcast-setup-5.webp', alt: 'Podcast recording room with professional lighting' },
+  { src: '/images/gallery/solo-smile-3.webp', alt: 'Engaged client during video recording session' },
+  { src: '/images/gallery/solo-setup-3.webp', alt: 'Solo recording booth at Eagle Idaho media studio' },
+  { src: '/images/gallery/client-recording-4.webp', alt: 'Professional recording session at Aloha Media Studio' },
+  { src: '/images/gallery/lounge-3.webp', alt: 'Comfortable seating area for studio clients' },
+  { src: '/images/gallery/podcast-setup-2.webp', alt: 'Professional Aputure lighting setup for video production' },
+  { src: '/images/gallery/client-smile-2.webp', alt: 'Happy client at microphone recording podcast' },
+  { src: '/images/gallery/studio-space-3.webp', alt: 'Full overview of Aloha Media Studio production space' },
+  { src: '/images/gallery/client-recording-5.webp', alt: 'Client speaking into professional microphone' },
+  { src: '/images/gallery/solo-setup-4.webp', alt: 'Solo content creation setup with studio lighting' },
+  { src: '/images/gallery/lounge-4.webp', alt: 'Client preparation area at Eagle media studio' },
+  { src: '/images/gallery/client-recording-6.webp', alt: 'Animated speaker recording video content' },
+  { src: '/images/gallery/podcast-setup-4.webp', alt: 'Multi-person podcast recording setup' },
+  { src: '/images/gallery/solo-smile-4.webp', alt: 'Content creator at Aloha Media Studio Eagle Idaho' },
+  { src: '/images/gallery/solo-setup-5.webp', alt: 'Minimal solo recording setup for podcasters' },
+  { src: '/images/gallery/client-recording-7.webp', alt: 'Interview recording at professional Eagle studio' },
+  { src: '/images/gallery/lounge-5.webp', alt: 'Studio lounge with plants and natural decor' },
+  { src: '/images/gallery/podcast-setup-6.webp', alt: 'Full podcast studio rental in Eagle Idaho' },
+  { src: '/images/gallery/client-recording-8.webp', alt: 'Speaker gesturing during video recording' },
+  { src: '/images/gallery/solo-setup-6.webp', alt: 'Solo desk setup for content creators' },
+  { src: '/images/gallery/lounge-6.webp', alt: 'Cozy waiting space at Aloha Media Studio' },
+  { src: '/images/gallery/client-recording-9.webp', alt: 'Two-person conversation recording session' },
+  { src: '/images/gallery/solo-setup-7.webp', alt: 'Professional solo recording station Eagle Idaho' },
 ]
 
 // Page-specific schema for studio rental
@@ -152,43 +173,368 @@ const studioSchema = {
       </div>
     </section>
     
-    <!-- Immersive Gallery -->
-    <section id="tour" class="py-24 bg-[var(--color-void)]">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16">
-          <p class="text-[var(--color-coral)] text-sm font-medium tracking-widest uppercase mb-4">
-            Tour the Space
+    <!-- Horizontal Scroll Gallery -->
+    <section id="tour" class="bg-[var(--color-void)] overflow-hidden">
+      <!-- Header -->
+      <div class="max-w-7xl mx-auto px-6 pt-16 pb-8">
+        <div class="flex items-end justify-between">
+          <div>
+            <p class="text-[var(--color-coral)] text-sm font-medium tracking-widest uppercase mb-3">
+              Tour the Space
+            </p>
+            <h2 class="text-3xl md:text-4xl font-bold text-[var(--color-cream)]">
+              Where creativity comes to life
+            </h2>
+          </div>
+          <p class="hidden md:block text-[var(--color-mist)] text-sm">
+            Explore the Studio • Click to Enlarge
           </p>
-          <h2 class="text-4xl md:text-5xl font-bold text-[var(--color-cream)]">
-            Where creativity comes to life
-          </h2>
         </div>
+      </div>
 
-        <!-- Masonry-style Gallery -->
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {studioImages.map((image, index) => (
+      <!-- Gallery Container -->
+      <div id="gallery-wrapper" class="relative h-[400px] md:h-[450px]">
+        <!-- Left Arrow -->
+        <button id="gallery-prev" class="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[var(--color-void)]/80 border border-[var(--color-graphite)] flex items-center justify-center text-[var(--color-cream)] hover:bg-[var(--color-charcoal)] hover:border-[var(--color-coral)] transition-all cursor-pointer opacity-0 pointer-events-none" aria-label="Previous image">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+
+        <!-- Right Arrow -->
+        <button id="gallery-next" class="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-[var(--color-void)]/80 border border-[var(--color-graphite)] flex items-center justify-center text-[var(--color-cream)] hover:bg-[var(--color-charcoal)] hover:border-[var(--color-coral)] transition-all cursor-pointer" aria-label="Next image">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </button>
+
+        <!-- Horizontal Scroll Track -->
+        <div id="gallery-scroll" class="absolute inset-0 flex items-center gap-5 px-6 overflow-x-auto cursor-grab active:cursor-grabbing snap-x snap-mandatory">
+          {galleryImages.map((image, index) => (
             <div
-              class:list={[
-                "rounded-2xl overflow-hidden group",
-                image.featured ? "col-span-2 row-span-2" : "",
-                index === 3 || index === 7 ? "md:col-span-2" : ""
-              ]}
+              class="gallery-item flex-shrink-0 h-[320px] md:h-[380px] rounded-2xl overflow-hidden cursor-pointer snap-center transition-all duration-500 ease-out opacity-60 scale-95"
+              data-index={index}
             >
               <img
                 src={image.src}
                 alt={image.alt}
-                class:list={[
-                  "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105",
-                  image.featured ? "aspect-square" : "aspect-[4/3]"
-                ]}
-                loading={index < 4 ? "eager" : "lazy"}
+                class="h-full w-auto max-w-[500px] object-cover transition-all duration-300"
+                loading={index < 6 ? "eager" : "lazy"}
                 decoding="async"
               />
             </div>
           ))}
+          <div class="flex-shrink-0 w-12 snap-end"></div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="max-w-7xl mx-auto px-6 py-6">
+        <div class="flex items-center gap-4">
+          <div class="flex-1 h-1 bg-[var(--color-graphite)] rounded-full overflow-hidden">
+            <div id="gallery-progress" class="h-full bg-[var(--color-coral)] rounded-full transition-all duration-100" style="width: 5%"></div>
+          </div>
+          <span id="gallery-counter" class="text-sm text-[var(--color-mist)] tabular-nums">1 / {galleryImages.length}</span>
         </div>
       </div>
     </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 z-50 hidden bg-black/95 backdrop-blur-sm">
+      <!-- Image container - z-0 so buttons are on top -->
+      <div id="lightbox-backdrop" class="absolute inset-0 z-0 flex items-center justify-center p-8">
+        <img id="lightbox-img" src="" alt="" class="max-w-full max-h-full object-contain rounded-lg pointer-events-none">
+      </div>
+      <!-- Controls - z-10 to be above image -->
+      <button id="lightbox-close" class="absolute top-4 right-4 z-20 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors cursor-pointer">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+      <button id="lightbox-prev" class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors cursor-pointer">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <button id="lightbox-next" class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors cursor-pointer">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+      <div id="lightbox-counter" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 text-white/70 text-sm"></div>
+    </div>
+
+    <style>
+      #gallery-scroll {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-behavior: smooth;
+      }
+      #gallery-scroll::-webkit-scrollbar {
+        display: none;
+      }
+      #gallery-progress {
+        transition: width 0.15s ease-out;
+      }
+      /* Center image emphasis */
+      .gallery-item.active {
+        opacity: 1;
+        transform: scale(1);
+      }
+      /* Desktop hover - pop out effect + dim siblings */
+      @media (hover: hover) {
+        #gallery-scroll:hover .gallery-item {
+          opacity: 0.4;
+          transform: scale(0.92);
+        }
+        #gallery-scroll:hover .gallery-item:hover {
+          opacity: 1;
+          transform: scale(1.08) translateY(-8px);
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+          z-index: 10;
+        }
+      }
+    </style>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const scroll = document.getElementById('gallery-scroll');
+        const progress = document.getElementById('gallery-progress');
+        const counter = document.getElementById('gallery-counter');
+        const items = document.querySelectorAll('.gallery-item');
+        const totalItems = items.length;
+        const prevBtn = document.getElementById('gallery-prev');
+        const nextBtn = document.getElementById('gallery-next');
+
+        // Lightbox elements
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const lightboxPrev = document.getElementById('lightbox-prev');
+        const lightboxNext = document.getElementById('lightbox-next');
+        const lightboxCounter = document.getElementById('lightbox-counter');
+        let currentLightboxIndex = 0;
+
+        if (!scroll) return;
+
+        // Find the currently visible image based on scroll position
+        function getCurrentImageIndex() {
+          const scrollLeft = scroll.scrollLeft;
+          const scrollCenter = scrollLeft + scroll.clientWidth / 2;
+
+          // Find which image is most visible
+          let closestIndex = 0;
+          let closestDistance = Infinity;
+
+          items.forEach((item, index) => {
+            const itemLeft = item.offsetLeft - scroll.offsetLeft;
+            const itemCenter = itemLeft + item.offsetWidth / 2;
+            const distance = Math.abs(itemCenter - scrollCenter);
+
+            if (distance < closestDistance) {
+              closestDistance = distance;
+              closestIndex = index;
+            }
+          });
+
+          return closestIndex;
+        }
+
+        // Update which images have the active class (center emphasis)
+        function updateActiveImages() {
+          const scrollLeft = scroll.scrollLeft;
+          const scrollCenter = scrollLeft + scroll.clientWidth / 2;
+
+          items.forEach((item, index) => {
+            const itemLeft = item.offsetLeft - scroll.offsetLeft;
+            const itemCenter = itemLeft + item.offsetWidth / 2;
+            const distance = Math.abs(itemCenter - scrollCenter);
+            const threshold = scroll.clientWidth * 0.4; // Within 40% of center
+
+            if (distance < threshold) {
+              item.classList.add('active');
+            } else {
+              item.classList.remove('active');
+            }
+          });
+        }
+
+        // Update progress and counter based on current image
+        function updateProgress() {
+          const scrollLeft = scroll.scrollLeft;
+          const maxScroll = scroll.scrollWidth - scroll.clientWidth;
+          const currentIndex = getCurrentImageIndex();
+
+          // Progress bar based on image index (not scroll position)
+          const pct = totalItems > 1 ? (currentIndex / (totalItems - 1)) * 100 : 0;
+          progress.style.width = Math.max(5, Math.min(100, pct)) + '%';
+
+          counter.textContent = (currentIndex + 1) + ' / ' + totalItems;
+
+          // Update arrow visibility
+          if (prevBtn) prevBtn.style.opacity = currentIndex > 0 ? '1' : '0';
+          if (prevBtn) prevBtn.style.pointerEvents = currentIndex > 0 ? 'auto' : 'none';
+          if (nextBtn) nextBtn.style.opacity = currentIndex < totalItems - 1 ? '1' : '0';
+          if (nextBtn) nextBtn.style.pointerEvents = currentIndex < totalItems - 1 ? 'auto' : 'none';
+        }
+
+        // Scroll to specific image
+        function scrollToImage(index) {
+          const item = items[index];
+          if (item) {
+            const targetScroll = item.offsetLeft - 24; // 24px padding
+            scroll.scrollTo({ left: targetScroll, behavior: 'smooth' });
+          }
+        }
+
+        // Arrow navigation
+        if (prevBtn) {
+          prevBtn.addEventListener('click', () => {
+            const currentIndex = getCurrentImageIndex();
+            if (currentIndex > 0) {
+              scrollToImage(currentIndex - 1);
+            }
+          });
+        }
+
+        if (nextBtn) {
+          nextBtn.addEventListener('click', () => {
+            const currentIndex = getCurrentImageIndex();
+            if (currentIndex < totalItems - 1) {
+              scrollToImage(currentIndex + 1);
+            }
+          });
+        }
+
+        // Listen for scroll events
+        scroll.addEventListener('scroll', () => {
+          updateProgress();
+          updateActiveImages();
+        }, { passive: true });
+
+        // Smart scroll handling - allow touchpad horizontal, convert vertical to horizontal
+        scroll.addEventListener('wheel', (e) => {
+          const maxScroll = scroll.scrollWidth - scroll.clientWidth;
+          if (maxScroll <= 0) return;
+
+          // If scrolling is primarily horizontal (touchpad gesture), let it through
+          if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+            // Horizontal scroll - let browser handle it naturally
+            return;
+          }
+
+          // Vertical scroll (mouse wheel or vertical touchpad) - convert to horizontal
+          if (Math.abs(e.deltaY) > 5) {
+            e.preventDefault();
+            scroll.scrollLeft += e.deltaY;
+          }
+        }, { passive: false });
+
+        // Drag to scroll
+        let isDragging = false;
+        let startX = 0;
+        let scrollLeft = 0;
+
+        scroll.addEventListener('mousedown', (e) => {
+          isDragging = true;
+          startX = e.pageX - scroll.offsetLeft;
+          scrollLeft = scroll.scrollLeft;
+          scroll.style.cursor = 'grabbing';
+        });
+
+        scroll.addEventListener('mouseleave', () => {
+          if (isDragging) {
+            isDragging = false;
+            scroll.style.cursor = 'grab';
+          }
+        });
+
+        scroll.addEventListener('mouseup', () => {
+          isDragging = false;
+          scroll.style.cursor = 'grab';
+        });
+
+        scroll.addEventListener('mousemove', (e) => {
+          if (!isDragging) return;
+          e.preventDefault();
+          const x = e.pageX - scroll.offsetLeft;
+          const walk = (startX - x) * 1.5;
+          scroll.scrollLeft = scrollLeft + walk;
+        });
+
+        // Lightbox functionality
+        function openLightbox(index) {
+          currentLightboxIndex = index;
+          const img = items[index].querySelector('img');
+          lightboxImg.src = img.src;
+          lightboxImg.alt = img.alt;
+          lightboxCounter.textContent = (index + 1) + ' / ' + totalItems;
+          lightbox.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+          lightbox.classList.add('hidden');
+          document.body.style.overflow = '';
+        }
+
+        function nextImage() {
+          currentLightboxIndex = (currentLightboxIndex + 1) % totalItems;
+          openLightbox(currentLightboxIndex);
+        }
+
+        function prevImage() {
+          currentLightboxIndex = (currentLightboxIndex - 1 + totalItems) % totalItems;
+          openLightbox(currentLightboxIndex);
+        }
+
+        items.forEach((item, index) => {
+          item.addEventListener('click', (e) => {
+            if (!isDragging) openLightbox(index);
+          });
+        });
+
+        // Lightbox controls with stopPropagation to fix button issues
+        lightboxClose.addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeLightbox();
+        });
+
+        lightboxNext.addEventListener('click', (e) => {
+          e.stopPropagation();
+          nextImage();
+        });
+
+        lightboxPrev.addEventListener('click', (e) => {
+          e.stopPropagation();
+          prevImage();
+        });
+
+        // Close lightbox when clicking the backdrop (not buttons)
+        const lightboxBackdrop = document.getElementById('lightbox-backdrop');
+        if (lightboxBackdrop) {
+          lightboxBackdrop.addEventListener('click', closeLightbox);
+        }
+        lightbox.addEventListener('click', (e) => {
+          if (e.target === lightbox) {
+            closeLightbox();
+          }
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (lightbox.classList.contains('hidden')) return;
+          if (e.key === 'Escape') closeLightbox();
+          if (e.key === 'ArrowRight') nextImage();
+          if (e.key === 'ArrowLeft') prevImage();
+        });
+
+        // Initial state
+        updateProgress();
+        updateActiveImages();
+      });
+    </script>
     
     <!-- Features - Clean Grid -->
     <section class="py-24 bg-[var(--color-charcoal)]">
@@ -228,279 +574,253 @@ const studioSchema = {
       </div>
     </section>
     
-    <!-- Booking Section - Unified -->
-    <section id="booking" class="py-24 bg-[var(--color-charcoal)]">
-      <div class="max-w-6xl mx-auto px-6">
+    <!-- Booking Section -->
+    <section id="booking" class="py-20 bg-[var(--color-void)] relative overflow-hidden">
+      <!-- Background Image -->
+      <div class="absolute inset-0">
+        <img
+          src="/images/studio/booking-bg.webp"
+          alt="Client smiling during podcast recording"
+          class="w-full h-full object-cover object-top opacity-30"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-[var(--color-void)]/70 via-[var(--color-void)]/80 to-[var(--color-void)]"></div>
+      </div>
+
+      <div class="max-w-5xl mx-auto px-6 relative z-10">
+
         <!-- Header -->
-        <div class="text-center mb-10">
-          <p class="text-[var(--color-coral)] text-sm font-medium tracking-widest uppercase mb-4">
-            Ready?
+        <div class="text-center mb-12">
+          <p class="text-[var(--color-coral)] text-sm font-medium tracking-widest uppercase mb-3">
+            Ready to Create?
           </p>
-          <h2 class="text-4xl md:text-5xl font-bold text-[var(--color-cream)] mb-4">
-            Book your session
+          <h2 class="text-4xl md:text-5xl font-bold text-[var(--color-cream)] mb-3">
+            Book the Studio
           </h2>
-          <p class="text-[var(--color-mist)] text-lg">
-            Transparent rates. No hidden fees.
+          <p class="text-[var(--color-mist)] text-lg mb-4">
+            Eagle's only professional media production space
           </p>
+          <!-- Location -->
+          <a
+            href="https://maps.apple.com/?address=839+E+Winding+Creek+Dr,+Suite+202,+Eagle,+ID+83616"
+            class="inline-flex items-center gap-2 text-sm text-[var(--color-stone)] hover:text-[var(--color-coral)] transition-colors"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            839 E Winding Creek Dr, Suite 202, Eagle — <span class="underline">Get Directions</span>
+          </a>
         </div>
 
-        <!-- Two-column layout (stacks on mobile) -->
-        <div class="grid lg:grid-cols-[360px_1fr] gap-8 items-start">
+        <!-- Pricing Cards -->
+        <div class="flex flex-col lg:grid lg:grid-cols-[1fr_1.5fr_1fr] gap-4 lg:gap-6 mb-8">
 
-          <!-- LEFT COLUMN: Session picker + info -->
-          <div class="space-y-3">
-            <!-- Session Cards -->
-            <button id="tab-1hour" class="session-card active">
-              <div class="flex items-center justify-between mb-1">
-                <span class="price">$100</span>
-                <span class="badge">1 Hour</span>
-              </div>
-              <p class="desc">Podcast recordings, headshots, quick shoots</p>
-            </button>
-
-            <button id="tab-4hour" class="session-card">
-              <div class="flex items-center justify-between mb-1">
-                <div class="flex items-center gap-2">
-                  <span class="price">$350</span>
-                  <span class="save">Save $50</span>
-                </div>
-                <span class="badge">4 Hours</span>
-              </div>
-              <p class="desc">Content batching, interviews, multi-setup shoots</p>
-            </button>
-
-            <button id="tab-fullday" class="session-card">
-              <div class="flex items-center justify-between mb-1">
-                <span class="price">$600</span>
-                <span class="badge">Full Day</span>
-              </div>
-              <p class="desc">Video productions, campaigns, complex setups</p>
-            </button>
-
-            <!-- Info highlights -->
-            <div class="pt-4 space-y-2">
-              <p class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
-                <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Professional lighting & audio included
-              </p>
-              <p class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
-                <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Free cancellation 48hrs+
-              </p>
-              <p class="flex items-center gap-2 text-sm text-[var(--color-mist)]">
-                <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Instant confirmation
-              </p>
+          <!-- 4-Hour Card (HERO - shows first on all screens) -->
+          <div class="order-1 lg:order-2 p-6 rounded-2xl border-2 border-[var(--color-coral)] bg-[var(--color-charcoal)] relative shadow-lg shadow-[var(--color-coral)]/10">
+            <!-- Most Popular Badge -->
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-[var(--color-coral)] text-[var(--color-void)] text-xs font-bold uppercase tracking-wider rounded-full">
+              Most Popular
             </div>
 
-            <!-- Equipment note -->
-            <p class="text-sm text-[var(--color-stone)] pt-2">
-              Need equipment rental or camera operator? <a href="/#contact" class="text-[var(--color-coral)] hover:underline">Contact us</a> to discuss.
-            </p>
+            <p class="text-xs text-[var(--color-coral)] uppercase tracking-wider mb-2 mt-2">Half-Day</p>
+            <div class="flex items-baseline gap-3 mb-2">
+              <p class="text-4xl font-bold text-[var(--color-cream)]">$350</p>
+              <span class="px-2 py-0.5 bg-[var(--color-coral)]/20 text-[var(--color-coral)] text-xs font-semibold rounded-full">Save $50</span>
+            </div>
+            <p class="text-[var(--color-mist)] mb-4">4 hours of studio time</p>
 
-            <!-- Terms -->
-            <p class="text-xs text-[var(--color-stone)] pt-2">
-              By booking, you agree to our <a href="/studio-agreement" class="text-[var(--color-coral)] hover:underline">Studio Rental Agreement</a>
-            </p>
+            <ul class="space-y-2 mb-6 text-sm text-[var(--color-mist)]">
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[var(--color-coral)]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                Batch a month of content
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[var(--color-coral)]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                Multi-camera interview setups
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-[var(--color-coral)]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                Equipment consultation included
+              </li>
+            </ul>
+
+            <button
+              data-cal-link="nation-goetter-peowyk/4hour"
+              data-cal-config='{"layout":"month_view"}'
+              class="w-full py-3 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold rounded-full hover:scale-[1.02] hover:shadow-lg hover:shadow-[var(--color-coral)]/30 transition-all cursor-pointer"
+            >
+              Book Your Session
+            </button>
+            <p class="text-xs text-[var(--color-stone)] text-center mt-2">Book in 60 seconds • Instant confirmation</p>
           </div>
 
-          <!-- RIGHT COLUMN: Calendar or Contact Form -->
-          <div class="rounded-3xl border border-[var(--color-graphite)] overflow-hidden bg-[var(--color-void)]">
-            <!-- 1-Hour Calendar -->
-            <div id="cal-wrapper-1hour">
-              <div id="my-cal-inline-1hour" style="width:100%;"></div>
+          <!-- Hourly Card -->
+          <div class="order-2 lg:order-1 p-5 rounded-2xl border border-[var(--color-graphite)] bg-[var(--color-charcoal)] flex flex-col">
+            <p class="text-xs text-[var(--color-stone)] uppercase tracking-wider mb-2">Hourly</p>
+            <p class="text-2xl font-bold text-[var(--color-cream)] mb-1">$100<span class="text-sm font-normal text-[var(--color-stone)]">/hr</span></p>
+            <p class="text-sm text-[var(--color-mist)] mb-3">Quick shoots & headshots</p>
+
+            <ul class="space-y-1.5 mb-4 text-xs text-[var(--color-mist)] flex-grow">
+              <li class="flex items-center gap-1.5">
+                <svg class="w-3 h-3 text-[var(--color-coral)] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                Professional headshots
+              </li>
+              <li class="flex items-center gap-1.5">
+                <svg class="w-3 h-3 text-[var(--color-coral)] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                Podcast recordings
+              </li>
+              <li class="flex items-center gap-1.5">
+                <svg class="w-3 h-3 text-[var(--color-coral)] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                Solo content creation
+              </li>
+            </ul>
+
+            <div class="grid grid-cols-2 gap-3 mt-auto">
+              <button
+                data-cal-link="nation-goetter-peowyk/1hour"
+                data-cal-config='{"layout":"month_view"}'
+                class="py-3 rounded-full border border-[var(--color-cream)]/30 text-[var(--color-cream)] text-sm font-medium hover:bg-[var(--color-cream)]/10 transition-colors cursor-pointer"
+              >
+                1 Hour
+              </button>
+              <button
+                data-cal-link="nation-goetter-peowyk/2hour"
+                data-cal-config='{"layout":"month_view"}'
+                class="py-3 rounded-full border border-[var(--color-cream)]/30 text-[var(--color-cream)] text-sm font-medium hover:bg-[var(--color-cream)]/10 transition-colors cursor-pointer"
+              >
+                2 Hours
+              </button>
             </div>
-
-            <!-- 4-Hour Calendar -->
-            <div id="cal-wrapper-4hour" style="display:none;">
-              <div id="my-cal-inline-4hour" style="width:100%;"></div>
-            </div>
-
-            <!-- Full Day Contact Form -->
-            <div id="contact-wrapper-fullday" class="p-8" style="display:none;">
-              <h3 class="text-2xl font-bold text-[var(--color-cream)] mb-2">Full Day Booking</h3>
-              <p class="text-[var(--color-mist)] mb-6">Tell us about your project and we'll get back to you within 24 hours.</p>
-
-              <form action="https://formsubmit.co/alohamediastudios@gmail.com" method="POST" class="space-y-4">
-                <!-- Spam protection -->
-                <input type="text" name="_honey" style="display:none">
-                <input type="hidden" name="_captcha" value="true">
-                <input type="hidden" name="_subject" value="Full Day Studio Booking Request">
-                <input type="hidden" name="_next" value="https://alohamediastudio.com/booking-confirmed">
-
-                <div class="grid sm:grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Your name"
-                    required
-                    class="w-full px-4 py-3 rounded-xl bg-[var(--color-charcoal)] border border-[var(--color-graphite)] text-[var(--color-cream)] placeholder-[var(--color-stone)] focus:border-[var(--color-coral)] focus:outline-none transition-colors"
-                  >
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email address"
-                    required
-                    class="w-full px-4 py-3 rounded-xl bg-[var(--color-charcoal)] border border-[var(--color-graphite)] text-[var(--color-cream)] placeholder-[var(--color-stone)] focus:border-[var(--color-coral)] focus:outline-none transition-colors"
-                  >
-                </div>
-                <textarea
-                  name="message"
-                  rows="4"
-                  placeholder="Tell us about your project - what are you creating, how many people, any special requirements?"
-                  required
-                  class="w-full px-4 py-3 rounded-xl bg-[var(--color-charcoal)] border border-[var(--color-graphite)] text-[var(--color-cream)] placeholder-[var(--color-stone)] focus:border-[var(--color-coral)] focus:outline-none transition-colors resize-none"
-                ></textarea>
-                <button
-                  type="submit"
-                  class="w-full py-4 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold rounded-full hover:scale-[1.02] hover:shadow-lg hover:shadow-[var(--color-coral)]/30 transition-all duration-300"
-                >
-                  Request Full Day Booking
-                </button>
-              </form>
-            </div>
+            <p class="text-[10px] text-[var(--color-stone)] text-center mt-2">Instant confirmation</p>
           </div>
 
+          <!-- Full Day Card -->
+          <div class="order-3 p-5 rounded-2xl border border-[var(--color-graphite)] bg-[var(--color-charcoal)] flex flex-col">
+            <p class="text-xs text-[var(--color-stone)] uppercase tracking-wider mb-2">Full Day</p>
+            <div class="flex items-baseline gap-2 mb-1">
+              <p class="text-2xl font-bold text-[var(--color-cream)]">$600</p>
+              <span class="text-xs text-[var(--color-coral)]">Save $200</span>
+            </div>
+            <p class="text-sm text-[var(--color-mist)] mb-3">8 hours for productions</p>
+
+            <ul class="space-y-1.5 mb-4 text-xs text-[var(--color-mist)] flex-grow">
+              <li class="flex items-center gap-1.5">
+                <svg class="w-3 h-3 text-[var(--color-coral)] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                Video productions
+              </li>
+              <li class="flex items-center gap-1.5">
+                <svg class="w-3 h-3 text-[var(--color-coral)] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                Commercial campaigns
+              </li>
+              <li class="flex items-center gap-1.5">
+                <svg class="w-3 h-3 text-[var(--color-coral)] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                Complex multi-setup shoots
+              </li>
+            </ul>
+
+            <button
+              id="fullday-btn"
+              class="w-full py-3 rounded-full border border-[var(--color-cream)]/30 text-[var(--color-cream)] text-sm font-medium hover:bg-[var(--color-cream)]/10 transition-colors mt-auto cursor-pointer"
+            >
+              Contact Us
+            </button>
+            <p class="text-[10px] text-[var(--color-stone)] text-center mt-2">Response within 24hrs</p>
+          </div>
         </div>
+
+        <!-- Trust Strip -->
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-8 text-sm text-[var(--color-mist)]">
+          <span class="flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-[var(--color-coral)]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Free cancellation 48hrs
+          </span>
+          <span class="flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-[var(--color-coral)]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Pro equipment included
+          </span>
+          <span class="flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-[var(--color-coral)]" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+            Free parking
+          </span>
+        </div>
+
+        <!-- Mini Testimonial -->
+        <p class="text-center text-sm text-[var(--color-stone)]">
+          "Nation makes the process of video and podcasting easy..."
+          <span class="text-[var(--color-mist)]">— Dr. Roger Hall, 500+ videos</span>
+        </p>
+
+        <!-- Terms -->
+        <p class="text-center text-xs text-[var(--color-stone)] mt-6">
+          By booking, you agree to our <a href="/studio-agreement" class="text-[var(--color-coral)] hover:underline">Studio Rental Agreement</a>
+        </p>
       </div>
     </section>
 
-    <!-- Session Card Styles -->
-    <style>
-      .session-card {
-        width: 100%;
-        padding: 1rem 1.25rem;
-        border-radius: 1rem;
-        text-align: left;
-        transition: all 0.2s ease;
-        background: transparent;
-        border: 2px solid var(--color-ash);
-        cursor: pointer;
-      }
+    <!-- Full Day Contact Modal -->
+    <div id="fullday-modal" class="fixed inset-0 z-50 hidden">
+      <div class="absolute inset-0 bg-black/80" id="modal-backdrop"></div>
+      <div class="absolute inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-md bg-[var(--color-charcoal)] rounded-2xl p-6 overflow-auto max-h-[90vh]">
+        <button id="modal-close" class="absolute top-4 right-4 text-[var(--color-stone)] hover:text-[var(--color-cream)]">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
 
-      .session-card:hover {
-        border-color: var(--color-coral);
-      }
+        <h3 class="text-xl font-bold text-[var(--color-cream)] mb-2">Full Day Booking</h3>
+        <p class="text-[var(--color-mist)] text-sm mb-6">Tell us about your project and we'll get back to you within 24 hours.</p>
 
-      .session-card.active {
-        background: var(--color-coral);
-        border-color: var(--color-coral);
-      }
+        <form action="https://formsubmit.co/alohamediastudios@gmail.com" method="POST" class="space-y-3">
+          <input type="text" name="_honey" style="display:none">
+          <input type="hidden" name="_captcha" value="true">
+          <input type="hidden" name="_subject" value="Full Day Studio Booking Request">
+          <input type="hidden" name="_next" value="https://alohamediastudio.com/booking-confirmed">
 
-      .session-card .price {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--color-cream);
-      }
+          <input type="text" name="name" placeholder="Your name" required
+            class="w-full px-4 py-3 rounded-xl bg-[var(--color-void)] border border-[var(--color-graphite)] text-[var(--color-cream)] placeholder-[var(--color-stone)] focus:border-[var(--color-coral)] focus:outline-none">
+          <input type="email" name="email" placeholder="Email address" required
+            class="w-full px-4 py-3 rounded-xl bg-[var(--color-void)] border border-[var(--color-graphite)] text-[var(--color-cream)] placeholder-[var(--color-stone)] focus:border-[var(--color-coral)] focus:outline-none">
+          <input type="tel" name="phone" placeholder="Phone number (optional)"
+            class="w-full px-4 py-3 rounded-xl bg-[var(--color-void)] border border-[var(--color-graphite)] text-[var(--color-cream)] placeholder-[var(--color-stone)] focus:border-[var(--color-coral)] focus:outline-none">
+          <div>
+            <label class="block text-xs text-[var(--color-mist)] mb-1.5">Preferred date</label>
+            <input type="date" name="preferred_date" required
+              class="w-full px-4 py-3 rounded-xl bg-[var(--color-void)] border border-[var(--color-graphite)] text-[var(--color-cream)] focus:border-[var(--color-coral)] focus:outline-none [color-scheme:dark]">
+          </div>
+          <textarea name="message" rows="3" placeholder="Tell us about your project — what are you creating, how many people, any special needs?" required
+            class="w-full px-4 py-3 rounded-xl bg-[var(--color-void)] border border-[var(--color-graphite)] text-[var(--color-cream)] placeholder-[var(--color-stone)] focus:border-[var(--color-coral)] focus:outline-none resize-none"></textarea>
+          <button type="submit" class="w-full py-3 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold rounded-full hover:scale-[1.02] transition-all">
+            Request Full Day Booking
+          </button>
+        </form>
+      </div>
+    </div>
 
-      .session-card.active .price {
-        color: var(--color-void);
-      }
-
-      .session-card .save {
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: var(--color-coral);
-        background: rgba(224, 123, 91, 0.1);
-        padding: 0.125rem 0.5rem;
-        border-radius: 9999px;
-      }
-
-      .session-card.active .save {
-        color: var(--color-void);
-        background: rgba(18, 18, 18, 0.2);
-      }
-
-      .session-card .badge {
-        padding: 0.25rem 0.75rem;
-        border-radius: 9999px;
-        font-size: 0.875rem;
-        font-weight: 500;
-        background: var(--color-graphite);
-        color: var(--color-cream);
-      }
-
-      .session-card.active .badge {
-        background: var(--color-void);
-        color: var(--color-coral);
-      }
-
-      .session-card .desc {
-        font-size: 0.875rem;
-        color: var(--color-mist);
-      }
-
-      .session-card.active .desc {
-        color: var(--color-void);
-        opacity: 0.85;
-      }
-    </style>
-
-    <!-- Cal.com Embed Scripts -->
+    <!-- Cal.com Popup Embed -->
     <script type="text/javascript">
       (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
 
-      // 1-Hour Calendar
-      Cal("init", "1hour", {origin:"https://app.cal.com"});
-      Cal.ns["1hour"]("inline", {
-        elementOrSelector:"#my-cal-inline-1hour",
-        config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
-        calLink: "nation-goetter-peowyk/1hour",
-      });
-      Cal.ns["1hour"]("ui", {
+      Cal("init", {origin:"https://app.cal.com"});
+      Cal("ui", {
         "cssVarsPerTheme": {
           "light": {"cal-brand": "#e07b5b"},
           "dark": {"cal-brand": "#e07b5b"}
         },
-        "hideEventTypeDetails": false,
-        "layout": "month_view"
+        "hideEventTypeDetails": true
       });
+    </script>
 
-      // 4-Hour Calendar
-      Cal("init", "4hour", {origin:"https://app.cal.com"});
-      Cal.ns["4hour"]("inline", {
-        elementOrSelector:"#my-cal-inline-4hour",
-        config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
-        calLink: "nation-goetter-peowyk/4hour",
-      });
-      Cal.ns["4hour"]("ui", {
-        "cssVarsPerTheme": {
-          "light": {"cal-brand": "#e07b5b"},
-          "dark": {"cal-brand": "#e07b5b"}
-        },
-        "hideEventTypeDetails": false,
-        "layout": "month_view"
-      });
-
-      // Tab switching
+    <!-- Full Day Modal Script -->
+    <script>
       document.addEventListener('DOMContentLoaded', function() {
-        const tabs = ['1hour', '4hour', 'fullday'];
+        const modal = document.getElementById('fullday-modal');
+        const btn = document.getElementById('fullday-btn');
+        const close = document.getElementById('modal-close');
+        const backdrop = document.getElementById('modal-backdrop');
 
-        tabs.forEach(tabId => {
-          const btn = document.getElementById('tab-' + tabId);
-          if (!btn) return;
-
-          btn.addEventListener('click', function() {
-            // Update card active states
-            tabs.forEach(t => {
-              const tabBtn = document.getElementById('tab-' + t);
-              if (tabBtn) {
-                tabBtn.classList.toggle('active', t === tabId);
-              }
-            });
-
-            // Show/hide content wrappers
-            document.getElementById('cal-wrapper-1hour').style.display = tabId === '1hour' ? 'block' : 'none';
-            document.getElementById('cal-wrapper-4hour').style.display = tabId === '4hour' ? 'block' : 'none';
-            document.getElementById('contact-wrapper-fullday').style.display = tabId === 'fullday' ? 'block' : 'none';
-          });
-        });
+        btn.addEventListener('click', () => modal.classList.remove('hidden'));
+        close.addEventListener('click', () => modal.classList.add('hidden'));
+        backdrop.addEventListener('click', () => modal.classList.add('hidden'));
       });
     </script>
 

@@ -78,30 +78,33 @@ const currentYear = new Date().getFullYear()
 
       <!-- Contact Column - full width on mobile -->
       <div class="col-span-2 md:col-span-1 pt-2 md:pt-0 border-t border-[var(--color-graphite)] md:border-0">
-        <p class="text-[var(--color-cream)] font-semibold mb-3 md:mb-4 text-sm md:text-base mt-4 md:mt-0">Contact</p>
-        <ul class="flex flex-wrap gap-x-6 gap-y-2 md:block md:space-y-3 text-sm">
-          <li class="flex items-center gap-2 md:gap-3">
-            <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            <a href="mailto:media@alohapublishing.com" class="text-[var(--color-mist)] hover:text-[var(--color-coral)] transition-colors">
-              media@alohapublishing.com
-            </a>
-          </li>
-          <li class="flex items-center gap-2 md:gap-3">
-            <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <p class="text-[var(--color-cream)] font-semibold mb-3 md:mb-4 text-sm md:text-base mt-4 md:mt-0">Visit Us</p>
+        <ul class="space-y-3 text-sm">
+          <li class="flex items-start gap-3">
+            <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
-            <span class="text-[var(--color-mist)]">Eagle, Idaho</span>
+            <a href="https://maps.apple.com/?address=839+E+Winding+Creek+Dr,+Suite+202,+Eagle,+ID+83616" class="address-link text-[var(--color-mist)] hover:text-[var(--color-coral)] transition-colors leading-tight">
+              839 E Winding Creek Dr<br>Suite 202<br>Eagle, ID 83616
+            </a>
           </li>
-          <li class="flex items-center gap-2 md:gap-3">
+          <li class="flex items-center gap-3">
             <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span class="text-[var(--color-mist)]">Mon-Fri, 10am-5pm</span>
+            <span class="text-[var(--color-mist)]">Mon–Fri, 10am–5pm</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <svg class="w-4 h-4 text-[var(--color-coral)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <a href="mailto:alohamediastudios@gmail.com" class="text-[var(--color-mist)] hover:text-[var(--color-coral)] transition-colors">
+              alohamediastudios@gmail.com
+            </a>
           </li>
         </ul>
+        <p class="mt-3 text-xs text-[var(--color-stone)]">Walk-ins welcome — come see the studio!</p>
       </div>
 
     </div>
@@ -112,7 +115,7 @@ const currentYear = new Date().getFullYear()
     <div class="max-w-7xl mx-auto px-6 py-6">
       <div class="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-[var(--color-stone)]">
         <p>&copy; {currentYear} Aloha Media Studio. All rights reserved.</p>
-        <p>Made with care in Eagle, Idaho</p>
+        <p>Designed & built in-house — <a href="/#contact" class="text-[var(--color-coral)] hover:underline">we do websites too</a></p>
       </div>
     </div>
   </div>
