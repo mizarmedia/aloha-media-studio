@@ -314,13 +314,15 @@ const reviewSchemas = testimonials.map(t => ({
           </svg>
         </button>
 
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-0">
           {testimonials.map((_, index) => (
             <button
-              class="testimonial-dot w-2.5 h-2.5 rounded-full bg-[var(--color-graphite)] transition-all duration-300"
+              class="testimonial-dot flex items-center justify-center w-11 h-11 transition-all duration-300"
               data-index={index}
               aria-label={`Testimonial ${index + 1}`}
-            />
+            >
+              <span class="testimonial-dot-visual w-2.5 h-2.5 rounded-full bg-[var(--color-graphite)] transition-all duration-300 pointer-events-none"></span>
+            </button>
           ))}
         </div>
 
@@ -413,14 +415,14 @@ const reviewSchemas = testimonials.map(t => ({
       const currentColor = slides[newIndex].dataset.color || 'coral'
 
       dots.forEach((dot, i) => {
-        const dotEl = dot as HTMLElement
+        const visual = dot.querySelector('.testimonial-dot-visual') as HTMLElement
+        if (!visual) return
         if (i === current) {
-          dotEl.style.backgroundColor = dotColors[currentColor]
-          dotEl.classList.add('scale-125')
+          visual.style.backgroundColor = dotColors[currentColor]
+          visual.classList.add('scale-125')
         } else {
-          dotEl.style.backgroundColor = ''
-          dotEl.classList.remove('scale-125')
-          dotEl.classList.add('bg-[var(--color-graphite)]')
+          visual.style.backgroundColor = ''
+          visual.classList.remove('scale-125')
         }
       })
     }
@@ -430,11 +432,10 @@ const reviewSchemas = testimonials.map(t => ({
       setFixedHeight()
       // Set initial dot color based on first slide
       const firstColor = slides[0]?.dataset.color || 'coral'
-      const firstDot = dots[0] as HTMLElement
-      if (firstDot) {
-        firstDot.style.backgroundColor = dotColors[firstColor]
-        firstDot.classList.add('scale-125')
-        firstDot.classList.remove('bg-[var(--color-graphite)]')
+      const firstVisual = dots[0]?.querySelector('.testimonial-dot-visual') as HTMLElement
+      if (firstVisual) {
+        firstVisual.style.backgroundColor = dotColors[firstColor]
+        firstVisual.classList.add('scale-125')
       }
     }
 
