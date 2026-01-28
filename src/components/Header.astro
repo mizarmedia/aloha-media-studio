@@ -3,10 +3,10 @@
 const currentPath = Astro.url.pathname
 
 const navLinks = [
-  { label: 'The Podcast', href: '/' },
-  { label: 'The Studio', href: '/studio' },
-  { label: 'All Services', href: '/full-studio' },
-  { label: 'The Edit', href: '/the-edit' },
+  { label: 'The Podcast', href: '/', color: 'coral' },
+  { label: 'The Studio', href: '/studio', color: 'blue' },
+  { label: 'All Services', href: '/full-studio', color: 'coral' },
+  { label: 'The Edit', href: '/the-edit', color: 'coral' },
 ]
 
 // Highlight active page - homepage needs exact match, others use startsWith
@@ -34,18 +34,19 @@ const isActive = (href: string) => {
     <!-- Desktop Navigation -->
     <div class="hidden lg:flex items-center gap-10">
       {navLinks.map((link) => (
-        <a 
+        <a
           href={link.href}
           class:list={[
             "text-sm font-medium transition-colors duration-300 relative group",
-            isActive(link.href) 
-              ? "text-[var(--color-cream)]" 
+            isActive(link.href)
+              ? "text-[var(--color-cream)]"
               : "text-[var(--color-mist)] hover:text-[var(--color-cream)]"
           ]}
         >
           {link.label}
           <span class:list={[
-            "absolute -bottom-1 left-0 h-px bg-[var(--color-coral)] transition-all duration-300",
+            "absolute -bottom-1 left-0 h-px transition-all duration-300",
+            link.color === 'blue' ? "bg-[var(--color-studio-blue)]" : "bg-[var(--color-coral)]",
             isActive(link.href) ? "w-full" : "w-0 group-hover:w-full"
           ]}></span>
         </a>
