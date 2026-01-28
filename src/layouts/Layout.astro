@@ -208,7 +208,7 @@ const isHomePage = Astro.url.pathname === '/'
       }
     </script>
 
-    <!-- Floating "Rent Studio Space" Button - Hidden on homepage and at hero -->
+    <!-- Floating "Rent Studio Space" Button - Hidden on homepage -->
     {!isHomePage && (
       <a
         id="floating-cta"
@@ -222,39 +222,37 @@ const isHomePage = Astro.url.pathname === '/'
         Rent Studio Space
       </a>
     )}
-    {!isHomePage && (
-      <script>
-        // Show floating CTA after scrolling past hero, hide when footer visible
-        const floatingCta = document.getElementById('floating-cta');
-        const footer = document.querySelector('footer');
+    <script>
+      // Show floating CTA after scrolling past hero, hide when footer visible
+      const floatingCta = document.getElementById('floating-cta');
+      const footer = document.querySelector('footer');
 
-        if (floatingCta) {
-          let footerVisible = false;
+      if (floatingCta) {
+        let footerVisible = false;
 
-          // Footer observer
-          if (footer) {
-            const footerObserver = new IntersectionObserver((entries) => {
-              entries.forEach(entry => {
-                footerVisible = entry.isIntersecting;
-                updateFloatingCta();
-              });
-            }, { threshold: 0.1 });
-            footerObserver.observe(footer);
-          }
-
-          // Scroll handler - show after scrolling past hero (~100vh)
-          function updateFloatingCta() {
-            const scrolledPastHero = window.scrollY > window.innerHeight * 0.8;
-            const shouldShow = scrolledPastHero && !footerVisible;
-
-            floatingCta.style.opacity = shouldShow ? '1' : '0';
-            floatingCta.style.pointerEvents = shouldShow ? 'auto' : 'none';
-          }
-
-          window.addEventListener('scroll', updateFloatingCta, { passive: true });
-          updateFloatingCta();
+        // Footer observer
+        if (footer) {
+          const footerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              footerVisible = entry.isIntersecting;
+              updateFloatingCta();
+            });
+          }, { threshold: 0.1 });
+          footerObserver.observe(footer);
         }
-      </script>
-    )}
+
+        // Scroll handler - show after scrolling past hero (~100vh)
+        function updateFloatingCta() {
+          const scrolledPastHero = window.scrollY > window.innerHeight * 0.8;
+          const shouldShow = scrolledPastHero && !footerVisible;
+
+          floatingCta.style.opacity = shouldShow ? '1' : '0';
+          floatingCta.style.pointerEvents = shouldShow ? 'auto' : 'none';
+        }
+
+        window.addEventListener('scroll', updateFloatingCta, { passive: true });
+        updateFloatingCta();
+      }
+    </script>
   </body>
 </html>
