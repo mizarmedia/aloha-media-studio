@@ -11,5 +11,9 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
   },
-  integrations: [sitemap()]
+  integrations: [sitemap({
+    filter: (page) =>
+      !page.includes('booking-confirmed') &&
+      !page.includes('studio-agreement')
+  })]
 });

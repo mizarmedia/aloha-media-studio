@@ -4,23 +4,28 @@
 const faqs = [
   {
     question: "How much does podcast production cost?",
-    answer: "Most production companies charge $500 to $2,500 per episode. Our 6-episode launch package comes out to $750 per episode, and that includes studio recording, editing, and distribution to YouTube, Spotify, and Apple Podcasts."
+    answer: "Most production companies charge $500 to $2,500 per episode. Our 6-episode launch package comes out to $750 per episode, and that includes studio recording, editing, and distribution to YouTube, Spotify, and Apple Podcasts.",
+    html: 'Most production companies charge $500 to $2,500 per episode. Our 6-episode launch package comes out to $750 per episode, and that includes studio recording, editing, and distribution to YouTube, Spotify, and Apple Podcasts.'
   },
   {
     question: "How long does it take to launch a podcast?",
-    answer: "Most of our clients launch within 90 days. That covers content planning, recording your first 6 episodes in our Eagle studio, editing, and getting you set up on all the major platforms."
+    answer: "Most of our clients launch within 90 days. That covers content planning, recording your first 6 episodes in our Eagle studio, editing, and getting you set up on all the major platforms.",
+    html: 'Most of our clients launch within 90 days. That covers content planning, recording your first 6 episodes in our <a href="/studio" class="text-[var(--color-coral)] hover:underline">Eagle studio</a>, editing, and getting you set up on all the major platforms.'
   },
   {
     question: "Do I need my own equipment?",
-    answer: "Nope. We have cameras, lights, mics, and everything else you need at our Eagle studio. You just show up and talk. We handle the rest."
+    answer: "Nope. We have cameras, lights, mics, and everything else you need at our Eagle studio. You just show up and talk. We handle the rest.",
+    html: 'Nope. We have cameras, lights, mics, and everything else you need at our <a href="/studio" class="text-[var(--color-coral)] hover:underline">Eagle studio</a>. You just show up and talk. We handle the rest.'
   },
   {
     question: "What's included in a full-service podcast package?",
-    answer: "Everything. Content strategy, episode planning, studio recording, video and audio editing, thumbnails, show notes, and distribution to YouTube, Spotify, Apple Podcasts, and RSS. We're your podcast team."
+    answer: "Everything. Content strategy, episode planning, studio recording, video and audio editing, thumbnails, show notes, and distribution to YouTube, Spotify, Apple Podcasts, and RSS. We're your podcast team.",
+    html: 'Everything. Content strategy, episode planning, studio recording, video and audio editing, thumbnails, show notes, and distribution to YouTube, Spotify, Apple Podcasts, and RSS. We\'re your podcast team.'
   },
   {
     question: "Can you help with an existing podcast?",
-    answer: "Absolutely. We work with new and existing shows. If you need better production quality, want to hand off editing, or want to rebrand, let's talk."
+    answer: "Absolutely. We work with new and existing shows. If you need better production quality, want to hand off editing, or want to rebrand, let's talk.",
+    html: 'Absolutely. We work with new and existing shows. If you need better production quality, want to hand off editing, or want to rebrand, <a href="/full-studio#contact" class="text-[var(--color-coral)] hover:underline">let\'s talk</a>.'
   }
 ]
 
@@ -71,8 +76,7 @@ const faqSchema = {
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </summary>
-          <div class="px-6 pb-5 text-[var(--color-mist)] leading-relaxed">
-            {faq.answer}
+          <div class="px-6 pb-5 text-[var(--color-mist)] leading-relaxed" set:html={faq.html}>
           </div>
         </details>
       ))}

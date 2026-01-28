@@ -1,6 +1,6 @@
 # Aloha Media Studio
 
-> Podcast production company in Eagle, Idaho. We help business owners launch podcasts without the headache.
+> Podcast production and media services in Eagle, Idaho. We help business owners launch podcasts without the headache.
 
 Aloha Media Studio takes care of podcasting so you don't have to figure it out yourself. We handle content strategy, multi-camera recording in our studio, editing, and getting your show on YouTube, Spotify, Apple Podcasts, and everywhere else.
 
@@ -14,9 +14,33 @@ That's why we exist. We become your podcast team. You focus on what you know. We
 
 ## Services
 
-- [Podcast Production](https://alohamediastudio.com/): Full-service podcast packages including our 6-episode launch deal
+- [Podcast Production](https://alohamediastudio.com/): Full-service podcast packages including our 6-episode launch deal ($4,500)
 - [All Creative Services](https://alohamediastudio.com/full-studio/): Video, photography, branding, web design, and audio
 - [Studio Rental](https://alohamediastudio.com/studio/): Book our Eagle, Idaho studio for your own projects
+- [Aloha Media Podcast](https://alohamediastudio.com/the-edit/): Our own podcast exploring how media transforms businesses
+
+## Aloha Media Podcast
+
+The Aloha Media Podcast explores how media transforms businesses. Each season dives into a specific theme with real conversations from business owners and creators.
+
+**Season 1: The Launch** — What happens when you finally hit publish? Six episodes, six media types, real stories from people who took the leap.
+
+Episodes:
+1. Launching YouTube
+2. Launching Brand Photography
+3. Launching a Podcast
+4. Launching Social Media Video
+5. Launching an Email Newsletter
+6. Launching an Online Course
+
+Season 1 is currently in production.
+
+## Website Navigation
+
+- **The Podcast** (/) — Homepage, podcast production services and pricing
+- **The Studio** (/studio/) — Studio rental page with booking
+- **The Launch** (/the-edit/) — Aloha Media Podcast, Season 1: The Launch
+- **The Rest** (/full-studio/) — All creative services: video, photo, branding, audio
 
 ## Our Process
 
@@ -38,8 +62,8 @@ That's why we exist. We become your podcast team. You focus on what you know. We
 
 ## Pricing
 
-- Studio rental: $100/hour, $350/half-day, $600/full-day
-- Podcast packages: Get in touch for a quote
+- Podcast launch package (6 episodes): $4,500 ($750/episode) — includes strategy, recording, editing, and distribution
+- Studio rental: $100/hour, $350/half-day (4 hours), $600/full-day (8 hours)
 - Creative services: Custom pricing based on your project
 
 ## Frequently Asked Questions
@@ -63,6 +87,6 @@ Absolutely. We work with new and existing shows. Want better quality? Need to ha
 
 - Website: https://alohamediastudio.com
 - Email: media@alohapublishing.com
-- Book a call: https://alohamediastudio.com/#contact
+- Book a call: https://alohamediastudio.com/full-studio/#contact
 - YouTube: https://www.youtube.com/@AlohaMediaStudio
 - Part of Aloha Publishing: https://alohapublishing.com
