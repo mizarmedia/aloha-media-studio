@@ -644,19 +644,24 @@ const studioSchema = {
           <h2 class="text-4xl md:text-5xl font-bold text-[var(--color-cream)] mb-3">
             Book the Studio
           </h2>
-          <p class="text-[var(--color-mist)] text-lg mb-4">
+          <p class="text-[var(--color-mist)] text-lg mb-6">
             Eagle's only professional media production space
           </p>
-          <!-- Location -->
+          <!-- Location Card -->
           <a
             href="https://maps.apple.com/?address=839+E+Winding+Creek+Dr,+Suite+202,+Eagle,+ID+83616"
-            class="inline-flex items-center gap-2 text-sm text-[var(--color-stone)] hover:text-[var(--color-coral)] transition-colors"
+            class="inline-flex items-center gap-3 px-4 py-3 rounded-xl bg-[var(--color-charcoal)]/80 border border-[var(--color-graphite)] hover:border-[var(--color-coral)] transition-all group"
           >
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            839 E Winding Creek Dr, Suite 202, Eagle — <span class="underline">Get Directions</span>
+            <div class="w-10 h-10 rounded-full bg-[var(--color-coral)]/20 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <div class="text-left">
+              <p class="text-sm text-[var(--color-cream)] font-medium">839 E Winding Creek Dr, Suite 202</p>
+              <p class="text-xs text-[var(--color-stone)] group-hover:text-[var(--color-coral)] transition-colors">Eagle, ID 83616 · <span class="underline">Get Directions</span></p>
+            </div>
           </a>
         </div>
 
