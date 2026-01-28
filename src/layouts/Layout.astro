@@ -39,8 +39,8 @@ const canonicalURL = canonical
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/images/logo/aloha-media-logo.png" />
-    <link rel="apple-touch-icon" href="/images/logo/aloha-media-logo.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/apple-touch-icon.png" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
@@ -81,9 +81,6 @@ const canonicalURL = canonical
         unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
       }
     </style>
-
-    <!-- Preload critical assets -->
-    <link rel="preload" href="/images/logo/aloha-media-logo.png" as="image" />
 
     <title>{title}</title>
 
@@ -183,17 +180,8 @@ const canonicalURL = canonical
     <!-- Page-specific schema -->
     {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
   </head>
-  <body class="antialiased bg-[var(--color-void)] relative">
-    <!-- Ambient gradient - Simplified for performance -->
-    <div class="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true" style="z-index: 0;">
-      <!-- Single gradient using CSS instead of multiple blur divs -->
-      <div class="absolute inset-0" style="background: radial-gradient(ellipse 80% 60% at 20% 20%, rgba(74, 124, 155, 0.35) 0%, transparent 70%), radial-gradient(ellipse 60% 50% at 80% 50%, rgba(224, 123, 91, 0.25) 0%, transparent 60%);"></div>
-    </div>
-
-    <!-- Page content -->
-    <div class="relative z-10">
-      <slot />
-    </div>
+  <body class="antialiased bg-[var(--color-void)]">
+    <slot />
     
     <!-- Initialize animations - deferred until browser is idle -->
     <script>
@@ -217,11 +205,11 @@ const canonicalURL = canonical
       }
     </script>
 
-    <!-- Custom Floating "Book the Studio" Button -->
+    <!-- Custom Floating "Book the Studio" Button - Hidden at hero -->
     <a
       id="floating-cta"
       href="/studio#booking"
-      class="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-5 py-3 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 opacity-100"
+      class="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-3 md:px-5 md:py-3 bg-[var(--color-coral)] text-[var(--color-void)] font-semibold text-sm md:text-base rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 opacity-0 pointer-events-none"
       style="box-shadow: 0 4px 14px rgba(224, 123, 91, 0.4);"
     >
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -230,17 +218,35 @@ const canonicalURL = canonical
       Book The Studio
     </a>
     <script>
-      // Hide floating CTA when footer is visible
+      // Show floating CTA after scrolling past hero, hide when footer visible
       const floatingCta = document.getElementById('floating-cta');
       const footer = document.querySelector('footer');
-      if (floatingCta && footer) {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            floatingCta.style.opacity = entry.isIntersecting ? '0' : '1';
-            floatingCta.style.pointerEvents = entry.isIntersecting ? 'none' : 'auto';
-          });
-        }, { threshold: 0.1 });
-        observer.observe(footer);
+
+      if (floatingCta) {
+        let footerVisible = false;
+
+        // Footer observer
+        if (footer) {
+          const footerObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              footerVisible = entry.isIntersecting;
+              updateFloatingCta();
+            });
+          }, { threshold: 0.1 });
+          footerObserver.observe(footer);
+        }
+
+        // Scroll handler - show after scrolling past hero (~100vh)
+        function updateFloatingCta() {
+          const scrolledPastHero = window.scrollY > window.innerHeight * 0.8;
+          const shouldShow = scrolledPastHero && !footerVisible;
+
+          floatingCta.style.opacity = shouldShow ? '1' : '0';
+          floatingCta.style.pointerEvents = shouldShow ? 'auto' : 'none';
+        }
+
+        window.addEventListener('scroll', updateFloatingCta, { passive: true });
+        updateFloatingCta();
       }
     </script>
   </body>
