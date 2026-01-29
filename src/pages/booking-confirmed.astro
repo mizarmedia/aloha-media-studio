@@ -23,11 +23,41 @@ import Footer from '../components/Footer.astro'
         </div>
 
         <h1 class="text-4xl md:text-5xl font-bold text-[var(--color-cream)] mb-4">
-          Thank You So Much!
+          Thank You<span id="invitee-name-display"></span>!
         </h1>
         <p class="text-[var(--color-mist)] text-xl max-w-xl mx-auto">
-          We're so excited you want to create with us. Your booking request has been received!
+          We're so excited you want to create with us. Your booking has been confirmed!
         </p>
+      </div>
+
+      <!-- Booking Details (populated by JavaScript from Calendly URL params) -->
+      <div id="booking-details" class="hidden mb-8">
+        <section class="p-6 bg-[var(--color-studio-blue)]/10 rounded-2xl border border-[var(--color-studio-blue)]/30">
+          <h2 class="text-xl font-semibold text-[var(--color-cream)] mb-4 flex items-center gap-3">
+            <svg class="w-6 h-6 text-[var(--color-studio-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Your Booking Details
+          </h2>
+          <div class="grid sm:grid-cols-2 gap-4 text-[var(--color-mist)]">
+            <div>
+              <p class="text-[var(--color-stone)] text-sm">Session</p>
+              <p id="event-type" class="text-[var(--color-cream)] font-medium">—</p>
+            </div>
+            <div>
+              <p class="text-[var(--color-stone)] text-sm">Date & Time</p>
+              <p id="event-datetime" class="text-[var(--color-cream)] font-medium">—</p>
+            </div>
+            <div>
+              <p class="text-[var(--color-stone)] text-sm">Confirmation Email Sent To</p>
+              <p id="invitee-email" class="text-[var(--color-cream)] font-medium">—</p>
+            </div>
+            <div>
+              <p class="text-[var(--color-stone)] text-sm">Duration</p>
+              <p id="event-duration" class="text-[var(--color-cream)] font-medium">—</p>
+            </div>
+          </div>
+        </section>
       </div>
 
       <!-- What's Next -->
@@ -38,15 +68,15 @@ import Footer from '../components/Footer.astro'
           <div class="flex items-start gap-4">
             <div class="w-10 h-10 rounded-full bg-[var(--color-coral)]/20 flex items-center justify-center flex-shrink-0">
               <svg class="w-5 h-5 text-[var(--color-coral)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
             <div>
               <h2 class="text-xl font-semibold text-[var(--color-cream)] mb-2">
-                We'll Confirm Your Session Shortly
+                You're All Set!
               </h2>
               <p class="text-[var(--color-mist)]">
-                Your booking is pending our confirmation. We manually review each request to ensure we can give you the best experience. You'll receive a confirmation email once approved.
+                Your session is confirmed and on the calendar. Check your email for the confirmation with all the details you'll need, including studio access instructions.
               </p>
             </div>
           </div>
@@ -63,13 +93,13 @@ import Footer from '../components/Footer.astro'
               <svg class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              <span>Check your email for a confirmation message from us</span>
+              <span>Check your email for the confirmation with calendar invite and studio details</span>
             </li>
             <li class="flex items-start gap-3">
               <svg class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
-              <span>Once confirmed, you'll receive calendar invites and studio access details</span>
+              <span>Review the <a href="/studio-agreement" class="text-[var(--color-coral)] hover:underline">studio agreement</a> before your session</span>
             </li>
             <li class="flex items-start gap-3">
               <svg class="w-5 h-5 text-[var(--color-coral)] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,7 +147,7 @@ import Footer from '../components/Footer.astro'
           </h2>
           <div class="grid sm:grid-cols-2 gap-4">
             <a
-              href="mailto:alohamediastudios@gmail.com"
+              href="mailto:connect@alohamediastudio.com"
               class="flex items-center gap-4 p-4 bg-[var(--color-void)] rounded-xl hover:bg-[var(--color-void)]/80 transition-colors group"
             >
               <div class="w-10 h-10 rounded-full bg-[var(--color-coral)]/10 flex items-center justify-center group-hover:bg-[var(--color-coral)]/20 transition-colors">
@@ -127,7 +157,7 @@ import Footer from '../components/Footer.astro'
               </div>
               <div>
                 <p class="text-[var(--color-stone)] text-sm">Email us</p>
-                <p class="text-[var(--color-cream)] font-medium">alohamediastudios@gmail.com</p>
+                <p class="text-[var(--color-cream)] font-medium">connect@alohamediastudio.com</p>
               </div>
             </a>
             <a
@@ -175,4 +205,84 @@ import Footer from '../components/Footer.astro'
   </main>
 
   <Footer />
+
+  <script>
+    // Parse Calendly URL parameters and display booking details
+    document.addEventListener('DOMContentLoaded', function() {
+      const params = new URLSearchParams(window.location.search);
+
+      const inviteeName = params.get('invitee_full_name');
+      const inviteeEmail = params.get('invitee_email');
+      const eventType = params.get('event_type_name');
+      const eventStart = params.get('event_start_time');
+      const eventEnd = params.get('event_end_time');
+
+      // Only show booking details if we have Calendly params
+      if (inviteeName || eventType || eventStart) {
+        const detailsSection = document.getElementById('booking-details');
+        if (detailsSection) {
+          detailsSection.classList.remove('hidden');
+        }
+
+        // Display invitee name in header
+        if (inviteeName) {
+          const nameDisplay = document.getElementById('invitee-name-display');
+          if (nameDisplay) {
+            const firstName = inviteeName.split(' ')[0];
+            nameDisplay.textContent = `, ${firstName}`;
+          }
+        }
+
+        // Display event type
+        if (eventType) {
+          const eventTypeEl = document.getElementById('event-type');
+          if (eventTypeEl) {
+            eventTypeEl.textContent = decodeURIComponent(eventType);
+          }
+        }
+
+        // Display invitee email
+        if (inviteeEmail) {
+          const emailEl = document.getElementById('invitee-email');
+          if (emailEl) {
+            emailEl.textContent = decodeURIComponent(inviteeEmail);
+          }
+        }
+
+        // Format and display date/time
+        if (eventStart) {
+          const startDate = new Date(eventStart);
+          const options = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            timeZoneName: 'short'
+          };
+          const datetimeEl = document.getElementById('event-datetime');
+          if (datetimeEl) {
+            datetimeEl.textContent = startDate.toLocaleDateString('en-US', options);
+          }
+        }
+
+        // Calculate and display duration
+        if (eventStart && eventEnd) {
+          const start = new Date(eventStart);
+          const end = new Date(eventEnd);
+          const durationMs = end - start;
+          const durationHours = Math.round(durationMs / (1000 * 60 * 60) * 10) / 10;
+          const durationEl = document.getElementById('event-duration');
+          if (durationEl) {
+            if (durationHours === 1) {
+              durationEl.textContent = '1 Hour';
+            } else {
+              durationEl.textContent = `${durationHours} Hours`;
+            }
+          }
+        }
+      }
+    });
+  </script>
 </Layout>
