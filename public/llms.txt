@@ -1,6 +1,6 @@
 # Aloha Media Studio
 
-> Podcast production and media services in Eagle, Idaho. We help business owners launch podcasts without the headache.
+> Podcast production and media services in Eagle, Idaho, serving Boise and the Treasure Valley. We help business owners launch podcasts without the headache.
 
 Aloha Media Studio takes care of podcasting so you don't have to figure it out yourself. We handle content strategy, multi-camera recording in our studio, editing, and getting your show on YouTube, Spotify, Apple Podcasts, and everywhere else.
 
@@ -55,6 +55,7 @@ Season 1 is currently in production.
 ## Key Information
 
 - **Location:** Eagle, Idaho (Boise area)
+- **Service Area:** Eagle, Boise, Meridian, Nampa, and the greater Treasure Valley
 - **What we do:** Podcast production for business owners
 - **Studio:** Multi-camera setup with pro lighting and audio
 - **Track record:** 500+ videos, 260,000+ views

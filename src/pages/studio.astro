@@ -4,12 +4,88 @@ import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
 
 const studioFeatures = [
-  { icon: 'light', label: 'Lighting Equipment', desc: 'Professional Aputure lighting included' },
-  { icon: 'video', label: 'Camera Equipment', desc: 'Available upon request & approval' },
-  { icon: 'mic', label: 'Pro Audio', desc: 'Professional microphones & recording' },
-  { icon: 'layout', label: 'Dual Spaces', desc: 'Podcast room + main production studio' },
-  { icon: 'wifi', label: 'High-Speed WiFi', desc: 'Fast, reliable connection' },
-  { icon: 'car', label: 'Free Parking', desc: 'Dedicated spots for clients' },
+  {
+    icon: 'light',
+    label: 'Pro Lighting',
+    desc: 'Modular Aputure system',
+    note: null,
+    items: [
+      '2x Aputure Amaran T2C tube lights (the "light sabers")',
+      '2x Amaran 100D daylight lights (5600K, super bright)',
+      'Lantern softbox',
+      'Medium softbox',
+      'Bar softbox (wide rectangle)',
+      'Vertical LED light bars',
+      'Hair light cone attachment',
+      '20-25ft crane/boom for overhead shots',
+      'C-clamps and mounting hardware',
+      'Accent lamps',
+    ]
+  },
+  {
+    icon: 'mic',
+    label: 'Pro Audio',
+    desc: 'Broadcast-ready sound',
+    note: 'From simple USB mics to multi-track recording.',
+    items: [
+      'Shure SM7dB with built-in preamp',
+      'Zoom F6 multi-track field recorder',
+      '4x Blue Yeti USB mics (just plug in and go)',
+      '2x Rode Wireless Go II lavs',
+      'Pro mic stands',
+      'Audiobooth setup on request (sound blankets for isolated recording)',
+    ]
+  },
+  {
+    icon: 'video',
+    label: 'Camera Gear',
+    desc: 'By request only',
+    note: 'Available with prior approval. Just ask.',
+    items: [
+      'Sony A7III',
+      'Sony A7IV',
+      'Sigma 70-200mm lens',
+      'Sigma 24-70mm lens',
+      'Sony G Master 14mm f/1.8 ultra-wide',
+    ]
+  },
+  {
+    icon: 'layout',
+    label: 'The Spaces',
+    desc: 'Three distinct areas',
+    note: 'Built like Lego. Mix and match to create your setup.',
+    items: [
+      'Podcast Room: Enclosed, soundproofed, fits 2 people comfortably',
+      'Main Studio: Open floor for 3-4 person setups and wide shots',
+    ]
+  },
+  {
+    icon: 'backdrop',
+    label: 'Sets & Backdrops',
+    desc: 'Switch up your look',
+    note: 'Built like Lego. Mix and match to create your setup.',
+    items: [
+      'Portable bookshelf',
+      'Desk setup',
+      'Plant backgrounds',
+      'Swappable backdrops',
+      'Sound blankets',
+    ]
+  },
+  {
+    icon: 'amenities',
+    label: 'Amenities',
+    desc: 'The basics, handled',
+    note: null,
+    items: [
+      'Fast WiFi',
+      'Free parking',
+      'Secure storage',
+      'Coffee and water',
+      'Snacks and protein bars',
+      'Feel free to bring lunch',
+    ]
+  },
 ]
 
 const pricingTiers = [
@@ -104,6 +180,10 @@ const studioSchema = {
   "description": "Professional media production studio available for rent in Eagle, Idaho. Includes lighting, audio equipment, and multiple production spaces.",
   "image": "https://alohamediastudio.com/images/studio/studio-interior-1.jpg",
   "brand": { "@id": "https://alohamediastudio.com/#organization" },
+  "areaServed": [
+    { "@type": "City", "name": "Eagle, Idaho" },
+    { "@type": "City", "name": "Boise, Idaho" }
+  ],
   "offers": pricingTiers.map(tier => ({
     "@type": "Offer",
     "name": tier.name,
@@ -116,8 +196,8 @@ const studioSchema = {
 ---
 
 <Layout
-  title="Book the Studio | Media Production Space in Eagle, Idaho"
-  description="Rent Eagle, Idaho's premier media production studio. Professional lighting, multi-camera setups, podcast room, and all equipment included. From $100/hour."
+  title="Podcast & Video Studio Rental in Eagle, Idaho | Aloha Media Studio"
+  description="Rent Eagle, Idaho's only dedicated podcast and video production studio. Professional lighting, audio, and camera equipment included. Serving Boise and Treasure Valley. From $100/hour."
   schema={studioSchema}
 >
   <Header />
@@ -141,11 +221,11 @@ const studioSchema = {
         </div>
         
         <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-[var(--color-cream)] mb-6 tracking-tight">
-          The Studio
+          Eagle's Premier Podcast & Video Studio
         </h1>
-        
+
         <p class="text-xl md:text-2xl text-[var(--color-mist)] mb-10 max-w-2xl mx-auto">
-          Eagle's only dedicated media production space. Your creative home base.
+          The only dedicated podcast and video production studio in Eagle, Idaho. Professional equipment, soundproofed spaces, and everything you need to create. Serving creators from Boise, Meridian, and the entire Treasure Valley.
         </p>
         
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
@@ -585,7 +665,7 @@ const studioSchema = {
       });
     </script>
     
-    <!-- Features - Clean Grid -->
+    <!-- Features - Equipment Grid with Lightbox -->
     <section class="py-24 bg-[var(--color-charcoal)]">
       <div class="max-w-6xl mx-auto px-6">
         <div class="text-center mb-16">
@@ -596,57 +676,138 @@ const studioSchema = {
             Everything you need
           </h2>
         </div>
-        
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
-          {studioFeatures.map((feature) => (
-            <div class="text-center group">
-              <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[var(--color-studio-blue)]/10 flex items-center justify-center group-hover:bg-[var(--color-studio-blue)]/20 group-hover:scale-110 transition-all duration-300">
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+          {studioFeatures.map((feature, index) => (
+            <button
+              class="equipment-btn text-center p-6 rounded-2xl bg-[var(--color-void)] border border-[var(--color-graphite)] hover:border-[var(--color-studio-blue)] hover:bg-[var(--color-void)]/80 transition-all duration-300 cursor-pointer group"
+              data-index={index}
+            >
+              <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-[var(--color-studio-blue)]/10 flex items-center justify-center group-hover:bg-[var(--color-studio-blue)]/20 group-hover:scale-110 transition-all duration-300">
                 <svg class="w-7 h-7 text-[var(--color-studio-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   {feature.icon === 'light' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />}
-                  {feature.icon === 'video' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />}
                   {feature.icon === 'mic' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />}
+                  {feature.icon === 'video' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />}
                   {feature.icon === 'layout' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />}
-                  {feature.icon === 'wifi' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />}
-                  {feature.icon === 'coffee' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />}
-                  {feature.icon === 'car' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />}
+                  {feature.icon === 'backdrop' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />}
+                  {feature.icon === 'amenities' && <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />}
                 </svg>
               </div>
               <h3 class="text-lg font-semibold text-[var(--color-cream)] mb-1">
                 {feature.label}
               </h3>
-              <p class="text-sm text-[var(--color-stone)]">
+              <p class="text-sm text-[var(--color-stone)] mb-2">
                 {feature.desc}
               </p>
-            </div>
+              <span class="inline-flex items-center gap-1 text-xs text-[var(--color-studio-blue)] opacity-60 group-hover:opacity-100 transition-opacity">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                View list
+              </span>
+            </button>
           ))}
         </div>
-        <!-- Additional Info Row - Integrated with features -->
-        <div class="grid md:grid-cols-2 gap-6 mt-12 pt-8 border-t border-[var(--color-graphite)]">
-          <div class="flex gap-4">
-            <div class="w-12 h-12 rounded-xl bg-[var(--color-studio-blue)]/10 flex items-center justify-center flex-shrink-0">
-              <svg class="w-6 h-6 text-[var(--color-studio-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <div>
-              <h3 class="text-[var(--color-cream)] font-semibold mb-1">Camera Equipment</h3>
-              <p class="text-sm text-[var(--color-stone)]">Available upon request and approval. <a href="/full-studio#contact" class="text-[var(--color-studio-blue)] hover:underline">Contact us</a> to discuss your needs.</p>
-            </div>
-          </div>
-          <div class="flex gap-4">
-            <div class="w-12 h-12 rounded-xl bg-[var(--color-studio-blue)]/10 flex items-center justify-center flex-shrink-0">
-              <svg class="w-6 h-6 text-[var(--color-studio-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </div>
-            <div>
-              <h3 class="text-[var(--color-cream)] font-semibold mb-1">Production Crew</h3>
-              <p class="text-sm text-[var(--color-stone)]">Not included. Need someone to operate equipment? <a href="/full-studio#contact" class="text-[var(--color-studio-blue)] hover:underline">Contact us</a> about adding crew.</p>
-            </div>
-          </div>
-        </div>
+
+        <!-- Bottom note -->
+        <p class="text-center text-sm text-[var(--color-stone)] mt-8">
+          This is space rental only. You run the gear yourself.<br class="md:hidden" />
+          <a href="/" class="text-[var(--color-coral)] hover:underline">Need full-service production?</a>
+        </p>
       </div>
     </section>
+
+    <!-- Equipment Lightbox Modal -->
+    <div id="equipment-modal" class="fixed inset-0 z-50 hidden">
+      <div class="absolute inset-0 bg-black/90" id="equipment-backdrop"></div>
+      <div class="absolute inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-lg bg-[var(--color-charcoal)] rounded-2xl overflow-hidden max-h-[90vh] flex flex-col">
+        <!-- Header -->
+        <div class="flex items-center justify-between p-5 border-b border-[var(--color-graphite)]">
+          <div class="flex items-center gap-3">
+            <div id="modal-icon" class="w-10 h-10 rounded-xl bg-[var(--color-studio-blue)]/20 flex items-center justify-center">
+              <!-- Icon injected by JS -->
+            </div>
+            <h3 id="modal-title" class="text-xl font-bold text-[var(--color-cream)]"></h3>
+          </div>
+          <button id="equipment-close" class="w-10 h-10 rounded-full hover:bg-[var(--color-void)] flex items-center justify-center text-[var(--color-stone)] hover:text-[var(--color-cream)] transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <!-- Content -->
+        <div class="p-5 overflow-y-auto flex-1">
+          <p id="modal-note" class="text-sm text-[var(--color-studio-blue)] mb-4 hidden"></p>
+          <ul id="modal-list" class="space-y-3">
+            <!-- Items injected by JS -->
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Equipment Modal Script -->
+    <script define:vars={{ studioFeatures }}>
+      document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('equipment-modal');
+        const backdrop = document.getElementById('equipment-backdrop');
+        const closeBtn = document.getElementById('equipment-close');
+        const modalTitle = document.getElementById('modal-title');
+        const modalNote = document.getElementById('modal-note');
+        const modalList = document.getElementById('modal-list');
+        const modalIcon = document.getElementById('modal-icon');
+        const buttons = document.querySelectorAll('.equipment-btn');
+
+        const icons = {
+          light: '<svg class="w-5 h-5 text-[var(--color-studio-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>',
+          mic: '<svg class="w-5 h-5 text-[var(--color-studio-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /></svg>',
+          video: '<svg class="w-5 h-5 text-[var(--color-studio-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>',
+          layout: '<svg class="w-5 h-5 text-[var(--color-studio-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" /></svg>',
+          backdrop: '<svg class="w-5 h-5 text-[var(--color-studio-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>',
+          amenities: '<svg class="w-5 h-5 text-[var(--color-studio-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>'
+        };
+
+        function openModal(index) {
+          const feature = studioFeatures[index];
+          modalTitle.textContent = feature.label;
+          modalIcon.innerHTML = icons[feature.icon];
+
+          if (feature.note) {
+            modalNote.textContent = feature.note;
+            modalNote.classList.remove('hidden');
+          } else {
+            modalNote.classList.add('hidden');
+          }
+
+          modalList.innerHTML = feature.items.map(item => `
+            <li class="flex items-start gap-3 text-[var(--color-mist)]">
+              <svg class="w-5 h-5 text-[var(--color-studio-blue)] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span>${item}</span>
+            </li>
+          `).join('');
+
+          modal.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+          modal.classList.add('hidden');
+          document.body.style.overflow = '';
+        }
+
+        buttons.forEach(btn => {
+          btn.addEventListener('click', () => openModal(parseInt(btn.dataset.index)));
+        });
+
+        closeBtn.addEventListener('click', closeModal);
+        backdrop.addEventListener('click', closeModal);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+        });
+      });
+    </script>
 
     <!-- Booking Section -->
     <section id="booking" class="py-20 bg-[var(--color-void)] relative overflow-hidden">
@@ -674,22 +835,41 @@ const studioSchema = {
             Eagle's only professional media production space
           </p>
 
-          <!-- Location Card -->
-          <a
-            href="https://maps.apple.com/?address=839+E+Winding+Creek+Dr,+Suite+202,+Eagle,+ID+83616"
-            class="inline-flex items-center gap-3 px-5 py-4 rounded-xl bg-[var(--color-charcoal)]/80 border border-[var(--color-graphite)] hover:border-[var(--color-studio-blue)] transition-all group"
-          >
-            <div class="w-10 h-10 rounded-full bg-[var(--color-studio-blue)]/20 flex items-center justify-center flex-shrink-0">
-              <svg class="w-5 h-5 text-[var(--color-studio-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </div>
-            <div class="text-left">
-              <p class="text-sm text-[var(--color-cream)] font-medium">839 E Winding Creek Dr, Suite 202</p>
-              <p class="text-xs text-[var(--color-stone)] group-hover:text-[var(--color-studio-blue)] transition-colors">Eagle, ID 83616 · <span class="underline">Get Directions</span></p>
-            </div>
-          </a>
+          <!-- Location & Tour Cards -->
+          <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <!-- Location Card -->
+            <a
+              href="https://maps.apple.com/?address=839+E+Winding+Creek+Dr,+Suite+202,+Eagle,+ID+83616"
+              class="inline-flex items-center gap-3 px-5 py-4 rounded-xl bg-[var(--color-charcoal)]/80 border border-[var(--color-graphite)] hover:border-[var(--color-studio-blue)] transition-all group"
+            >
+              <div class="w-10 h-10 rounded-full bg-[var(--color-studio-blue)]/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-[var(--color-studio-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <div class="text-left">
+                <p class="text-sm text-[var(--color-cream)] font-medium">839 E Winding Creek Dr, Suite 202</p>
+                <p class="text-xs text-[var(--color-stone)] group-hover:text-[var(--color-studio-blue)] transition-colors">Eagle, ID 83616 · <span class="underline">Get Directions</span></p>
+              </div>
+            </a>
+
+            <!-- Tour Card -->
+            <button
+              data-calendly-url="https://calendly.com/aloha-studio/studio-tour"
+              class="calendly-trigger inline-flex items-center gap-3 px-5 py-4 rounded-xl bg-[var(--color-charcoal)]/80 border border-[var(--color-graphite)] hover:border-[var(--color-studio-blue)] transition-all group cursor-pointer"
+            >
+              <div class="w-10 h-10 rounded-full bg-[var(--color-studio-blue)]/20 flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-[var(--color-studio-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div class="text-left">
+                <p class="text-sm text-[var(--color-cream)] font-medium">Want to see it first?</p>
+                <p class="text-xs text-[var(--color-stone)] group-hover:text-[var(--color-studio-blue)] transition-colors"><span class="underline">Schedule a Free Tour</span></p>
+              </div>
+            </button>
+          </div>
         </div>
 
         <!-- Pricing Cards -->
@@ -725,9 +905,8 @@ const studioSchema = {
             </ul>
 
             <button
-              data-cal-link="nation-goetter-peowyk/4hour"
-              data-cal-config='{"layout":"month_view"}'
-              class="w-full py-3 bg-[var(--color-studio-blue)] text-white font-semibold rounded-full hover:scale-[1.02] hover:shadow-lg hover:shadow-[var(--color-studio-blue)]/30 transition-all cursor-pointer"
+              data-calendly-url="https://calendly.com/aloha-studio/half-day-studio-session"
+              class="calendly-trigger w-full py-3 bg-[var(--color-studio-blue)] text-white font-semibold rounded-full hover:scale-[1.02] hover:shadow-lg hover:shadow-[var(--color-studio-blue)]/30 transition-all cursor-pointer"
             >
               Book Your Session
             </button>
@@ -757,16 +936,14 @@ const studioSchema = {
 
             <div class="grid grid-cols-2 gap-3 mt-auto">
               <button
-                data-cal-link="nation-goetter-peowyk/1hour"
-                data-cal-config='{"layout":"month_view"}'
-                class="py-3 rounded-full border border-[var(--color-cream)]/30 text-[var(--color-cream)] text-sm font-medium hover:bg-[var(--color-cream)]/10 transition-colors cursor-pointer"
+                data-calendly-url="https://calendly.com/aloha-studio/half-day-studio-session-clone"
+                class="calendly-trigger py-3 rounded-full border border-[var(--color-cream)]/30 text-[var(--color-cream)] text-sm font-medium hover:bg-[var(--color-cream)]/10 transition-colors cursor-pointer"
               >
                 1 Hour
               </button>
               <button
-                data-cal-link="nation-goetter-peowyk/2hour"
-                data-cal-config='{"layout":"month_view"}'
-                class="py-3 rounded-full border border-[var(--color-cream)]/30 text-[var(--color-cream)] text-sm font-medium hover:bg-[var(--color-cream)]/10 transition-colors cursor-pointer"
+                data-calendly-url="https://calendly.com/aloha-studio/studio-session-clone"
+                class="calendly-trigger py-3 rounded-full border border-[var(--color-cream)]/30 text-[var(--color-cream)] text-sm font-medium hover:bg-[var(--color-cream)]/10 transition-colors cursor-pointer"
               >
                 2 Hours
               </button>
@@ -776,7 +953,7 @@ const studioSchema = {
 
           <!-- Full Day Card -->
           <div class="order-3 p-5 rounded-2xl border border-[var(--color-graphite)] bg-[var(--color-charcoal)] flex flex-col">
-            <p class="text-xs text-[var(--color-stone)] uppercase tracking-wider mb-2">Full Day</p>
+            <p class="text-xs text-[var(--color-stone)] uppercase tracking-wider mb-2">Full Day / Custom</p>
             <div class="flex items-baseline gap-2 mb-1">
               <p class="text-2xl font-bold text-[var(--color-cream)]">$600</p>
               <span class="text-xs text-[var(--color-studio-blue)]">Save $200</span>
@@ -794,7 +971,11 @@ const studioSchema = {
               </li>
               <li class="flex items-center gap-1.5">
                 <svg class="w-3 h-3 text-[var(--color-studio-blue)] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                Complex multi-setup shoots
+                Weekend bookings
+              </li>
+              <li class="flex items-center gap-1.5">
+                <svg class="w-3 h-3 text-[var(--color-studio-blue)] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                Special requests
               </li>
             </ul>
 
@@ -882,19 +1063,25 @@ const studioSchema = {
       </div>
     </div>
 
-    <!-- Cal.com Popup Embed -->
-    <script type="text/javascript">
-      (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-
-      Cal("init", {origin:"https://app.cal.com"});
-      Cal("ui", {
-        "cssVarsPerTheme": {
-          "light": {"cal-brand": "#4a7c9b"},
-          "dark": {"cal-brand": "#4a7c9b"}
-        },
-        "hideEventTypeDetails": true
-      });
-    </script>
+    <!-- Calendly Popup Modal (Custom - no external scripts) -->
+    <div id="calendly-modal" class="fixed inset-0 z-50 hidden">
+      <div class="absolute inset-0 bg-black/95" id="calendly-backdrop"></div>
+      <div class="absolute inset-0 flex flex-col">
+        <!-- Close button floating top-right -->
+        <button id="calendly-close" class="absolute top-3 right-3 md:top-4 md:right-4 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors backdrop-blur-sm">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+        <!-- Full-screen iframe -->
+        <iframe
+          id="calendly-iframe"
+          src=""
+          class="w-full h-full border-0"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
 
     <!-- Full Day Modal Script -->
     <script>
@@ -907,6 +1094,41 @@ const studioSchema = {
         btn.addEventListener('click', () => modal.classList.remove('hidden'));
         close.addEventListener('click', () => modal.classList.add('hidden'));
         backdrop.addEventListener('click', () => modal.classList.add('hidden'));
+
+        // Calendly custom popup
+        const calendlyModal = document.getElementById('calendly-modal');
+        const calendlyIframe = document.getElementById('calendly-iframe');
+        const calendlyClose = document.getElementById('calendly-close');
+        const calendlyBackdrop = document.getElementById('calendly-backdrop');
+        const calendlyTriggers = document.querySelectorAll('.calendly-trigger');
+
+        calendlyTriggers.forEach(trigger => {
+          trigger.addEventListener('click', () => {
+            const url = trigger.getAttribute('data-calendly-url');
+            // Add parameters to hide branding and match dark theme
+            const embedUrl = url + '?hide_gdpr_banner=1&background_color=1a1a1a&text_color=f5f5f0&primary_color=4a7c9b';
+            calendlyIframe.src = embedUrl;
+            calendlyModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+          });
+        });
+
+        function closeCalendly() {
+          calendlyModal.classList.add('hidden');
+          document.body.style.overflow = '';
+          // Clear iframe to stop any processes
+          calendlyIframe.src = '';
+        }
+
+        calendlyClose.addEventListener('click', closeCalendly);
+        calendlyBackdrop.addEventListener('click', closeCalendly);
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && !calendlyModal.classList.contains('hidden')) {
+            closeCalendly();
+          }
+        });
       });
     </script>
 

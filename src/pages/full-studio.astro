@@ -50,7 +50,8 @@ const servicesSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "name": "Aloha Media Studio Services",
-  "description": "Full creative services including video, photography, branding, and audio production",
+  "description": "Full creative services including video, photography, branding, and audio production in Eagle, Idaho",
+  "areaServed": { "@type": "City", "name": "Eagle, Idaho" },
   "itemListElement": services.map((service, index) => ({
     "@type": "ListItem",
     "position": index + 1,
@@ -66,7 +67,7 @@ const servicesSchema = {
 ---
 
 <Layout
-  title="Video, Photo & Branding Services | Aloha Media Studio"
+  title="Video, Photo & Branding Services in Eagle, Idaho | Aloha Media Studio"
   description="Video production, photography, branding, and audio services in Eagle, Idaho. One team handles everything—no handoffs. Book your project today."
   schema={servicesSchema}
 >
@@ -100,7 +101,7 @@ const servicesSchema = {
         </h1>
 
         <p class="text-sm md:text-xl text-[var(--color-mist)] max-w-md mx-auto mb-6 md:mb-10" data-animate="fade-up">
-          Video, photo, branding, audio. One team. No handoffs.
+          Video, photo, branding, audio in Eagle, Idaho. One team. No handoffs. Serving Boise and the Treasure Valley.
         </p>
 
         <!-- Service pills -->

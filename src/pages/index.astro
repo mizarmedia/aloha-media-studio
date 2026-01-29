@@ -34,10 +34,11 @@ const pageSchema = {
   "provider": {
     "@id": "https://alohamediastudio.com/#organization"
   },
-  "areaServed": {
-    "@type": "State",
-    "name": "Idaho"
-  },
+  "areaServed": [
+    { "@type": "City", "name": "Eagle", "containedInPlace": { "@type": "State", "name": "Idaho" } },
+    { "@type": "City", "name": "Boise", "containedInPlace": { "@type": "State", "name": "Idaho" } },
+    { "@type": "Place", "name": "Treasure Valley, Idaho" }
+  ],
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
     "name": "Podcast Production Packages",
@@ -58,7 +59,7 @@ const pageSchema = {
 
 <Layout
   title="Aloha Media Studio | Podcast Production in Eagle, Idaho"
-  description="Launch your professional podcast in 90 days. Full-service podcast production for business owners—we handle planning, recording, editing, and publishing. Eagle, Idaho."
+  description="Launch your professional podcast in 90 days. Full-service podcast production in Eagle, Idaho serving Boise and the Treasure Valley. We handle planning, recording, editing, and publishing."
   schema={pageSchema}
 >
   <Header />
