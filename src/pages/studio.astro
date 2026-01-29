@@ -196,8 +196,8 @@ const studioSchema = {
 ---
 
 <Layout
-  title="Podcast & Video Studio Rental in Eagle, Idaho | Aloha Media Studio"
-  description="Rent Eagle, Idaho's only dedicated podcast and video production studio. Professional lighting, audio, and camera equipment included. Serving Boise and Treasure Valley. From $100/hour."
+  title="Book the Studio | Aloha Media Studio"
+  description="Rent Eagle, Idaho's only dedicated media production studio. Professional lighting, audio, and camera equipment included. From $100/hour."
   schema={studioSchema}
 >
   <Header />
@@ -221,11 +221,11 @@ const studioSchema = {
         </div>
         
         <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-[var(--color-cream)] mb-6 tracking-tight">
-          Eagle's Premier Podcast & Video Studio
+          The Studio
         </h1>
 
         <p class="text-xl md:text-2xl text-[var(--color-mist)] mb-10 max-w-2xl mx-auto">
-          The only dedicated podcast and video production studio in Eagle, Idaho. Professional equipment, soundproofed spaces, and everything you need to create. Serving creators from Boise, Meridian, and the entire Treasure Valley.
+          Eagle, Idaho's only dedicated media production space. Professional equipment, soundproofed rooms, ready when you are.
         </p>
         
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
@@ -1037,7 +1037,7 @@ const studioSchema = {
         <h3 class="text-xl font-bold text-[var(--color-cream)] mb-2">Full Day Booking</h3>
         <p class="text-[var(--color-mist)] text-sm mb-6">Tell us about your project and we'll get back to you within 24 hours.</p>
 
-        <form action="https://formspree.io/f/xjgrrjeq" method="POST" class="space-y-3">
+        <form id="fullday-form" action="https://formspree.io/f/xjgrrjeq" method="POST" class="space-y-3">
           <input type="text" name="_gotcha" style="display:none">
           <input type="hidden" name="_subject" value="Full Day Studio Booking Request">
 
@@ -1054,10 +1054,21 @@ const studioSchema = {
           </div>
           <textarea name="message" rows="3" placeholder="Tell us about your project — what are you creating, how many people, any special needs?" required
             class="w-full px-4 py-3 rounded-xl bg-[var(--color-void)] border border-[var(--color-graphite)] text-[var(--color-cream)] placeholder-[var(--color-stone)] focus:border-[var(--color-studio-blue)] focus:outline-none resize-none"></textarea>
-          <button type="submit" class="w-full py-3 bg-[var(--color-studio-blue)] text-white font-semibold rounded-full hover:scale-[1.02] transition-all">
+          <button type="submit" class="w-full py-3 bg-[var(--color-studio-blue)] text-white font-semibold rounded-full transition-all hover:bg-[var(--color-studio-blue-light)]">
             Request Full Day Booking
           </button>
         </form>
+
+        <!-- Success message -->
+        <div id="fullday-form-success" class="hidden text-center py-8">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--color-studio-blue)]/20 flex items-center justify-center">
+            <svg class="w-8 h-8 text-[var(--color-studio-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h4 class="text-xl font-bold text-[var(--color-cream)] mb-2">Request Sent!</h4>
+          <p class="text-[var(--color-mist)]">We'll get back to you within 24 hours.</p>
+        </div>
       </div>
     </div>
 
@@ -1092,6 +1103,39 @@ const studioSchema = {
         btn.addEventListener('click', () => modal.classList.remove('hidden'));
         close.addEventListener('click', () => modal.classList.add('hidden'));
         backdrop.addEventListener('click', () => modal.classList.add('hidden'));
+
+        // Full day form AJAX submission
+        const fulldayForm = document.getElementById('fullday-form') as HTMLFormElement;
+        const fulldaySuccess = document.getElementById('fullday-form-success');
+
+        if (fulldayForm) {
+          fulldayForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = fulldayForm.querySelector('button[type="submit"]') as HTMLButtonElement;
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Sending...';
+
+            try {
+              const response = await fetch(fulldayForm.action, {
+                method: 'POST',
+                body: new FormData(fulldayForm),
+                headers: { 'Accept': 'application/json' }
+              });
+
+              if (response.ok) {
+                fulldayForm.classList.add('hidden');
+                if (fulldaySuccess) fulldaySuccess.classList.remove('hidden');
+              } else {
+                throw new Error('Form submission failed');
+              }
+            } catch (error) {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = originalText;
+              alert('Something went wrong. Please try again or email us directly.');
+            }
+          });
+        }
 
         // Calendly custom popup
         const calendlyModal = document.getElementById('calendly-modal');
