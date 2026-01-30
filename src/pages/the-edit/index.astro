@@ -37,7 +37,6 @@ const episodes = [
 ]
 
 const breadcrumbSchema = {
-  "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://alohamediastudio.com/" },
@@ -46,7 +45,6 @@ const breadcrumbSchema = {
 }
 
 const podcastSchema = {
-  "@context": "https://schema.org",
   "@type": "PodcastSeries",
   "name": "Aloha Media Podcast",
   "description": "The Aloha Media Podcast explores how media transforms businesses. Each season dives into a specific theme, featuring real conversations with business owners, creators, and industry professionals who share what actually worked.",
@@ -74,12 +72,16 @@ const podcastSchema = {
   }
 }
 
-const combinedSchema = [breadcrumbSchema, podcastSchema]
+// Wrap multiple schemas in @graph for proper JSON-LD
+const combinedSchema = {
+  "@context": "https://schema.org",
+  "@graph": [breadcrumbSchema, podcastSchema]
+}
 ---
 
 <Layout
   title="Aloha Media Podcast | Own Your Niche | Aloha Media Studio"
-  description="The Aloha Media Podcast explores how media transforms businesses. Season 1: The Launch — six episodes, six media types, real stories from people who took the leap. Hosted by Nation Goetter from Eagle, Idaho."
+  description="The Aloha Media Podcast: how media transforms businesses. Season 1 features six episodes, six media types, real stories. Hosted by Nation Goetter."
   schema={combinedSchema}
 >
   <Header />
@@ -91,7 +93,7 @@ const combinedSchema = [breadcrumbSchema, podcastSchema]
       <div class="absolute inset-0 z-0">
         <img
           src="/images/gallery/solo-setup-smile.webp"
-          alt=""
+          alt="Nation Goetter recording at Aloha Media Studio podcast room"
           class="w-full h-full object-cover object-top"
           loading="eager"
           aria-hidden="true"

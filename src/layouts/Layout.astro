@@ -28,6 +28,9 @@ const canonicalURL = canonical
 
 // Check if we're on the studio page (hide floating CTA there since booking is main focus)
 const isStudioPage = Astro.url.pathname.startsWith('/studio')
+
+// Check if we're on the homepage (global schemas only fire on homepage)
+const isHomepage = Astro.url.pathname === '/' || Astro.url.pathname === ''
 ---
 
 <!DOCTYPE html>
@@ -98,8 +101,8 @@ const isStudioPage = Astro.url.pathname.startsWith('/studio')
 
     <title>{title}</title>
 
-    <!-- Schema.org - Organization -->
-    <script type="application/ld+json" set:html={JSON.stringify({
+    <!-- Schema.org - Organization (homepage only) -->
+    {isHomepage && <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Organization",
       "@id": "https://alohamediastudio.com/#organization",
@@ -129,10 +132,10 @@ const isStudioPage = Astro.url.pathname.startsWith('/studio')
         "name": "Aloha Publishing",
         "url": "https://alohapublishing.com"
       }
-    })} />
+    })} />}
 
-    <!-- Schema.org - WebSite with SearchAction -->
-    <script type="application/ld+json" set:html={JSON.stringify({
+    <!-- Schema.org - WebSite with SearchAction (homepage only) -->
+    {isHomepage && <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebSite",
       "@id": "https://alohamediastudio.com/#website",
@@ -149,10 +152,10 @@ const isStudioPage = Astro.url.pathname.startsWith('/studio')
         },
         "query-input": "required name=search_term_string"
       }
-    })} />
+    })} />}
 
-    <!-- Schema.org - LocalBusiness -->
-    <script type="application/ld+json" set:html={JSON.stringify({
+    <!-- Schema.org - LocalBusiness (homepage only) -->
+    {isHomepage && <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
       "@id": "https://alohamediastudio.com/#localbusiness",
@@ -189,7 +192,7 @@ const isStudioPage = Astro.url.pathname.startsWith('/studio')
         },
         "geoRadius": "50 mi"
       }
-    })} />
+    })} />}
 
     <!-- Page-specific schema -->
     {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
