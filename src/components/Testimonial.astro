@@ -45,6 +45,18 @@ const testimonials = [
     color: 'blue' // Studio rental client
   },
   {
+    name: 'Riley Hanson',
+    role: 'Videographer',
+    images: ['/images/testimonials/riley-hanson.webp'],
+    quote: 'Fantastic space to film at, affordable, clean, and looks great. Nation is very accommodating to me and my clients. Best studio in town by far!',
+    stats: [
+      { icon: 'video', label: 'Videographer' },
+      { icon: 'globe', label: 'Studio rental' }
+    ],
+    links: [],
+    color: 'blue' // Studio rental client
+  },
+  {
     name: 'Kenna & Madi Cunningham',
     role: 'The Cunningham Sisters',
     images: ['/images/testimonials/kenna-cunningham.webp', '/images/testimonials/madi-cunningham.webp'],
@@ -66,6 +78,22 @@ const colorMap = {
   coral: { main: 'var(--color-coral)', light: 'var(--color-coral-light)' },
   blue: { main: 'var(--color-studio-blue)', light: 'var(--color-studio-blue-light)' },
   gold: { main: 'var(--color-gold)', light: 'var(--color-gold)' }
+}
+
+// Truncation helper for long quotes
+const QUOTE_LIMIT = 300
+
+function truncateQuote(quote: string): { text: string; isTruncated: boolean } {
+  if (quote.length <= QUOTE_LIMIT) {
+    return { text: quote, isTruncated: false }
+  }
+  // Find last space before limit to avoid cutting words
+  const truncated = quote.substring(0, QUOTE_LIMIT)
+  const lastSpace = truncated.lastIndexOf(' ')
+  return {
+    text: truncated.substring(0, lastSpace) + '...',
+    isTruncated: true
+  }
 }
 
 // Schema for SEO
@@ -146,9 +174,26 @@ const reviewSchemas = testimonials.map(t => ({
               </svg>
 
               <!-- Quote - smaller text on mobile -->
-              <blockquote class="text-sm md:text-lg text-[var(--color-cream)] font-medium leading-relaxed mb-4 md:mb-6">
-                "{testimonial.quote}"
-              </blockquote>
+              {(() => {
+                const { text, isTruncated } = truncateQuote(testimonial.quote)
+                return (
+                  <blockquote class="text-sm md:text-lg text-[var(--color-cream)] font-medium leading-relaxed mb-4 md:mb-6">
+                    "{text}"
+                    {isTruncated && (
+                      <button
+                        class="read-more-btn ml-1 text-sm underline transition-colors hover:opacity-80"
+                        style="color: var(--testimonial-color);"
+                        data-name={testimonial.name}
+                        data-role={testimonial.role}
+                        data-quote={testimonial.quote}
+                        data-color={testimonial.color}
+                      >
+                        Read more
+                      </button>
+                    )}
+                  </blockquote>
+                )
+              })()}
 
               <!-- Desktop: Author row -->
               <div class="hidden md:flex items-center gap-4 mb-6">
@@ -358,6 +403,33 @@ const reviewSchemas = testimonials.map(t => ({
         </button>
       </div>
     </div>
+
+    <!-- Read More Modal -->
+    <div id="quote-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+      <div class="bg-[var(--color-charcoal)] rounded-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto border border-[var(--color-graphite)] p-6 md:p-8 relative">
+        <!-- Close button -->
+        <button id="quote-modal-close" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-[var(--color-mist)] hover:text-[var(--color-cream)] transition-colors">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <!-- Quote icon -->
+        <svg id="quote-modal-icon" class="w-8 h-8 mb-4 opacity-30" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+        </svg>
+
+        <!-- Full quote -->
+        <blockquote id="quote-modal-text" class="text-lg text-[var(--color-cream)] font-medium leading-relaxed mb-6">
+        </blockquote>
+
+        <!-- Author -->
+        <div>
+          <div id="quote-modal-name" class="font-semibold text-[var(--color-cream)]"></div>
+          <div id="quote-modal-role" class="text-sm text-[var(--color-stone)]"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -491,6 +563,54 @@ const reviewSchemas = testimonials.map(t => ({
       if (Math.abs(diff) > 50) goToSlide(current + (diff > 0 ? 1 : -1))
     }, { passive: true })
   }
+
+  // Read More Modal
+  const modal = document.getElementById('quote-modal')
+  const modalText = document.getElementById('quote-modal-text')
+  const modalName = document.getElementById('quote-modal-name')
+  const modalRole = document.getElementById('quote-modal-role')
+  const modalIcon = document.getElementById('quote-modal-icon')
+  const modalClose = document.getElementById('quote-modal-close')
+
+  const modalColorMap: Record<string, string> = {
+    coral: 'var(--color-coral)',
+    blue: 'var(--color-studio-blue)',
+    gold: 'var(--color-gold)'
+  }
+
+  document.querySelectorAll('.read-more-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation()
+      const target = e.currentTarget as HTMLElement
+      const quote = target.dataset.quote || ''
+      const name = target.dataset.name || ''
+      const role = target.dataset.role || ''
+      const color = target.dataset.color || 'coral'
+
+      if (modalText) modalText.textContent = `"${quote}"`
+      if (modalName) modalName.textContent = name
+      if (modalRole) modalRole.textContent = role
+      if (modalIcon) modalIcon.style.color = modalColorMap[color]
+
+      modal?.classList.remove('hidden')
+      modal?.classList.add('flex')
+      document.body.style.overflow = 'hidden'
+    })
+  })
+
+  function closeQuoteModal() {
+    modal?.classList.add('hidden')
+    modal?.classList.remove('flex')
+    document.body.style.overflow = ''
+  }
+
+  modalClose?.addEventListener('click', closeQuoteModal)
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) closeQuoteModal()
+  })
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal?.classList.contains('hidden')) closeQuoteModal()
+  })
 </script>
 
 <style>
